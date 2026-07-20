@@ -6190,15 +6190,19 @@ a[href*="promos"]:hover {
   .header--logo-center-nav-left {
     grid-template-areas: 'heading navigation icons' !important;
     grid-template-columns: auto auto 1fr !important;
-    column-gap: 4rem !important;
-    padding-top: 1.6rem;
-    padding-bottom: 1.6rem;
+    column-gap: 5.6rem !important;
+    padding-top: 2.8rem;
+    padding-bottom: 2.8rem;
   }
 
   .header__heading-link,
   .header--logo-center-nav-left .header__heading-link,
   .header--logo-center-nav-left .header__heading {
     justify-self: start !important;
+  }
+
+  .header__heading-logo {
+    max-width: 13rem !important;
   }
 
   .header__inline-menu,
@@ -6211,11 +6215,22 @@ a[href*="promos"]:hover {
   .header--logo-center-nav-left .header__inline-menu > ul {
     justify-content: flex-start !important;
     margin-left: 0 !important;
+    gap: 0.4rem;
+  }
+
+  .header__inline-menu .header__menu-item {
+    padding: 1.3rem 2.2rem !important;
   }
 
   .header__icons,
   .header--logo-center-nav-left .header__icons {
     justify-self: end !important;
+    column-gap: 1.8rem !important;
+  }
+
+  .header__icon .icon {
+    height: 1.9rem !important;
+    width: 1.9rem !important;
   }
 
 }
