@@ -6110,3 +6110,57 @@ a[href*="promos"]:hover {
   background-color: rgb(var(--color-background)) !important;
   border: none !important;
 }
+
+/* ============================================================================
+   COURRÈGES-İLHAMLI REDESIGN — FAZ 1: Navigasyon / Menü
+   Minimal, geniş harf aralıklı, ince ağırlıklı üst menü + yumuşak hover geçişi
+============================================================================== */
+
+@media only screen and (min-width: 1120px) {
+  .header__inline-menu .header__menu-item-parent {
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    font-size: 1.15rem;
+  }
+
+  .header__inline-menu .header__menu-item {
+    padding: 1.4rem 2rem;
+  }
+
+  /* Hover'da item soluklaşması yerine, altına ince bir çizgi büyüsün */
+  .header__menu-item-parent {
+    padding-bottom: 2px;
+  }
+
+  .header__menu-item-parent::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0;
+    transition: left 0.3s ease, right 0.3s ease, opacity 0.2s ease;
+  }
+
+  .header__menu-item-container:hover .header__menu-item-parent::after,
+  .header__menu-item-container:focus-within .header__menu-item-parent::after {
+    left: 0;
+    right: 0;
+    opacity: 0.6;
+  }
+
+  /* Header'a biraz daha nefes alanı */
+  .header {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+}
+
+/* Logo, biraz daha ferah dursun */
+@media only screen and (min-width: 750px) {
+  .header__heading-logo {
+    letter-spacing: 0.02em;
+  }
+}
