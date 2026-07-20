@@ -6111,54 +6111,122 @@ a[href*="promos"]:hover {
   border: none !important;
 }
 
+
 /* ============================================================================
-   COURRÈGES-İLHAMLI REDESIGN — FAZ 1: Navigasyon / Menü
-   Minimal, geniş harf aralıklı, ince ağırlıklı üst menü + yumuşak hover geçişi
+   COURRÈGES-İLHAMLI REDESIGN — FAZ 1: Navigasyon / Menü (gerçek referansa göre)
+   - Menü yazıları: BÜYÜK HARF DEĞİL, normal yazım, ince/normal harf aralığı
+   - Aktif/hover öğede ince alt çizgi
+   - Açılır menü (mega-menu): kalın başlık + altında sade link listesi, kutu yok,
+     sütunlar yan yana
 ============================================================================== */
 
 @media only screen and (min-width: 1120px) {
+
+  /* Üst menü öğeleri — küçük, normal yazım, hafif harf aralığı */
   .header__inline-menu .header__menu-item-parent {
     font-weight: 400;
-    letter-spacing: 0.18em;
-    font-size: 1.15rem;
+    letter-spacing: 0.01em;
+    font-size: 1.3rem;
+    text-transform: none !important;
   }
 
   .header__inline-menu .header__menu-item {
-    padding: 1.4rem 2rem;
+    padding: 1.3rem 1.6rem;
   }
 
-  /* Hover'da item soluklaşması yerine, altına ince bir çizgi büyüsün */
+  /* Aktif/hover öğede ince alt çizgi (Courrèges'deki "Offers" örneği gibi) */
   .header__menu-item-parent {
+    position: relative;
     padding-bottom: 2px;
   }
 
   .header__menu-item-parent::after {
     content: "";
     position: absolute;
-    left: 50%;
-    right: 50%;
+    left: 1.6rem;
+    right: 1.6rem;
     bottom: -2px;
     height: 1px;
     background: currentColor;
     opacity: 0;
-    transition: left 0.3s ease, right 0.3s ease, opacity 0.2s ease;
+    transition: opacity 0.2s ease;
   }
 
   .header__menu-item-container:hover .header__menu-item-parent::after,
-  .header__menu-item-container:focus-within .header__menu-item-parent::after {
-    left: 0;
-    right: 0;
-    opacity: 0.6;
+  .header__menu-item-container:focus-within .header__menu-item-parent::after,
+  .list-menu__item--active .header__menu-item-parent::after {
+    opacity: 1;
   }
 
-  /* Header'a biraz daha nefes alanı */
-  .header {
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
+  /* ── Mega-menu: sütunlu, sade, kutu/çerçeve yok ────────────────────────── */
+
+  .header__mega-menu {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 4.8rem;
+    padding: 3.2rem 0 !important;
+    background: rgb(var(--color-background));
+    border-top: 1px solid rgba(var(--color-border-1), 0.6);
+  }
+
+  .header__mega-menu > li {
+    flex: 0 0 auto;
+  }
+
+  /* Sütun başlığı (örn. "Women") — her zaman görünür, tıklanamaz gibi dursun */
+  .header__mega-menu > li > details > summary {
+    cursor: default;
+    pointer-events: none;
+    font-weight: 600;
+    font-size: 1.3rem;
+    text-transform: none;
+    letter-spacing: 0.01em;
+    margin-bottom: 1rem;
+    padding: 0 !important;
+  }
+
+  .header__mega-menu > li > details > summary svg,
+  .header__mega-menu > li > details > summary .icon-caret {
+    display: none !important;
+  }
+
+  /* Sütun içeriği her zaman açık görünsün */
+  .header__mega-menu > li > details > ul {
+    display: block !important;
+    position: static !important;
+    opacity: 1 !important;
+    pointer-events: all !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-width: 16rem;
+  }
+
+  .header__mega-menu .header__submenu .header__menu-item {
+    padding: 0.5rem 0;
+    font-size: 1.3rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0.01em;
+  }
+
+  .header__mega-menu .header__submenu .header__menu-item:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Tek seviyeli (alt menüsü olmayan) mega-menu linkleri de aynı stille */
+  .header__mega-menu > li > a.header__menu-item {
+    font-weight: 400;
+    font-size: 1.3rem;
+    text-transform: none;
+    letter-spacing: 0.01em;
+    padding: 0;
   }
 }
 
-/* Logo, biraz daha ferah dursun */
+/* Logoya hafif nefes alanı */
 @media only screen and (min-width: 750px) {
   .header__heading-logo {
     letter-spacing: 0.02em;
