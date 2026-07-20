@@ -6241,29 +6241,36 @@ a[href*="promos"]:hover {
 
 @media screen and (min-width: 990px) {
 
-  .header:not(.header--logo-center-nav-left) {
-    grid-template-areas: 'heading navigation icons';
-    grid-template-columns: auto auto 1fr;
-    column-gap: 4rem;
+  .header,
+  .header--logo-center-nav-left {
+    grid-template-areas: 'heading navigation icons' !important;
+    grid-template-columns: auto auto 1fr !important;
+    column-gap: 4rem !important;
     padding-top: 1.6rem;
     padding-bottom: 1.6rem;
   }
 
-  .header:not(.header--logo-center-nav-left) .header__heading-link {
-    justify-self: start;
+  .header__heading-link,
+  .header--logo-center-nav-left .header__heading-link,
+  .header--logo-center-nav-left .header__heading {
+    justify-self: start !important;
   }
 
-  .header:not(.header--logo-center-nav-left) .header__inline-menu {
-    justify-self: start;
+  .header__inline-menu,
+  .header--logo-center-nav-left .header__inline-menu {
+    justify-self: start !important;
+    text-align: left !important;
   }
 
-  .header:not(.header--logo-center-nav-left) .header__inline-menu > ul {
-    justify-content: flex-start;
-    margin-left: 0;
+  .header__inline-menu > ul,
+  .header--logo-center-nav-left .header__inline-menu > ul {
+    justify-content: flex-start !important;
+    margin-left: 0 !important;
   }
 
-  .header:not(.header--logo-center-nav-left) .header__icons {
-    justify-self: end;
+  .header__icons,
+  .header--logo-center-nav-left .header__icons {
+    justify-self: end !important;
   }
 
 }
