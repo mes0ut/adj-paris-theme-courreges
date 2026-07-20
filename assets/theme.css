@@ -6267,3 +6267,15 @@ a[href*="promos"]:hover {
   }
 
 }
+
+/* ============================================================================
+   COURRÈGES-İLHAMLI REDESIGN — FAZ 1c: Tipografi (Graphik yerine Hanken Grotesk)
+============================================================================== */
+
+.header,
+.header__inline-menu,
+.header__menu-item,
+.header__heading-logo,
+.header__mega-menu {
+  font-family: 'Hanken Grotesk', var(--font-body-family), sans-serif;
+}

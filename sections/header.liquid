@@ -1,8 +1,13 @@
 {% liquid
   render 'css-delay', css_file: 'component-menu-drawer.css', force_delay: true
   render 'css-delay', css_file: 'component-search.css', force_delay: true
+%}
 
-  if settings.cart_type == "drawer"
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+{% liquid
     render 'css-delay', css_file: 'component-cart-items.css', force_delay: true
     render 'css-delay', css_file: 'component-cart-drawer.css', force_delay: true
     render 'css-delay', css_file: 'component-totals.css', force_delay: true
