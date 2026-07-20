@@ -6001,62 +6001,7 @@ a[href*="promos"]:hover {
   }
 
 }
-/* ==========================
-   ADJ SOLDES MENU
-========================== */
-
-.header__menu-item[href*="soldes"],
-.header__submenu .list-menu__item[href*="soldes"] {
-  color: #C13539 !important;
-  font-weight: 600;
-}
-
-.header__menu-item[href*="soldes"]:hover,
-.header__submenu .list-menu__item[href*="soldes"]:hover {
-  color: #C13539 !important;
-  opacity: .85;
-}/* ADJ - main navbar first item SOLDES */
-.header__inline-menu .list-menu--inline > li:first-child .header__menu-item-parent,
-.header__inline-menu .list-menu--inline > li:first-child .header__menu-item-parent span,
-.header__inline-menu .list-menu--inline > li:first-child > .header__menu-item,
-.header__inline-menu .list-menu--inline > li:first-child > .header__menu-item span {
-  color: #C13539 !important;
-  font-weight: 600 !important;
-}/* ADJ - sadece SOLDES dropdown içi kırmızı */
-.header__inline-menu .list-menu--inline > li:first-child .header__submenu a,
-.header__inline-menu .list-menu--inline > li:first-child .header__submenu .list-menu__item,
-.header__inline-menu .list-menu--inline > li:first-child .header__submenu span {
-  color: #C13539 !important;
-}
-
-.header__inline-menu .list-menu--inline > li:first-child .header__submenu a:hover,
-.header__inline-menu .list-menu--inline > li:first-child .header__submenu .list-menu__item:hover {
-  color: #C13539 !important;
-  opacity: 0.75;
-}/* ADJ - MOBILE SOLDES MENU */
-.menu-drawer__menu > li:first-child > a,
-.menu-drawer__menu > li:first-child > details > summary,
-.menu-drawer__menu > li:first-child > details > summary span,
-.menu-drawer__menu > li:first-child .menu-drawer__menu-item,
-.menu-drawer__menu > li:first-child .menu-drawer__menu-item span {
-  color: #C13539 !important;
-  font-weight: 600 !important;
-}
-
-/* Mobil Soldes alt menü öğeleri */
-.menu-drawer__menu > li:first-child details a,
-.menu-drawer__menu > li:first-child details .menu-drawer__menu-item,
-.menu-drawer__menu > li:first-child details span {
-  color: #C13539 !important;
-}
-
-/* Hover / aktif */
-.menu-drawer__menu > li:first-child a:hover,
-.menu-drawer__menu > li:first-child summary:hover,
-.menu-drawer__menu > li:first-child .menu-drawer__menu-item:hover {
-  color: #C13539 !important;
-  opacity: .8;
-}/* ADJ ÜRÜN KARTI FİYAT — normal fiyat siyah üstü çizili, indirim fiyatı dengeli kırmızı */
+/* ADJ ÜRÜN KARTI FİYAT — normal fiyat siyah üstü çizili, indirim fiyatı dengeli kırmızı */
 .price-item.price-item--regular,
 .price-item--regular {
   font-size: 14px !important;
