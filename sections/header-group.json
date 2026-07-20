@@ -1,0 +1,88 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header Group",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "cf899475-a395-4f0a-b0a3-2e7cf4f0a6fe": {
+          "type": "announcement",
+          "settings": {
+            "text": "☀️ SUMMER DEALS • Jusqu'à -50% sur une sélection d'articles",
+            "link": ""
+          }
+        },
+        "announcement_yNYJXY": {
+          "type": "announcement",
+          "settings": {
+            "text": "🔥 T-Shirts dès 25€ • Sweats dès 35€ • Jeans 45€",
+            "link": "shopify://collections/sweat"
+          }
+        },
+        "announcement_NHidjB": {
+          "type": "announcement",
+          "settings": {
+            "text": "🚚 Livraison offerte dès 70€",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "cf899475-a395-4f0a-b0a3-2e7cf4f0a6fe",
+        "announcement_yNYJXY",
+        "announcement_NHidjB"
+      ],
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "background-5",
+        "show_border_bottom": false,
+        "carousel_autoplay": true,
+        "carousel_autoplay_speed": 3,
+        "text_align": "center"
+      }
+    },
+    "header": {
+      "type": "header",
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "background-1",
+        "accent_color": "#ffffff",
+        "menu": "soldes-summer",
+        "menu_size": "medium",
+        "menu_active_link_icon": "underline",
+        "show_line_separator": true,
+        "header_position_type": "fixed",
+        "layout_on_desktop": "logo-center-nav-left",
+        "enable_search": true,
+        "utility_links_type": "icon",
+        "search_label": "Search",
+        "account_label": "Account",
+        "cart_label": "Cart",
+        "menu_type_desktop": "dropdown",
+        "sub_menu_size": "medium",
+        "sub_menu_style": "uppercase",
+        "drawer_menu_title": "",
+        "drawer_menu_decorative_icon": false,
+        "enable_currency_selector": true,
+        "enable_lang_selector": true,
+        "locale_display_type": "flag",
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}

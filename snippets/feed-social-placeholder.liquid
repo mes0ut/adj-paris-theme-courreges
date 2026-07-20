@@ -1,0 +1,57 @@
+{% liquid
+  if request.design_mode
+    assign loop_count = 3
+  else
+    assign loop_count = 6
+  endif
+%}
+
+{% for i in (1..loop_count) %}
+  <modal-opener
+    {% if section.settings.layout == 'carousel' %}
+      class="social-feed__post-wrapper social-feed__post-wrapper--{{ section.settings.card_size }} embla__slide"
+    {% endif %}
+    data-modal="#PopupModal-{{ section.id }}"
+    {{ block.shopify_attributes }}
+  >
+    <div
+      class="
+        social-feed__post
+        color-{{ section.settings.card_color_scheme }}
+        {% if section.settings.show_card_images == false %}
+          social-feed__post--no-popup
+        {% endif %}
+        social-feed__post--{{ section.settings.card_size }}
+      "
+      id="ModalOpenerBtn-{{ section.id }}"
+      type="button"
+      data-post-id="post-placeholder"
+      aria-haspopup="dialog"
+    >
+      <div class="social-feed__post-media-wrapper">
+        {% if section.settings.show_card_images %}
+          {{ 'image' | placeholder_svg_tag: 'social-feed__post-image' }}
+        {% endif %}
+        <div class="social-feed__post-avatar-wrapper">
+          {% render 'icon-account' %}
+        </div>
+      </div>
+      <div class="social-feed__post-content">
+        <h5 class="social-feed__post-content-username">
+          {% if section.settings.cards_username_icon == 'instagram' %}
+            {% render 'icon-instagram' %}
+          {% elsif section.settings.cards_username_icon == 'twitter' %}
+            {% render 'icon-twitter' %}
+          {% endif %}
+          <span>
+            {{- 'social_feeds.placeholders.username' | t -}}
+          </span>
+        </h5>
+        <div class="social-feed__post-content-caption p">
+          {{- 'social_feeds.placeholders.caption' | t -}}
+          &nbsp{{ i }}
+        </div>
+      </div>
+    </div>
+  </modal-opener>
+{% endfor %}

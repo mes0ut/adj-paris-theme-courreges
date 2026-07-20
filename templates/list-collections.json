@@ -1,0 +1,40 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-list-collection-banner",
+      "settings": {
+        "color_scheme": "background-4",
+        "show_border_bottom": false,
+        "show_breadcrumbs": true,
+        "header": "Collections",
+        "title_style": "uppercase",
+        "content": "Add content here about your collections.",
+        "show_stars": false,
+        "collection_image_position": "image-right"
+      }
+    },
+    "main": {
+      "type": "main-list-collections",
+      "settings": {
+        "show_border_bottom": false,
+        "sort": "date",
+        "image_ratio": "portrait",
+        "image_style": "image-border-radius--none",
+        "title_style": "uppercase"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "main"
+  ]
+}

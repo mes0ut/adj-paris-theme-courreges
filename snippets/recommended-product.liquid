@@ -1,0 +1,43 @@
+{% liquid
+  assign link_text = link_text
+  assign card_title_style = card_title_style
+  if card_title_style == 'uppercase'
+    assign card_title_style = 'uppercase'
+  endif
+%}
+
+<li
+  class="recommended-product color-{{ color_scheme }}"
+  style="border-radius: {{ card_radius }}px;"
+>
+  <a
+    href="{{ recommended_product.url }}"
+    class="recommended-product__image-wrapper"
+    aria-label="{{ recommended_product.title }}"
+  >
+    <img
+      class="recommended-product__image"
+      src="{{ recommended_product | image_url: width: 150 }}"
+      alt="{{ recommended_product.alt }}"
+      width="100"
+      height="150"
+      loading="lazy"
+    >
+  </a>
+  <a
+    href="{{ recommended_product.url }}"
+    class="recommended-product__details"
+  >
+    <h3 class="h6 recommended-product__details-title {{ card_title_style }}">
+      {{ recommended_product.title }}
+    </h3>
+    <span class="p p-m--small recommended-product__details-price">
+      {{ recommended_product.price | money }}
+    </span>
+    <div
+      class="link p p-m--small recommended-product__details-link"
+    >
+      {{ link_text }}
+    </div>
+  </a>
+</li>

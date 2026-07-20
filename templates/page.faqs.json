@@ -1,0 +1,78 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "faqs-page",
+      "blocks": {
+        "title_z9fK4U": {
+          "type": "title",
+          "disabled": true,
+          "settings": {
+            "title": "Add a navigation title",
+            "title_style": "normal",
+            "content": "<p>Add detailed content about this section to help customers navigate your Frequently Asked Questions effectively. Include clear instructions, useful tips, and comprehensive answers to ensure they can find the information they need quickly and easily.</p>"
+          }
+        },
+        "question_answer_HMQFnE": {
+          "type": "question_answer",
+          "disabled": true,
+          "settings": {
+            "faq_open": true,
+            "faqs_question": "<p>Frequently asked question</p>",
+            "faqs_answer": "<p>Add your most frequently asked questions here to provide clear and helpful information to your customers, ensuring they have all the details they need right at their fingertips.</p>"
+          }
+        },
+        "question_answer_nmFwp4": {
+          "type": "question_answer",
+          "disabled": true,
+          "settings": {
+            "faq_open": false,
+            "faqs_question": "<p>Frequently asked question</p>",
+            "faqs_answer": "<p>Add your most frequently asked questions here to provide clear and helpful information to your customers, ensuring they have all the details they need right at their fingertips.</p>"
+          }
+        },
+        "question_answer_JQCTxc": {
+          "type": "question_answer",
+          "disabled": true,
+          "settings": {
+            "faq_open": false,
+            "faqs_question": "<p>Frequently asked question</p>",
+            "faqs_answer": "<p>Add your most frequently asked questions here to provide clear and helpful information to your customers, ensuring they have all the details they need right at their fingertips.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "title_z9fK4U",
+        "question_answer_HMQFnE",
+        "question_answer_nmFwp4",
+        "question_answer_JQCTxc"
+      ],
+      "settings": {
+        "show_breadcrumbs": true,
+        "color_scheme": "",
+        "side-menu": "",
+        "show_border_bottom": false,
+        "row_title_style": "normal",
+        "row_font_size": "p",
+        "padding_top": 0,
+        "padding_bottom": 120,
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 44,
+        "margin_bottom": 120,
+        "mobile_margin_bottom": 60,
+        "enable_animation": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

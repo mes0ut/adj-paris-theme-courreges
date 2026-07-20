@@ -1,0 +1,85 @@
+{%- liquid
+  assign accords_raw = product.metafields.custom.main_accords.value
+-%}
+{%- if accords_raw != blank -%}
+  <div class="main-accords" {{ block.shopify_attributes }}>
+    <div class="main-accords__heading {{ block.settings.title_style }}">
+      {{ block.settings.title | default: 'Accords principaux' }}
+    </div>
+    <div class="main-accords__list">
+      {%- assign accords_html = accords_raw | newline_to_br -%}
+      {%- assign accord_lines = accords_html | split: '<br />' -%}
+      {%- for line in accord_lines -%}
+        {%- assign clean_line = line | strip -%}
+        {%- assign parts = clean_line | split: '|' -%}
+        {%- assign accord_name = parts[0] | strip -%}
+        {%- assign accord_pct = parts[1] | strip -%}
+        {%- assign accord_color = parts[2] | strip -%}
+        {%- assign accord_delay = forloop.index0 | times: 0.12 -%}
+        {%- if accord_name != blank -%}
+          <div class="main-accords__row">
+            <div
+              class="main-accords__bar"
+              style="--accord-width: {{ accord_pct }}%; --accord-delay: {{ accord_delay }}s; background-color: {{ accord_color | default: '#c9a96e' }};"
+            >
+              <span class="main-accords__label">{{ accord_name }}</span>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {% style %}
+    .main-accords {
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+    .main-accords__heading {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .main-accords__list {
+      padding-top: 4px;
+    }
+    .main-accords__row {
+      margin-bottom: 10px;
+    }
+    .main-accords__row:last-child {
+      margin-bottom: 0;
+    }
+    .main-accords__bar {
+      min-width: 0;
+      width: 0;
+      max-width: 100%;
+      height: 34px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      box-sizing: border-box;
+      overflow: hidden;
+      animation: mainAccordsFill 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: var(--accord-delay, 0s);
+    }
+    @keyframes mainAccordsFill {
+      from {
+        width: 0;
+      }
+      to {
+        width: var(--accord-width);
+      }
+    }
+    .main-accords__label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #1a1a1a;
+      text-transform: capitalize;
+      white-space: nowrap;
+      padding: 0 10px;
+    }
+  {% endstyle %}
+{%- endif -%}

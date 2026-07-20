@@ -1,0 +1,74 @@
+{{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .collapsible-content-block--{{ block.id }} .accordion__title-inner__image {
+    --image-size: {{ block.settings.image_size }}px;
+    --image-border-radius: {{ block.settings.image_border_radius }}px;
+    width: var(--image-size, 4rem);
+    height: var(--image-size, 4rem);
+    min-width: var(--image-size, 4rem);
+    max-width: var(--image-size, 4rem);
+    border-radius: var(--image-border-radius, 0rem);
+  }
+{% endstyle %}
+
+<div
+  class="
+    collapsible-content-block
+    {% if block.settings.show_border_top %}
+      collapsible-content-block--border-top
+    {% endif %}
+    collapsible-content-block--{{ block.id }}
+  "
+>
+  {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.collapsible-content.name",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_border_top",
+      "label": "t:sections.collapsible-content.settings.show_border_top.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.collapsible-content.settings.image_settings.content"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.collapsible-content.settings.image_border_radius.label",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "image_size",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.collapsible-content.settings.image_size.label",
+      "default": 40
+    }
+  ],
+  "blocks": [{"type": "_question_answer"}],
+  "presets": [
+    {
+      "name": "t:sections.collapsible-content.name",
+      "blocks": [
+        {
+          "type": "_question_answer"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,28 @@
+<div
+  class="spacer"
+  style="height: {{ block.settings.height }}px;"
+  {{ block.shopify_attributes }}
+></div>
+
+{% schema %}
+{
+  "name": "t:sections.all.spacer.name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "height",
+      "label": "t:sections.all.spacer.height.label",
+      "default": 16,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.all.spacer.name"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,127 @@
+{% comment %}
+ADJ PARIS – Formulaire de Candidature (FR)
+Envoi par e-mail via FormSubmit → contact@adjparis.com
+{% endcomment %}
+
+<section id="adj-careers-fr-{{ section.id }}" class="adj-careers-fr">
+  <style>
+    #adj-careers-fr-{{ section.id }}{
+      --bg: var(--color-background, #fff);
+      --fg: var(--color-foreground, #111);
+      --border: var(--color-border, #e5e5e5);
+      --accent: #c5a56a;
+      background: var(--bg); color: var(--fg);
+      padding: 60px 0;
+    }
+    .careers-wrap{ max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .careers-title{ font-size: clamp(26px,2.4vw,38px); font-weight: 700; text-align: center; margin-bottom: 32px; letter-spacing: .02em; }
+    form.career-form{
+      display:flex; flex-direction:column; gap:16px;
+      border:1px solid var(--border); border-radius:16px; padding:28px;
+      background: var(--bg); box-shadow:0 2px 12px rgba(0,0,0,.04);
+    }
+    .career-form label{ font-weight:600; font-size:14px; }
+    .career-form input, .career-form select, .career-form textarea{
+      width:100%; border:1px solid var(--border); border-radius:8px;
+      padding:10px 12px; font-size:15px; background:#fafafa; transition:border .2s ease;
+    }
+    .career-form input:focus, .career-form select:focus, .career-form textarea:focus{ outline:none; border-color: var(--accent); }
+    .career-form .row{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+    @media (max-width: 720px){ .career-form .row{ grid-template-columns:1fr; } }
+    .consent{ display:flex; gap:10px; align-items:flex-start; font-size:13.5px; color: color-mix(in srgb, var(--fg) 70%, transparent); }
+    .career-form button{
+      background: var(--fg); color: var(--bg);
+      font-weight:600; padding:12px 22px; border-radius:8px; border:none;
+      transition: all .25s ease; cursor:pointer; align-self:flex-start;
+    }
+    .career-form button:hover{ background: var(--accent); color:#fff; }
+    .note{ font-size:12.5px; color: color-mix(in srgb, var(--fg) 60%, transparent); }
+    .success{ display:none; margin-top:10px; padding:12px; border:1px solid #b2e1c7; background:#e8f8ef; color:#1b5e20; border-radius:8px; }
+  </style>
+
+  <div class="careers-wrap">
+    <h2 class="careers-title">{{ section.settings.title }}</h2>
+
+    <form class="career-form" method="post" enctype="multipart/form-data" action="https://formsubmit.co/{{ section.settings.email | default: 'contact@adjparis.com' }}">
+      <div class="row">
+        <div>
+          <label for="name">Nom et prénom</label>
+          <input type="text" id="name" name="Nom et prénom" placeholder="Votre nom complet" required>
+        </div>
+        <div>
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="E-mail" placeholder="vous@exemple.com" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="position">Poste</label>
+          <select id="position" name="Poste" required>
+            {% for block in section.blocks %}
+              <option value="{{ block.settings.title }}">{{ block.settings.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label for="phone">Téléphone (optionnel)</label>
+          <input type="tel" id="phone" name="Téléphone" placeholder="+33 ...">
+        </div>
+      </div>
+
+      <div>
+        <label for="message">Message (optionnel)</label>
+        <textarea id="message" name="Message" rows="4" placeholder="Présentez-vous brièvement…"></textarea>
+      </div>
+
+      <div>
+        <label for="cv">Télécharger le CV (PDF, DOCX)</label>
+        <input type="file" id="cv" name="CV" accept=".pdf,.doc,.docx" required>
+        <div class="note">Taille conseillée &lt; 10&nbsp;Mo.</div>
+      </div>
+
+      <div class="consent">
+        <input type="checkbox" id="consent" name="Consentement RGPD" value="Accepté" required>
+        <label for="consent">J’accepte la <a href="/policies/privacy-policy" target="_blank" rel="noopener">Politique de confidentialité</a> et le traitement de mes données pour le recrutement.</label>
+      </div>
+
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_subject" value="Nouvelle Candidature – ADJ Paris">
+      <input type="text" name="_honey" style="display:none">
+
+      <button type="submit">Envoyer la candidature</button>
+      <div class="success" id="success-msg">Merci ! Votre candidature a bien été envoyée.</div>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const form = document.querySelector('#adj-careers-fr-{{ section.id }} form');
+      const success = document.getElementById('success-msg');
+      form.addEventListener('submit', ()=>{
+        if(success){ success.style.display = 'block'; setTimeout(()=> success.style.display = 'none', 6000); }
+      });
+    });
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Candidature FR",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre", "default": "Rejoignez notre équipe" },
+    { "type": "text", "id": "email", "label": "E-mail de réception", "default": "contact@adjparis.com" }
+  ],
+  "blocks": [
+    {
+      "type": "position",
+      "name": "Poste",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Intitulé du poste", "default": "Conseiller(ère) de vente — Paris" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Candidature FR" }]
+}
+{% endschema %}

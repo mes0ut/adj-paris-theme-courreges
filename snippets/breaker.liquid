@@ -1,0 +1,92 @@
+{% liquid
+  assign block_attributes = block_breaker.shopify_attributes
+  assign breaker_color_scheme = block_breaker.settings.color_scheme
+  assign breaker_gradient = block_breaker.settings.gradient
+  assign breaker_text_alignment = block_breaker.settings.text_alignment
+  assign breaker_image = block_breaker.settings.image
+  assign breaker_video = block_breaker.settings.video
+  assign breaker_title = block_breaker.settings.title
+  assign breaker_title_size = block_breaker.settings.title_size
+  assign breaker_title_style = block_breaker.settings.title_style
+  if breaker_title_style == 'uppercase'
+    assign breaker_title_style = 'uppercase'
+  endif
+  assign breaker_description = block_breaker.settings.description
+  assign breaker_link_text = block_breaker.settings.link_text
+  assign breaker_link = block_breaker.settings.link | default: '#!'
+  assign breaker_button_color_scheme = block_breaker.settings.button_color_scheme
+  assign breaker_lazy_load = 'lazy'
+  if breaker_position == 1
+    assign breaker_lazy_load = 'eager'
+  endif
+  assign breaker_image_style = block_breaker.settings.image_style
+  assign breaker_image_ratio = settings.image_ratio
+  if breaker_image_ratio == 'adapt'
+    assign breaker_image_ratio = 'portrait'
+  endif
+%}
+
+<a
+  href="{{ breaker_link }}"
+  class="
+    breaker
+    breaker--{{ breaker_text_alignment }}
+    {% if breaker_gradient %}
+      breaker--gradient
+    {% endif %}
+    gradient
+    color-{{ breaker_color_scheme }}
+    media
+    media--transparent
+    media--{{ breaker_image_ratio }}
+    media--hover-effect
+    media--overflow-visible
+    {{ breaker_image_style }}
+  "
+  {{ block_attributes }}
+>
+  <div class="breaker__image">
+    {% if breaker_video != blank %}
+      <div class="breaker__video">
+        {{
+          breaker_video
+          | video_tag:
+            image_size: '600x',
+            autoplay: true,
+            loop: true,
+            muted: true,
+            class: 'js-autoplay'
+        }}
+      </div>
+    {% elsif breaker_image != blank %}
+      {% assign image_height = breaker_image.width
+        | divided_by: breaker_image.aspect_ratio
+        | ceil
+      %}
+
+      {{
+        breaker_image
+        | image_url: width: 800
+        | image_tag:
+          loading: breaker_lazy_load,
+          width: breaker_image.width,
+          height: image_height,
+          sizes: '100vw',
+          widths: '800',
+          alt: breaker_image.alt
+        | escape
+      }}
+    {% endif %}
+  </div>
+  <div class="breaker__content">
+    <h3 class="breaker__title {{ breaker_title_size }} {{ breaker_title_style }}">
+      {{ breaker_title }}
+    </h3>
+    <p class="breaker__description">{{ breaker_description }}</p>
+    {% if breaker_link_text %}
+      <div class="breaker__button {{ breaker_button_color_scheme }}">
+        {{- breaker_link_text -}}
+      </div>
+    {% endif %}
+  </div>
+</a>

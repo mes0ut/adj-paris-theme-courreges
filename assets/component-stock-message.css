@@ -1,0 +1,18 @@
+stock-message.stock-message {
+  display: none;
+}
+
+stock-message.stock-message[low-stock] {
+  display: block;
+}
+
+stock-message .stock-message__inner {
+  align-items: center;
+  column-gap: 1.1rem;
+  display: flex;
+  justify-content: center;
+}
+
+stock-message svg {
+  width: 2rem;
+}

@@ -1,0 +1,51 @@
+{%- capture product_variants -%}
+  {%- for product_variant in block.settings.product_list -%}
+    {%- liquid
+      assign swatch_value = null
+      assign current_product = false
+      assign product_variant_url = product_variant.url
+      if product_variant.id == product.id
+        assign current_product = true
+        assign product_variant_url = '#!'
+      endif
+      if product_variant.featured_image
+        assign image_url = product_variant.featured_image | image_url: width: settings.variant_swatch_size
+        assign swatch_value = 'url(' | append: image_url | append: ')'
+        assign swatch_focal_point = product_variant.featured_image.presentation.focal_point
+
+        assign height = false
+        if block.settings.image_ratio == 'adapt' and product_variant.featured_image.aspect_ratio != nil
+          assign height = settings.variant_swatch_size | divided_by: product_variant.featured_image.aspect_ratio | ceil
+        endif
+      endif
+    -%}
+    {%- if swatch_value -%}
+      <a href="{{ product_variant_url }}">
+        <span class="visually-hidden">{{ product_variant.title }}</span>
+        <span
+          class="
+            swatch
+            swatch--image
+            {% if sold_out %} swatch--sold-out{% endif %}
+            {% if current_product %} swatch--is-active{% endif %}
+          "
+          style="
+            --swatch--background: {{ swatch_value }};
+            {%- if swatch_focal_point -%} --swatch-focal-point: {{ swatch_focal_point }};{%- endif -%};
+            {%- if height -%} height: {{ height }}px;{%- endif -%}
+          "
+        ></span>
+      </a>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if product_variants != blank -%}
+  <div class="product-variants" {{ block.shopify_attributes }}>
+    <div class="form__label">{{ block.settings.title }}</div>
+
+    <div class="product-form__input-wrapper">
+      {{ product_variants }}
+    </div>
+  </div>
+{%- endif -%}

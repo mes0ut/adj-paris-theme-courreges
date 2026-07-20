@@ -1,0 +1,84 @@
+.localization-modal-form .localization__label {
+  margin: 0 0 0.8rem;
+}
+
+.localization-modal-form .localization-form__select {
+  display: block;
+  margin-bottom: 2.4rem;
+  width: 100%;
+  border-radius: var(--inputs-radius);
+  border: var(--inputs-border-thickness) solid rgba(var(--color-border-1), var(--inputs-border-opacity));
+  transition: border var(--duration-short) ease;
+}
+
+.localization-modal-form .localization-form__select:focus-visible,
+.localization-modal-form .localization-form__select:focus {
+  border: var(--inputs-border-thickness) solid rgb(var(--color-border-1));
+  box-shadow: none;
+  outline: auto;
+}
+
+.localization-modal-form .localization-form__select .icon-caret {
+  right: 1.5rem;
+  height: 1.6rem;
+  transform: translateY(-50%);
+  top: 50%;
+}
+
+.localization-modal-form .disclosure__list {
+  animation: none;
+  bottom: unset;
+  left: -0.1rem;
+  top: calc(100% + 0.1rem);
+  width: 100%;
+  margin: 0;
+  padding: 1.2rem 0.6rem;
+  right: -0.1rem;
+  max-width: 100%;
+  min-height: auto;
+  transform: none;
+}
+
+.localization-modal-form .disclosure__link {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.localization-modal-form .button {
+  width: 100%;
+}
+
+.localization-modal-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  cursor: pointer;
+  min-width: 4.4rem;
+  height: 4.4rem;
+}
+
+.localization-modal-button svg {
+  flex-shrink: 0;
+}
+
+.localization-modal-button__content {
+  display: flex;
+  width: auto;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.localization-modal-button__flag {
+  display: flex;
+  align-items: center;
+  width: 2.4rem;
+  height: auto;
+  margin: 0;
+}
+
+.localization-modal-button__text {
+  font-size: var(--menu-size);
+  letter-spacing: var(--letter-spacing-xlarge);
+  text-transform: uppercase;
+}

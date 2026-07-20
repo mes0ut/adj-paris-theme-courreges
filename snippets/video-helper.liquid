@@ -1,0 +1,198 @@
+{% comment %}
+  Renders a video helper
+
+  Accepts:
+  - product_media: {Object} Product Media Liquid object
+  - product: {Object} Product Liquid object
+  - featured_media_aspect_ratio: {Number} Featured media aspect ratio
+  - video_layout: {String} Video layout
+  - image_ratio: {String} Image ratio
+  - image_style: {String} Image style
+  - video_autoplay: {Boolean} Video autoplay
+  - show_overlay_gradient: {Boolean} Show overlay gradient on video poster
+
+  Usage:
+  {%
+    render 'video-helper',
+    product_media: product_media,
+    product: product,
+    featured_media_aspect_ratio: featured_media_aspect_ratio,
+    video_layout: video_layout,
+    image_ratio: image_ratio,
+    image_style: image_style,
+    video_autoplay: video_autoplay,
+    show_overlay_gradient: show_overlay_gradient
+  %}
+{% endcomment %}
+
+{% liquid
+  if video_layout == 'cover'
+    assign video_layout_class = 'deferred-media--cover'
+  endif
+
+  assign deferred_type = 'deferred-media'
+  if product_media.media_type == 'model'
+    assign deferred_type = 'product-model'
+  endif
+
+  assign video_autoplay = video_autoplay | default: false
+%}
+
+{% if video_autoplay != true and product_media.media_type == 'video' %}
+  <{{ deferred_type }}
+    class="
+      media
+      media--transparent
+      media--{{ image_ratio }}
+      {% if show_overlay_gradient %}
+        media--with-gradient
+      {% endif %}
+      {{ image_style }}
+      {{ video_layout_class }}
+    "
+    data-type="{{ product_media.host | default: product_media.media_type }}"
+    {% if image_ratio == 'adapt' and product.featured_media %}
+      style="padding-bottom: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"
+    {% endif %}
+  >
+    <div
+      class="video-helper__overlay"
+      id="Deferred-Poster--{{ product_media.id }}"
+    >
+      <img
+        class="video-helper__image"
+        srcset="
+          {% if product_media.preview_image.width >= 288 %}{{ product_media.preview_image | image_url: width: 288 }} 288w,{% endif %}
+          {% if product_media.preview_image.width >= 576 %}{{ product_media.preview_image | image_url: width: 576 }} 576w,{% endif %}
+          {% if product_media.preview_image.width >= 550 %}{{ product_media.preview_image | image_url: width: 550 }} 550w,{% endif %}
+          {% if product_media.preview_image.width >= 1100 %}{{ product_media.preview_image | image_url: width: 1100 }} 1100w,{% endif %}
+          {{ product_media.preview_image | image_url }} {{ product_media.preview_image.width }}w
+        "
+        src="{{ product_media | image_url: width: 550, height: 550 }}"
+        sizes="(min-width: 1200px) calc((1200px - 10rem) / 2), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)"
+        loading="lazy"
+        width="576"
+        height="{{ 576 | divided_by: product_media.preview_image.aspect_ratio }}"
+        alt="{{ product_media.preview_image.alt | escape }}"
+      >
+
+      <template>
+        {%- liquid
+          case product_media.media_type
+            when 'external_video'
+              assign video_class = 'js-' | append: product_media.host
+              if product_media.host == 'youtube'
+                echo product_media | external_video_url: autoplay: true, loop: loop, playlist: product_media.external_id | external_video_tag: class: video_class, loading: 'lazy'
+              else
+                echo product_media | external_video_url: autoplay: true, loop: loop | external_video_tag: class: video_class, loading: 'lazy'
+              endif
+            when 'video'
+              echo product_media | media_tag: image_size: '2048x', autoplay: true, loop: loop, controls: true, preload: 'none'
+            when 'model'
+              echo product_media | media_tag: image_size: '2048x', toggleable: true
+          endcase
+        -%}
+      </template>
+
+      <span
+        class="video-helper__icon js-play-icon"
+        aria-hidden="true"
+      >
+        {%- if product_media.media_type == 'model' -%}
+          <span class="visually-hidden">
+            {{- 'products.product.media.play_model' | t -}}
+          </span>
+          <span class="svg-wrapper"> {% render 'icon-3d-model' %} </span>
+        {%- else -%}
+          <span class="visually-hidden">
+            {{- 'products.product.media.play_video' | t -}}
+          </span>
+          <span class="svg-wrapper">
+            {% render 'icon-play' %}
+          </span>
+        {%- endif -%}
+      </span>
+    </div>
+    {%- if product_media.media_type == 'model' -%}
+      <button
+        class="button button--full-width product__xr-button"
+        type="button"
+        aria-label="{{ 'products.product.xr_button_label' | t }}"
+        data-shopify-xr
+        data-shopify-model3d-id="{{ product_media.id }}"
+        data-shopify-title="title"
+        data-shopify-xr-hidden
+      >
+        <span class="svg-wrapper">
+          {{- 'icon-3d-model' | inline_asset_content -}}
+        </span>
+        {{ 'products.product.xr_button' | t }}
+      </button>
+    {%- endif -%}
+  </{{ deferred_type }}>
+{% else %}
+  <video-autoplay
+    class="
+      {{ image_style }}
+      product-single__image-wrapper
+      {% if image_gallery == 'carousel' %}
+        product-single__image-wrapper--no-border
+      {% endif %}
+      media
+      media--transparent
+      media--{{ image_ratio }}
+      media--hover-effect
+      media--overflow-visible
+      media--cover
+    "
+    data-media-id="{{ section.id }}-{{ product_media.id }}"
+    {% if section.settings.image_ratio == 'adapt' and product.featured_media %}
+      style="padding-bottom: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"
+    {% endif %}
+  >
+    {{
+      product_media
+      | video_tag:
+        image_size: '600x',
+        autoplay: true,
+        loop: true,
+        muted: true,
+        controls: false,
+        class: 'js-autoplay'
+    }}
+    <div
+      class="video-autoplay__controls"
+      aria-hidden="true"
+    >
+      <span class="video-autoplay__icon js-sound">
+        <span class="video-autoplay__icon-active video-autoplay__sound-on">
+          <span class="visually-hidden">
+            {{- 'products.product.media.mute_video' | t -}}
+          </span>
+          {% render 'icon-sound-off' %}
+        </span>
+        <span class="video-autoplay__icon-inactive video-autoplay__sound-off">
+          <span class="visually-hidden">
+            {{- 'products.product.media.unmute_video' | t -}}
+          </span>
+          {% render 'icon-sound-on' %}
+        </span>
+      </span>
+
+      <span class="video-autoplay__icon js-play">
+        <span class="video-autoplay__icon-active video-autoplay__play">
+          <span class="visually-hidden">
+            {{- 'products.product.media.pause_video' | t -}}
+          </span>
+          {% render 'icon-pause' %}
+        </span>
+        <span class="video-autoplay__icon-inactive video-autoplay__pause">
+          <span class="visually-hidden">
+            {{- 'products.product.media.unpause_video' | t -}}
+          </span>
+          {% render 'icon-play' %}
+        </span>
+      </span>
+    </div>
+  </video-autoplay>
+{% endif %}

@@ -1,0 +1,57 @@
+{% assign custom_collection_badge_text = settings.custom_collection_badge_text
+  | split: ','
+%}
+
+<div
+  class="
+    card__badge
+    {% if type == 'search-popup' %}card__badge--{{type}}-desktop{% endif %}
+  "
+>
+  {% if custom_collection_badge_text %}
+    {% for tag in custom_collection_badge_text %}
+      {% assign tag_sanitized = tag | strip %}
+      {% if card_product.tags contains tag_sanitized %}
+        <span
+          class="
+            badge p-tiny
+            color-{{ settings.custom_collection_badge_color_scheme }}
+            {% if settings.rounded_tags %}badge--rounded{% endif %}
+            {% if settings.custom_collection_badge_clear %}badge--clear{% endif %}
+          "
+        >
+          {{ tag }}
+        </span>
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {%- if card_product.available == false -%}
+    <span
+      class="
+        badge p-tiny
+        color-{{ settings.sold_out_badge_color_scheme }}
+        {% if settings.rounded_tags %}badge--rounded{% endif %}
+        {% if settings.sold_out_badge_clear %}badge--clear{% endif %}
+      "
+      aria-hidden="true"
+    >
+      {{ 'products.product.sold_out' | t }}
+    </span>
+  {%- elsif card_product.compare_at_price > card_product.price
+    and card_product.available
+  -%}
+    <span
+      class="
+        badge p-tiny
+        color-{{ settings.sale_badge_color_scheme }}
+        {% if settings.rounded_tags %}badge--rounded{% endif %}
+        {% if settings.sale_badge_clear %}badge--clear{% endif %}
+      "
+      aria-hidden="true"
+    >
+      {{ 'products.product.on_sale' | t }}
+    </span>
+  {%- endif -%}
+</div>

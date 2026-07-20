@@ -1,0 +1,21 @@
+{{ 'template-404.css' | asset_url | stylesheet_tag }}
+
+<div class="template-404 page-width page-margin center">
+  <div class="template-404__content">
+    <p>
+      {{ 'templates.404.subtext' | t }}
+    </p>
+    <h1 class="title">
+      {{ 'templates.404.title' | t }}
+    </h1>
+    <p class="template-404__content-text">
+      {{ 'templates.404.content' | t }}
+    </p>
+    <a
+      href="{{ routes.all_products_collection_url }}"
+      class="button"
+    >
+      {{ 'general.continue_shopping' | t }}
+    </a>
+  </div>
+</div>

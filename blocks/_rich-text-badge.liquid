@@ -1,0 +1,38 @@
+{% if block.settings.badge != blank %}
+  <span
+    class="
+      rich-text__badge
+      badge p-tiny
+      gradient
+      color-{{ block.settings.badge_color_scheme }}
+      badge--rounded
+    "
+  >
+    {{ block.settings.badge }}
+  </span>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:sections.all.badge.label",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "t:sections.all.badge.label",
+      "default": "Badge"
+    },
+    {
+      "type": "color_scheme",
+      "id": "badge_color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.all.badge.label"
+    }
+  ]
+}
+{% endschema %}

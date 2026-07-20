@@ -1,0 +1,210 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+<div class="customer__wrapper">
+  {% if section.settings.image %}
+    {% if section.settings.icon_toggle == true %}
+      <div class="customer__image-icon">
+        {% render 'icon-star-cluster-two' %}
+      </div>
+    {% endif %}
+    <div
+      class="image-aspect-ratio image-aspect-ratio--6-9 customer__image {{ section.settings.image_style }}"
+    >
+      {% assign image_height = section.settings.image.width
+        | divided_by: section.settings.image.aspect_ratio
+        | ceil
+      %}
+
+      {{
+        section.settings.image
+        | image_url: width: 1280
+        | image_tag:
+          loading: 'eager',
+          width: 640,
+          height: image_height,
+          sizes: '(min-width: 1200px) calc((1200px - 10rem) / 2), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(80vw - 4rem)',
+          widths: '940, 1100, 1500, 1780, 2000, 2800',
+          alt: section.settings.image.alt
+        | escape
+      }}
+    </div>
+  {% endif %}
+
+  <div class="customer customer--register">
+    <h1 class="form__heading">
+      {{ 'customer.register.title' | t }}
+    </h1>
+    {%- form 'create_customer',
+      class: 'customer__form',
+      novalidate: 'novalidate'
+    -%}
+      {%- if form.errors -%}
+        <h6 class="form__message form__message--large" tabindex="-1" autofocus>
+          {% render 'icon-error' %}
+          {{ 'templates.contact.form.error_heading' | t }}
+        </h6>
+        <ul class="alert-list">
+          {%- for field in form.errors -%}
+            <li>
+              {%- if field == 'form' -%}
+                <span class="alert">
+                  {% render 'icon-error' %}
+                  <span>
+                    {{ form.errors.messages[field] }}
+                  </span>
+                </span>
+              {%- else -%}
+                <a href="#RegisterForm-{{ field }}" class="alert">
+                  {% render 'icon-error' %}
+                  <span>
+                    {{ form.errors.translated_fields[field] | capitalize }}
+                    {{ form.errors.messages[field] }}
+                  </span>
+                </a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      <div class="form__field">
+        <label class="form__label" for="RegisterForm-FirstName">
+          {{ 'customer.register.first_name' | t }}
+        </label>
+        <input
+          class="field__input"
+          type="text"
+          name="customer[first_name]"
+          id="RegisterForm-FirstName"
+          {% if form.first_name %}
+            value="{{ form.first_name }}"
+          {% endif %}
+          autocomplete="given-name"
+        >
+      </div>
+      <div class="form__field">
+        <label class="form__label" for="RegisterForm-LastName">
+          {{ 'customer.register.last_name' | t }}
+        </label>
+        <input
+          class="field__input"
+          type="text"
+          name="customer[last_name]"
+          id="RegisterForm-LastName"
+          {% if form.last_name %}
+            value="{{ form.last_name }}"
+          {% endif %}
+          autocomplete="family-name"
+        >
+      </div>
+      <div class="form__field">
+        <label class="form__label" for="RegisterForm-email">
+          {{ 'customer.register.email' | t }}
+        </label>
+        <input
+          class="field__input"
+          type="email"
+          name="customer[email]"
+          id="RegisterForm-email"
+          {% if form.email %}
+            value="{{ form.email }}"
+          {% endif %}
+          spellcheck="false"
+          autocapitalize="off"
+          autocomplete="email"
+          aria-required="true"
+          {% if form.errors contains 'email' %}
+            aria-invalid="true"
+            aria-describedby="RegisterForm-email-error"
+          {% endif %}
+        >
+      </div>
+
+      <div class="form__field">
+        <label class="form__label" for="RegisterForm-password">
+          {{ 'customer.register.password' | t }}
+        </label>
+        <input
+          class="field__input"
+          type="password"
+          name="customer[password]"
+          id="RegisterForm-password"
+          aria-required="true"
+          {% if form.errors contains 'password' %}
+            aria-invalid="true"
+            aria-describedby="RegisterForm-password-error"
+          {% endif %}
+        >
+      </div>
+      <button class="button button-with-icon">
+        {{ 'customer.register.submit' | t }}
+        {% render 'icon-arrow' %}
+      </button>
+    {%- endform -%}
+    <div class="customer__sign-in">
+      <h5>{{ 'customer.register.login_question' | t }}</h5>
+      <a
+        href="{{ routes.account_login_url }}"
+        class="button button--secondary button-with-icon"
+      >
+        {{ 'customer.register.login' | t }}
+        {% render 'icon-arrow' %}
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.register.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.register.settings.image.label",
+      "info": "t:sections.all.images_tips.portrait_big.info"
+    },
+    {
+      "type": "select",
+      "id": "image_style",
+      "options": [
+        {
+          "value": "image-border-radius--none",
+          "label": "t:sections.all.radius.none.label"
+        },
+        {
+          "value": "image-border-radius--rounded-xxs",
+          "label": "t:sections.all.radius.xxs.label"
+        },
+        {
+          "value": "image-border-radius--rounded-xs",
+          "label": "t:sections.all.radius.xs.label"
+        },
+        {
+          "value": "image-border-radius--rounded-small",
+          "label": "t:sections.all.radius.small.label"
+        },
+        {
+          "value": "image-border-radius--rounded",
+          "label": "t:sections.all.radius.standard.label"
+        },
+        {
+          "value": "image-border-radius--rounded-extra",
+          "label": "t:sections.all.radius.extra.label"
+        },
+        {
+          "value": "image-border-radius--curved-top",
+          "label": "t:sections.all.radius.curved.label"
+        }
+      ],
+      "default": "image-border-radius--none",
+      "label": "t:sections.all.radius.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "icon_toggle",
+      "label": "t:sections.register.settings.checkbox-1.label"
+    }
+  ]
+}
+{% endschema %}

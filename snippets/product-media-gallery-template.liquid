@@ -1,0 +1,167 @@
+{% assign index = 0 %}
+{%- for product_media in product.media -%}
+  {%- liquid
+    assign preload = false
+    assign image_lazy = 'lazy'
+    assign fetch_priority = 'low'
+    if forloop.index == 1
+      assign preload = true
+      assign image_lazy = 'eager'
+      assign fetch_priority = 'high'
+    endif
+
+    assign featured_media_aspect_ratio = product.featured_media.aspect_ratio
+
+    if product.featured_media.aspect_ratio == null
+      assign featured_media_aspect_ratio = 1
+    endif
+
+    assign media_id = product_media.id
+
+    if enable_media_group
+      if product_media_group_include contains media_id
+        assign skip_media_group = false
+        assign index = index | plus: 1
+      else
+        assign skip_media_group = true
+      endif
+    else
+      assign skip_media_group = false
+      assign index = index | plus: 1
+    endif
+  -%}
+
+  {% if skip_media_group == false %}
+    <li
+      class="embla__slide"
+      {% if enable_media_group == true %}
+        data-slide-index="{{ index | minus: 1 }}"
+        data-media-group="{{ section.id }}"
+        data-media-group-id="{{ section.id }}-{{ media_group_id }}"
+        data-media-group-always-show="{{ media_group_always_show }}"
+      {% else %}
+        data-slide-index="{{ forloop.index0 }}"
+      {% endif %}
+    >
+      {% if section.settings.product_gallery_zoom %}
+        <modal-opener
+          data-modal="#PopupModal-{{ section.id }}-{{ section.id }}"
+          class="gallery-viewer-trigger"
+        >
+          <div
+            id="ModalOpenerBtn-{{ section.id }}-{{ section.id }}"
+            data-index="{{ forloop.index0 }}"
+            aria-haspopup="dialog"
+            type="button"
+          >
+            {% render 'icon-zoom' %}
+          </div>
+        </modal-opener>
+      {% endif %}
+
+      {%- if product_media.media_type == 'image' -%}
+        {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+        <div
+          class="
+            {{ image_style }}
+            product-single__image-wrapper
+            {% if image_gallery == 'carousel' %}
+              product-single__image-wrapper--no-border
+            {% endif %}
+            media
+            media--transparent
+            media--{{ image_ratio }}
+            media--hover-effect
+            media--overflow-visible
+          "
+          data-media-id="{{ section.id }}-{{ product_media.id }}"
+          {% if section.settings.image_ratio == 'adapt'
+            and product.featured_media
+          %}
+            style="padding-bottom: {{ 1 | divided_by: featured_media_aspect_ratio | times: 100 }}%;"
+          {% endif %}
+        >
+          {% liquid
+            # Smart responsive product media sizing
+            # - Mobile ( < 990px): 100% of viewport width minus padding
+            # - Desktop (≥ 990px): Based on media_size (40%, 50%, 60%) minus thumbnails if enabled
+            # - Page-width max: 1760px (theme setting)
+
+            assign page_max_width = settings.page_width | default: 1760
+            assign media_size = section.settings.media_size | default: 'large'
+            assign show_thumbnails = section.settings.show_thumbnails | default: true
+            assign thumbnail_width = 66
+
+            # Calculate media container percentage
+            case media_size
+              when 'small'
+                assign media_percentage = 40
+              when 'medium'
+                assign media_percentage = 50
+              when 'large'
+                assign media_percentage = 60
+              else
+                assign media_percentage = 60
+            endcase
+
+            # Calculate desktop container width
+            assign desktop_media_container = page_max_width | times: media_percentage | divided_by: 100
+
+            # Subtract thumbnail width if enabled
+            if show_thumbnails
+              assign desktop_image_width = desktop_media_container | minus: thumbnail_width
+            else
+              assign desktop_image_width = desktop_media_container
+            endif
+
+            # Round and create retina version
+            assign desktop_base_width = desktop_image_width | round
+            assign desktop_width_2x = desktop_base_width | times: 2
+
+            # Mobile widths (100% viewport minus padding)
+            assign mobile_widths = '400, 600, 800, 990'
+            assign desktop_widths = desktop_base_width | append: ', ' | append: desktop_width_2x
+            assign all_widths = mobile_widths | append: ', ' | append: desktop_widths
+
+            # Smart sizes attribute
+            assign media_vw = media_percentage | append: 'vw'
+            if show_thumbnails
+              assign desktop_calc = 'calc(' | append: media_vw | append: ' - 6.6rem)'
+            else
+              assign desktop_calc = media_vw
+            endif
+            assign sizes_attr = '(max-width: 989px) 100vw, ' | append: desktop_calc
+          %}
+
+          {{
+            product_media
+            | image_url: width: desktop_width_2x
+            | image_tag:
+              loading: image_lazy,
+              preload: preload,
+              fetchpriority: fetch_priority,
+              width: product_media.width,
+              height: 'auto',
+              sizes: sizes_attr,
+              widths: all_widths,
+              class: 'motion-reduce',
+              alt: product_media.alt
+            | escape
+          }}
+        </div>
+        {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
+      {%- else -%}
+        {% render 'video-helper',
+          product_media: product_media,
+          product: product,
+          featured_media_aspect_ratio: featured_media_aspect_ratio,
+          video_layout: video_layout,
+          image_ratio: image_ratio,
+          image_style: image_style,
+          video_autoplay: video_autoplay,
+          show_overlay_gradient: show_overlay_gradient
+        %}
+      {%- endif -%}
+    </li>
+  {% endif %}
+{%- endfor -%}

@@ -1,0 +1,47 @@
+<div class="stats-block {{ block.settings.text_alignment }}">
+  <div class="stats">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:blocks.stats.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:settings_schema.global.settings.text_alignment.option_1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:settings_schema.global.settings.text_alignment.option_2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:settings_schema.global.settings.text_alignment.option_3.label"
+        }
+      ],
+      "default": "left",
+      "label": "t:settings_schema.global.settings.text_alignment.label"
+    }
+  ],
+  "blocks": [{"type": "_stat"}],
+  "presets": [
+    {
+      "name": "t:blocks.stats.name",
+      "blocks": [
+        {
+          "type": "_stat"
+        },
+        {
+          "type": "_stat"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

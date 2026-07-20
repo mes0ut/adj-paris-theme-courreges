@@ -1,0 +1,22 @@
+<div {{ block.shopify_attributes }} class="rich-text__paragraph rte">
+  {{ block.settings.rich_text }}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.rich-text.blocks.paragraph.name",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "rich_text",
+      "label": "t:sections.rich-text.blocks.paragraph.settings.rich_text.label",
+      "default": "<p>Give customers details about your store content on the template.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.rich-text.blocks.paragraph.name"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,16 @@
+{% assign product = rec_product %}
+{% assign link_text = link_text %}
+
+<div class="drawer-collection-product">
+  <div class="drawer-collection-product__image-wrapper">
+    <img class="drawer-collection-product__image" src="{{ rec_product | image_url: width: 150 }}"
+    alt="{{ rec_product.alt }}" width="300" height="300" loading="lazy">
+  </div>
+  <div class="drawer-collection-product__details">
+    <p class="p p-m--small drawer-collection-product__details-title">{{ product.title }}</p>
+    <span class="p p-m--small drawer-collection-product__details-price"> {{ product.price | money }} </span>
+    <a class="link p p-m--small drawer-collection-product__details-link" href="{{ product.url }}">
+      {{ link_text }}
+    </a>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+{% for block in section.blocks %}
+  {%- case block.type -%}
+    {%- when 'title' -%}
+      <div
+        class="accordion-text-block"
+        {{ block.shopify_attributes }}
+      >
+        {% if block.settings.title != blank %}
+          {% liquid
+            assign title_style = 'normal'
+            if block.settings.title_style == 'uppercase'
+              assign title_style = 'uppercase'
+            endif
+          %}
+          <h3
+            class="accordion-text-block__title h5 {{ title_style }}"
+            id="{{ block.settings.title | handleize }}"
+          >
+            {{ block.settings.title }}
+          </h3>
+        {% endif %}
+        {% if block.settings.content != blank %}
+          <div>
+            {{ block.settings.content }}
+          </div>
+        {% endif %}
+      </div>
+    {%- when 'question_answer' -%}
+      {% if block.settings.faqs_question != blank
+        and block.settings.faqs_answer != blank
+      %}
+        {%- if block.settings.display_type == 'accordion' -%}
+          <accordion-item
+            class="accordion accordion--faqs"
+            {{ block.shopify_attributes }}
+          >
+            <details
+              id="Details-{{ block.id }}-{{ section.id }}"
+              {% if block.settings.faq_open %}
+                open
+              {% endif %}
+            >
+              <summary>
+                <div class="summary__title p">
+                  <h4
+                    class="
+                      {{ section.settings.row_font_size }}
+                      {{ section.settings.row_title_style }}
+                      accordion__title
+                    "
+                  >
+                    {{ block.settings.faqs_question }}
+                  </h4>
+                </div>
+                <div class="accordion__icon-caret">
+                  {% render 'icon-caret' %}
+                </div>
+              </summary>
+              <div
+                class="accordion__content rte"
+                id="ProductAccordion-{{ block.id }}-{{ section.id }}"
+              >
+                {{ block.settings.faqs_answer }}
+              </div>
+            </details>
+          </accordion-item>
+        {%- else -%}
+          <div
+            class="accordion accordion--detailed accordion--drawer"
+            {{ block.shopify_attributes }}
+          >
+            <button
+              is="custom-drawer-trigger"
+              class="button-reset button--full-width"
+              aria-haspopup="dialog"
+              data-drawer-target="#CustomDrawer-{{ block.id }}"
+            >
+              <div class="summary__title p">
+                <div
+                  class="
+                    {{ block.settings.title_style }}
+                    accordion__title
+                  "
+                >
+                  <p>
+                    {{ block.settings.faqs_question }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="accordion__icon-caret">
+                {% render 'icon-caret' %}
+              </div>
+            </button>
+          </div>
+
+          {%- render 'custom-drawer',
+            id: block.id,
+            heading: block.settings.faqs_question,
+            content: block.settings.faqs_answer
+          -%}
+        {%- endif -%}
+      {% endif %}
+  {%- endcase -%}
+{% endfor %}

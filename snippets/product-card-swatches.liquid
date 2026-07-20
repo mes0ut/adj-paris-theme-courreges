@@ -1,0 +1,112 @@
+{% comment %}
+  Renders a product card swatches
+
+  Accepts:
+  - card_product: {Object} Product Liquid object (required)
+  - color_scheme: {String} Color scheme (optional)
+  - image_size: {String} Image size
+  - image_width: {String} Image width
+
+
+  Usage:
+  {%
+    render 'product-card-swatches',
+    card_product: product,
+    color_scheme: color_scheme,
+    image_size: image_size,
+    image_width: image_width,
+    background_transparent: background_transparent,
+  %}
+{% endcomment %}
+{% capture 'product_card_swatches' %}
+  {% assign swatch_count = 0 %}
+  {%- for option in card_product.options_with_values -%}
+    {% liquid
+      assign option_name = option.name | handleize
+      if option_name == 'color' or option_name == 'colour'
+        assign color_values = option.values
+      endif
+    %}
+    {%- for value in color_values -%}
+      {% if option_name == 'color' or option_name == 'colour' %}
+        {%- liquid
+          assign swatch_focal_point = null
+          if value.swatch.image
+            assign image_url = value.swatch.image | image_url: width: 60
+            assign swatch_value = 'url(' | append: image_url | append: ')'
+            assign swatch_focal_point = value.swatch.image.presentation.focal_point
+            assign special_class = 'swatch--image'
+          elsif value.swatch.color
+            assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+            assign special_class = 'swatch--color'
+          else
+            assign swatch_value = null
+          endif
+        -%}
+
+        {% if swatch_count < 5 %}
+          {% if swatch_value %}
+            <a
+              href="{{ value.variant.url }}"
+              data-variant-url="{{ value.variant.url }}"
+              data-variant-featured-media="{{ value.variant.featured_media }}"
+              class="swatch{% if sold_out %} swatch--sold-out{% endif %} {{ special_class }}"
+              style="--swatch--background: {{ swatch_value }};{% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %} display: block;"
+            >
+              <template>
+                {% if value.variant.featured_media %}
+                  {{
+                    value.variant.featured_media
+                    | image_url: width: 800
+                    | image_tag:
+                      loading: loading_type,
+                      width: value.variant.featured_media.width,
+                      height: featured_image_height,
+                      sizes: image_size,
+                      widths: image_width,
+                      class: 'motion-reduce',
+                      alt: value.variant.featured_media.alt
+                  }}
+                {% endif %}
+              </template>
+            </a>
+            {% assign swatch_count = swatch_count | plus: 1 %}
+          {% endif %}
+        {% else %}
+          {% assign swatch_count = swatch_count | plus: 1 %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {%- endfor -%}
+  {% if swatch_count > 5 %}
+    <a
+      href="{{ card_product.url }}"
+      class="swatch-count color-{{ color_scheme }}"
+      style="
+        {{ background_transparent }}
+      "
+    >
+      + {{ swatch_count | minus: 5 }}
+    </a>
+  {% endif %}
+{% endcapture %}
+
+{% if swatch_count != 0 %}
+  <div
+    class="product-card-swatches color-{{ color_scheme }}"
+    style="
+      padding: 0 {{ settings.product_card_padding }}px {{ settings.product_card_padding }}px;
+      margin-top: -{{ settings.product_card_padding }}px;
+      {{ background_transparent }}
+    "
+  >
+    <div
+      class="
+        product-card-swatches__container
+        product-card-swatches__container--align-{{ settings.product_card_text_alignment }}
+      "
+    >
+      {{ product_card_swatches }}
+    </div>
+  </div>
+{% endif %}

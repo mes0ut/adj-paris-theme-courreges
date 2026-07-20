@@ -1,0 +1,304 @@
+{{ 'component-card-slider.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  render 'section-spacing', id: section.id
+
+  if section.settings.enable_animation
+    assign animate_class = 'animate'
+  else
+    assign animate_class = ''
+  endif
+%}
+
+<div
+  class="
+    card-slider
+    card-slider--collection-list
+    gradient
+    color-{{ section.settings.color_scheme }}
+    section-{{ section.id }}
+    {% if section.settings.show_border_bottom %}section-border-bottom{% endif %}
+  "
+>
+  {% render 'component-section-header',
+    type: 'header',
+    animate_class: animate_class,
+    heading: section.settings.heading,
+    subheading: section.settings.subheading,
+    link: routes.collections_url,
+    link_text: section.settings.link_text,
+    button_color_scheme: section.settings.button_color_scheme
+  %}
+
+  <div class="page-width">
+    <embla-component class="embla-carousel {{ animate_class }}">
+      <div
+        class="embla"
+        data-align="start"
+        data-slides-to-scroll="1"
+        data-duration="20"
+      >
+        <div class="embla__viewport">
+          <ul class="embla__container">
+            {% assign featured_collections = '1,2,3,4,5' | split: ',' %}
+            {% if section.settings.collection_list != blank %}
+              {% assign featured_collections = section.settings.collection_list %}
+            {% endif %}
+            {% for collection in featured_collections %}
+              <li class="embla__slide" data-slide-index="{{ forloop.index0 }}">
+                {% render 'collection-card',
+                  card_collection: collection,
+                  image_style: section.settings.image_style,
+                  media_size: section.settings.image_ratio
+                %}
+              </li>
+            {% endfor %}
+          </ul>
+          <button
+            class="embla__button embla__button--prev"
+            disabled=""
+            aria-label="{{ 'general.pagination.previous' | t }}"
+          >
+            {% render 'icon-arrow-left-large' %}
+          </button>
+          <span class="embla__button-gradient"></span>
+          <button
+            class="embla__button embla__button--next"
+            disabled=""
+            aria-label="{{ 'general.pagination.next' | t }}"
+          >
+            {% render 'icon-arrow-right-large' %}
+          </button>
+          <span class="embla__button-gradient"></span>
+        </div>
+      </div>
+    </embla-component>
+  </div>
+
+  {% render 'component-section-header',
+    type: 'footer',
+    animate_class: animate_class,
+    link: routes.collections_url,
+    link_text: section.settings.link_text,
+    button_color_scheme: section.settings.button_color_scheme
+  %}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.collection-list.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "t:sections.all.border.show_border_bottom.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Collections",
+      "label": "t:sections.collection-list.settings.title.label"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:sections.collection-list.settings.subheading.label",
+      "default": "More details about collections"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "t:sections.collection-list.settings.link_text.label",
+      "info": "t:sections.collection-list.settings.link_text.info"
+    },
+    {
+      "type": "select",
+      "id": "button_color_scheme",
+      "options": [
+        {
+          "value": "button",
+          "label": "t:sections.all.buttons.primary.label"
+        },
+        {
+          "value": "button button--secondary",
+          "label": "t:sections.all.buttons.secondary.label"
+        },
+        {
+          "value": "link link-with-icon",
+          "label": "t:sections.all.buttons.text_link.label"
+        }
+      ],
+      "default": "link link-with-icon",
+      "label": "t:sections.all.buttons.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.collection-list.settings.header_collection.content"
+    },
+    {
+      "type": "collection_list",
+      "id": "collection_list",
+      "label": "t:sections.collection-list.settings.header_collection.label",
+      "limit": 8
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.all.image-ratios.options_1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.all.image-ratios.options_2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.all.image-ratios.options_3.label"
+        }
+      ],
+      "default": "portrait",
+      "label": "t:sections.all.image-ratios.label"
+    },
+    {
+      "type": "select",
+      "id": "image_style",
+      "options": [
+        {
+          "value": "image-border-radius--none",
+          "label": "t:sections.all.radius.none.label"
+        },
+        {
+          "value": "image-border-radius--rounded-xxs",
+          "label": "t:sections.all.radius.xxs.label"
+        },
+        {
+          "value": "image-border-radius--rounded-xs",
+          "label": "t:sections.all.radius.xs.label"
+        },
+        {
+          "value": "image-border-radius--rounded-small",
+          "label": "t:sections.all.radius.small.label"
+        },
+        {
+          "value": "image-border-radius--rounded",
+          "label": "t:sections.all.radius.standard.label"
+        },
+        {
+          "value": "image-border-radius--rounded-extra",
+          "label": "t:sections.all.radius.extra.label"
+        }
+      ],
+      "default": "image-border-radius--none",
+      "label": "t:sections.all.radius.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.desktop_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.mobile_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.desktop_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.margin_bottom",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.mobile_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.mobile_margin_bottom",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.animations.section_animation.header",
+      "visible_if": "{{ settings.enable_global_animations }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "t:sections.all.animations.section_animation.label",
+      "default": true,
+      "visible_if": "{{ settings.enable_global_animations }}"
+    }
+  ],
+  "disabled_on": {
+    "templates": ["password"],
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "t:sections.collection-list.name",
+      "category": "t:categories.collections"
+    }
+  ]
+}
+{% endschema %}

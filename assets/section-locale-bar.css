@@ -1,0 +1,84 @@
+/* ============================================================================
+  Locales
+============================================================================== */
+.locale-toolbar {
+  display: flex;
+  min-height: 4.1rem;
+}
+
+.locale-toolbar button {
+  text-decoration: none;
+}
+
+.locale-toolbar__inner {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 989px) {
+  .locale-toolbar__inner {
+    justify-content: center;
+  }
+
+  .locale-toolbar {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .locale-toolbar {
+    padding: 1rem !important;
+  }
+
+  .locale-country {
+    left: 0;
+    right: 0;
+  }
+
+  .locale-lang {
+    left: unset;
+    right: 0;
+  }
+}
+
+.locale-toolbar .locale-bar__spliter {
+  position: relative;
+  display: block;
+}
+
+.locale-toolbar .locale-bar__spliter::after {
+  content: '';
+  position: absolute;
+  width: 0.1rem;
+  height: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  background-color: rgba(var(--color-foreground), 0.4);
+}
+
+.locale-toolbar .locale-header-select {
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0 1.5rem 0 0 !important;
+  margin: 0 !important;
+  min-width: max-content;
+}
+
+.locale-toolbar .locale-header-select .icon-caret {
+  content: '';
+  height: 0.8rem;
+  position: absolute;
+  right: 0rem;
+  top: calc(50% - 0.4rem);
+}
+
+.locale-toolbar .localization-selector + .disclosure__list {
+  top: 4.5rem;
+  z-index: 111;
+  right: 0;
+  height: fit-content;
+}

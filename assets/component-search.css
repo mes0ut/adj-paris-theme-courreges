@@ -1,0 +1,111 @@
+.search__button {
+  left: 0;
+  right: auto;
+  top: 0.2rem;
+}
+
+.search__button .icon {
+  height: 4.4rem;
+  padding: 1rem;
+  stroke-width: 0.13rem;
+  width: 4.4rem;
+}
+
+.clear__button {
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  right: var(--space-xxs);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.clear__button .icon {
+  background-color: rgba(var(--color-foreground), 0.12);
+  border-radius: 50%;
+  height: 2.2rem;
+  padding: 0.3rem;
+  width: 2.2rem;
+}
+
+.search__input.field__input,
+.search__input.field__input:focus,
+.search__input.field__input:focus-visible {
+  outline: none;
+}
+
+.search__input.field__input {
+  font-family: var(--font-body-family);
+  margin: 0;
+  padding-left: 4.6rem;
+  padding-right: 4rem;
+}
+
+.search__input.field__input::placeholder {
+  color: rgba(var(--color-foreground), 0.4);
+  font-family: var(--font-body-family);
+  opacity: 1;
+}
+
+/* JS classes */
+
+.search-clear-button-active-js {
+  display: block;
+}
+
+/* Remove extra spacing for search inputs in Safari */
+input::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/* -------------------- Modifier for wide search box -------------------- */
+
+.search__input--main {
+  border: none;
+}
+
+.search__input--main:focus {
+  border: none !important;
+}
+
+/* -------------------- Categories list -------------------- */
+.search__categories-inner {
+  align-items: center;
+  border-bottom: 0.2rem solid rgba(var(--color-border-1), 0.2);
+  display: flex;
+  gap: var(--space-s);
+  justify-content: center;
+  margin-bottom: 2rem;
+  margin-top: var(--space-xs);
+}
+
+@media screen and (min-width: 750px) {
+  .search__categories-inner {
+    gap: 4.8rem;
+  }
+}
+
+.search__categories-link {
+  padding: 0.6rem 0 2rem;
+  position: relative;
+  text-decoration: none;
+}
+
+.search__categories-link::after {
+  background-color: rgb(var(--color-foreground));
+  bottom: -0.2rem;
+  content: '';
+  height: 0.2rem;
+  left: 0;
+  position: absolute;
+  width: 0;
+}
+
+.search__categories-link--active::after {
+  width: 100%;
+}
+
+/* -------------------- Categories list end -------------------- */

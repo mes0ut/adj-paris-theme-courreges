@@ -1,0 +1,53 @@
+{% liquid
+  assign title_style = 'normal'
+  if block.settings.title_style == 'uppercase'
+    assign title_style = 'uppercase'
+  endif
+%}
+<div
+  class="product__usp color-{{ block.settings.color_scheme }}"
+  {{ block.shopify_attributes }}
+>
+  <embla-component class="usp-item">
+    <div
+      class="embla"
+      data-align="start"
+      data-slides-to-scroll="1"
+      data-duration="20"
+    >
+      <div class="embla__viewport">
+        <ul class="embla__container">
+          {% assign slide_size = 0 %}
+          {% for i in (1..3) %}
+            {% assign heading_key = 'heading_0' | append: i %}
+            {% assign content_key = 'content_0' | append: i %}
+
+            {% if block.settings[heading_key] != blank
+              or block.settings[content_key] != blank
+            %}
+              {% assign slide_size = slide_size | plus: 1 %}
+              <li
+                class="embla__slide usp-item__slide"
+                data-slide-index="{{ forloop.index0 }}"
+              >
+                {% if block.settings[heading_key] != blank %}
+                  <h4 class="h6 usp-heading {{ title_style }}">
+                    {{ block.settings[heading_key] }}
+                  </h4>
+                {% endif %}
+                {% if block.settings[content_key] != blank %}
+                  <p class="p-small usp-content">
+                    {{ block.settings[content_key] }}
+                  </p>
+                {% endif %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% if slide_size != 1 %}
+      <div class="embla__dots"></div>
+    {% endif %}
+  </embla-component>
+</div>

@@ -1,0 +1,14 @@
+<script src="{{ 'variants.js' | asset_url }}" defer="defer"></script>
+
+{%- if settings.predictive_search_enabled -%}
+  <script
+    src="{{ 'predictive-search.js' | asset_url }}"
+    defer="defer"
+  ></script>
+{%- endif -%}
+
+{%- if request.design_mode -%}
+  <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+{% elsif settings.title_rotate_enable and settings.title_rotate_text != blank %}
+  <script src="{{ 'title-rotate.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}

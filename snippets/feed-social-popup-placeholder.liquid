@@ -1,0 +1,55 @@
+{%- comment -%}
+  Optional: Accepts class for the placeholder aspect ratio and grid layout. Otherwise 4 / 5 will be used
+
+  Example:
+  aspect_ratio_class: 'sm-feed-popup__post-media-wrapper--video',
+  grid_class: 'sm-feed-popup__post--video'
+{%- endcomment -%}
+
+<div
+  class="sm-feed-popup__post {{ grid_class }}"
+  data-post-id="post-placeholder"
+  style="display: none"
+>
+  <div
+    class="
+      sm-feed-popup__post-media-wrapper
+      sm-feed-popup__post-media-wrapper--placeholder-post
+      {{ aspect_ratio_class }}
+    "
+  >
+    {{ 'image' | placeholder_svg_tag: 'instagram-feed__post-image' }}
+  </div>
+  <div
+    class="
+      sm-feed-popup__post-content-wrapper
+      {% if products_exist %}
+        sm-feed-popup__post-content-wrapper--extra-content
+      {% endif %}
+    "
+  >
+    <div
+      id="ModalClose-{{ section.id }}-0"
+      class="sm-feed-popup__post-content-close"
+    >
+      {% render 'icon-close' %}
+    </div>
+
+    <div class="sm-feed-popup-content">
+      <div class="sm-feed-popup-header">
+        <div class="sm-feed-popup__post-avatar-wrapper">
+          {% render 'icon-account' %}
+        </div>
+
+        <h5 class="sm-feed-popup__post-content-username">
+          {% render 'icon-instagram' %}
+          <span>{{- 'social_feeds.placeholders.username' | t -}}</span>
+        </h5>
+      </div>
+
+      <div class="p-large sm-feed-popup__post-content-caption">
+        {{- 'social_feeds.placeholders.caption' | t -}}
+      </div>
+    </div>
+  </div>
+</div>

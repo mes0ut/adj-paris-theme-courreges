@@ -1,0 +1,78 @@
+{% render 'section-spacing', id: section.id %}
+
+{% liquid
+  if section.settings.enable_animation
+    assign animate_class = 'animate'
+  else
+    assign animate_class = ''
+  endif
+%}
+
+<div
+  class="
+    section-{{ section.id }}
+    {{ animate_class }}
+  "
+>
+  {{ section.settings.custom_liquid }}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.custom-liquid.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "custom_liquid",
+      "label": "t:sections.custom-liquid.settings.custom_liquid.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.desktop_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.margin_bottom",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.mobile_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.mobile_margin_bottom",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.animations.section_animation.header",
+      "visible_if": "{{ settings.enable_global_animations }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "t:sections.all.animations.section_animation.label",
+      "default": true,
+      "visible_if": "{{ settings.enable_global_animations }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.custom-liquid.presets.name",
+      "category": "t:categories.layout"
+    }
+  ]
+}
+{% endschema %}

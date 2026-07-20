@@ -1,0 +1,204 @@
+.social-feed {
+  overflow: hidden;
+}
+
+.social-feed .marquee__text {
+  align-items: stretch;
+  gap: 0;
+  text-transform: unset;
+}
+
+.social-feed modal-opener {
+  display: flex;
+}
+
+.social-feed__posts {
+  display: flex;
+}
+
+.social-feed__post {
+  background-color: rgb(var(--color-background));
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.social-feed:not(.social-feed--carousel) .social-feed__post {
+  width: 30rem;
+  margin-right: 2.2rem;
+}
+
+.social-feed.social-feed--carousel .social-feed__post-wrapper {
+  flex: 0 0 32.2rem;
+  padding-right: 2.2rem;
+}
+
+.social-feed:not(.social-feed--carousel) .social-feed__post--large {
+  width: 38.4rem;
+}
+
+.social-feed.social-feed--carousel .social-feed__post-wrapper--large {
+  flex: 0 0 40.6rem;
+}
+
+@media screen and (min-width: 750px) {
+  .social-feed:not(.social-feed--carousel) .social-feed__post {
+    width: 34rem;
+    margin-right: 3.6rem;
+  }
+
+  .social-feed.social-feed--carousel .social-feed__post-wrapper {
+    flex: 0 0 37.6rem;
+    padding-right: 3.6rem;
+  }
+
+  .social-feed:not(.social-feed--carousel) .social-feed__post--large {
+    width: 42.4rem;
+  }
+
+  .social-feed.social-feed--carousel .social-feed__post-wrapper--large {
+    flex: 0 0 46rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .social-feed:not(.social-feed--carousel) .social-feed__post {
+    width: 42rem;
+    margin-right: 4.2rem;
+  }
+
+  .social-feed.social-feed--carousel .social-feed__post-wrapper {
+    flex: 0 0 46.2rem;
+    padding-right: 4.2rem;
+  }
+
+  .social-feed:not(.social-feed--carousel) .social-feed__post--large {
+    width: 50.4rem;
+  }
+
+  .social-feed.social-feed--carousel .social-feed__post-wrapper--large {
+    flex: 0 0 54.6rem;
+  }
+}
+
+.social-feed__post--no-popup {
+  cursor: auto;
+}
+
+.social-feed__post-media-wrapper {
+  position: relative;
+}
+
+.social-feed__post-media-wrapper svg.social-feed__post-image {
+  background-color: var(--color-image-placeholder);
+}
+
+.social-feed__post-image,
+.social-feed__post-video {
+  aspect-ratio: 1 / 1;
+  display: block;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.social-feed__post-video-play {
+  bottom: 2.4rem;
+  left: 2.4rem;
+  position: absolute;
+}
+
+.social-feed__post-video-play svg {
+  color: #fff;
+  height: 2.4rem;
+  width: 2.6rem;
+}
+
+.social-feed__post-avatar-wrapper {
+  bottom: 0;
+  height: 6.4rem;
+  left: 50%;
+  margin: 0 auto;
+  position: absolute;
+  transform: translateX(-50%) translateY(50%) translateZ(1px);
+  width: 6.4rem;
+  z-index: 1;
+}
+
+@media screen and (min-width: 750px) {
+  .social-feed__post-avatar-wrapper {
+    height: 7.5rem;
+    width: 7.5rem;
+  }
+}
+
+.social-feed__post-avatar-wrapper svg.icon {
+  background-color: rgb(var(--color-background));
+  border-radius: 50%;
+}
+
+.social-feed__post-avatar {
+  border: 0.4rem solid rgb(var(--color-background));
+  border-radius: 50%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.social-feed__post-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+  padding: 0 1.8rem 2.2rem;
+  white-space: normal;
+}
+
+@media screen and (min-width: 750px) {
+  .social-feed__post-content {
+    padding: 0 3.2rem 3.2rem;
+  }
+}
+
+.social-feed__post-content-username {
+  align-items: center;
+  column-gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 4.2rem 0 0;
+}
+
+@media screen and (min-width: 750px) {
+  .social-feed__post-content-username {
+    margin: 4.8rem 0 -0.6rem;
+  }
+}
+
+.social-feed__post-content-username svg {
+  height: 2.2rem;
+  width: 2.2rem;
+}
+
+.social-feed__post-content-handle {
+  margin: -1rem 0 0;
+}
+
+.social-feed__post-content-caption p {
+  margin: 0;
+}
+
+.social-feed__post-content-rating {
+  align-items: center;
+  column-gap: 0.4rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.6rem;
+}
+
+.icon-star-review--empty {
+  opacity: 0.35;
+}

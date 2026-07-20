@@ -1,0 +1,44 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "cart-header": {
+      "type": "main-cart-header",
+      "settings": {
+        "color_scheme": "",
+        "title_style": "uppercase"
+      }
+    },
+    "cart-items": {
+      "type": "main-cart-items",
+      "custom_css": [
+        ".cart__footer,.cart-summary,#CartDrawer .drawer__footer{border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:18px}",
+        "button[name=\"checkout\"]{border-radius:12px!important;letter-spacing:.04em}",
+        ".payment-icons img,.payment-icons svg{height:22px!important}"
+      ],
+      "settings": {
+        "show_vendor": true,
+        "item_title_style": "uppercase",
+        "show_cart_note": true,
+        "cart_checkout_button_color_scheme": "button",
+        "enable_continue_shopping": true,
+        "continue_shopping_button_color_scheme": "button button--secondary",
+        "discount_code_info_text": "Paiement 100% sécurisé. Retours faciles sous 14 jours. Service client réactif.",
+        "enable_discount_code_info_text": true,
+        "show_payment_icons": true,
+        "cart_help_menu": "footer"
+      }
+    }
+  },
+  "order": [
+    "cart-header",
+    "cart-items"
+  ]
+}

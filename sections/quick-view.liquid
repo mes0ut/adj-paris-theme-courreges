@@ -1,0 +1,182 @@
+{% liquid
+  assign product_form_id = 'product-form-' | append: section.id
+%}
+
+<product-info
+  data-section="{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-update-url="false"
+  data-url="{{ product.url }}"
+  data-type="quick-view"
+  class="product-popup-inner section-{{ section.id }}"
+  style="--video-control-color: {{ settings.quick_view_video_control_color }};"
+>
+  <div
+    id="ProductInfo-{{ section.id }}"
+    class="product-popup-inner"
+    data-section="{{ section.id }}"
+    data-url="{{ product.url }}"
+  >
+    <button class="modal__close" id="popup-closer-{{ product.id }}">
+      {% render 'icon-close' %}
+    </button>
+    {% if product.media.size > 0 %}
+      <div class="inner-section product-popup-image">
+        {% render 'product-media-gallery',
+          product: product,
+          layout: 'carousel',
+          enable_media_group: settings.quick_view_enable_media_group,
+          media_group_name: settings.quick_view_media_group_name,
+          video_layout: settings.quick_view_video_format,
+          video_autoplay: settings.quick_view_video_autoplay,
+          show_overlay_gradient: settings.quick_view_show_video_gradient_overlay
+        %}
+      </div>
+    {% endif %}
+    <div class="inner-section product-details">
+      <h3 class="{{ settings.title_style }}">{{ product.title }}</h3>
+
+      <div
+        class="no-js-hidden"
+        id="price-{{ section.id }}"
+        role="status"
+      >
+        {%- render 'price',
+          product: product,
+          use_variant: true,
+          show_badges: false,
+          price_class: 'h6'
+        -%}
+      </div>
+
+      <div
+        class="main-product-form product-form__quantity"
+        data-product-details
+      >
+        {% render 'product-variant-picker',
+          product: product,
+          block: null,
+          product_form_id: product_form_id,
+          form_type: 'quick-view',
+          enable_media_group: settings.quick_view_enable_media_group,
+          media_group_name: settings.quick_view_media_group_name
+        %}
+
+        <div class="product-popup-form-wrap">
+          <product-form class="product-form">
+            {%- form 'product',
+              product,
+              id: product_form_id,
+              class: 'form',
+              novalidate: 'novalidate',
+              data-type: 'add-to-cart-form'
+            -%}
+              <div
+                class="alert product-form__error-message-wrapper"
+                role="alert"
+                hidden
+              >
+                {% render 'icon-error' %}
+                <span class="product-form__error-message caption"></span>
+              </div>
+
+              <div
+                class="product-form__input product-form__quantity"
+              >
+                <quantity-input class="quantity">
+                  <button
+                    class="quantity__button no-js-hidden"
+                    name="minus"
+                    type="button"
+                  >
+                    <span class="visually-hidden">
+                      {{-
+                        'products.product.quantity.decrease'
+                        | t: product: product.title
+                        | escape
+                      -}}
+                    </span>
+                    {% render 'icon-minus' %}
+                  </button>
+                  <input
+                    class="quantity__input"
+                    type="number"
+                    name="quantity"
+                    id="Quantity-{{ product.id }}"
+                    min="1"
+                    value="1"
+                    form="{{ product_form_id }}"
+                  >
+                  <button
+                    class="quantity__button no-js-hidden"
+                    name="plus"
+                    type="button"
+                  >
+                    <span class="visually-hidden">
+                      {{-
+                        'products.product.quantity.increase'
+                        | t: product: product.title
+                        | escape
+                      -}}
+                    </span>
+                    {% render 'icon-plus' %}
+                  </button>
+                </quantity-input>
+              </div>
+              <input
+                type="hidden"
+                name="id"
+                value="{{ product.selected_or_first_available_variant.id }}"
+                data-hidden-variant-input
+              >
+              <div class="product-form__buttons">
+                <button
+                  id="ProductSubmitButton-{{ section.id }}"
+                  type="submit"
+                  name="add"
+                  class="product-form__submit {{ settings.button_color_scheme }} button--full-width"
+                  {% if product.selected_or_first_available_variant.available
+                      == false
+                  %}
+                    disabled
+                  {% endif %}
+                >
+                  <span>
+                    {%- if product.selected_or_first_available_variant.available -%}
+                      {{ 'products.product.add_to_cart' | t }}
+                    {%- else -%}
+                      {{ 'products.product.sold_out' | t }}
+                    {%- endif -%}
+                  </span>
+                  <div class="loading-overlay__spinner hidden">
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      role="presentation"
+                      class="spinner"
+                      viewBox="0 0 66 66"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            {%- endform -%}
+          </product-form>
+        </div>
+
+        {% if settings.product_quick_view_link != blank %}
+          <a
+            class="{{ settings.product_link_color_scheme }} link link-with-icon"
+            href="{{ product.url }}"
+          >
+            {{- settings.product_quick_view_link }}
+            <span>{% render 'icon-arrow' %}</span></a
+          >
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</product-info>

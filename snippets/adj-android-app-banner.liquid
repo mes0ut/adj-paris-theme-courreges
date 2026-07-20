@@ -1,0 +1,173 @@
+{% comment %}
+  ADJ Paris — Android Smart App Banner
+  Sadece Android + mobil tarayıcıda gösterilir (iOS'ta native apple-itunes-app
+  meta tag'i zaten var, çakışmasın). Uygulama içi webview'de (adjparis / wv
+  user agent) gösterilmez. Kapatılınca sessionStorage ile oturum boyunca
+  bir daha çıkmaz.
+{% endcomment %}
+
+<div id="adj-android-app-banner" class="adj-android-app-banner" aria-hidden="true">
+  <div class="adj-android-app-banner__inner">
+    <img
+      class="adj-android-app-banner__logo"
+      src="{{ settings.logo | image_url: width: 80 }}"
+      alt="{{ shop.name }}"
+      width="28"
+      height="28"
+      loading="eager"
+    >
+    <div class="adj-android-app-banner__text">
+      <span class="adj-android-app-banner__title">ADJ Paris</span>
+      <span class="adj-android-app-banner__subtitle">Application officielle · Google Play</span>
+    </div>
+    <a
+      class="adj-android-app-banner__cta"
+      href="https://play.google.com/store/apps/details?id=com.adjparis.mobile"
+      rel="noopener"
+    >
+      Installer
+    </a>
+    <button
+      type="button"
+      class="adj-android-app-banner__close"
+      aria-label="Fermer"
+      onclick="document.getElementById('adj-android-app-banner').classList.remove('is-visible'); document.body.classList.remove('adj-android-app-banner-open'); try { sessionStorage.setItem('adjAndroidBannerDismissed', '1'); } catch(e) {}"
+    >
+      &times;
+    </button>
+  </div>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap');
+
+  .adj-android-app-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: #0a0a0a;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    transform: translateY(-100%);
+    transition: transform 0.4s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .adj-android-app-banner.is-visible {
+    transform: translateY(0);
+  }
+
+  .adj-android-app-banner__inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    max-width: 100%;
+  }
+
+  .adj-android-app-banner__logo {
+    flex: 0 0 auto;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  .adj-android-app-banner__text {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+  }
+
+  .adj-android-app-banner__title {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .adj-android-app-banner__subtitle {
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.65);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .adj-android-app-banner__cta {
+    flex: 0 0 auto;
+    background: #fff;
+    color: #0a0a0a;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .adj-android-app-banner__close {
+    flex: 0 0 auto;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    line-height: 1;
+    padding: 0 0 0 4px;
+    cursor: pointer;
+  }
+
+  body.adj-android-app-banner-open {
+    padding-top: 48px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .adj-android-app-banner {
+      display: none !important;
+    }
+    body.adj-android-app-banner-open {
+      padding-top: 0;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    try {
+      var ua = navigator.userAgent || '';
+
+      // iOS'ta gösterme — native apple-itunes-app meta tag'i zaten var
+      var isIOS = /iPhone|iPad|iPod/i.test(ua);
+
+      // Uygulama içi webview'de gösterme
+      var isInAppWebview = /adjparis/i.test(ua) || /\bwv\b/i.test(ua);
+
+      // Sadece mobil genişlikte göster
+      var isMobileWidth = window.innerWidth < 750;
+
+      // Bu oturumda kapatılmışsa tekrar gösterme
+      var dismissed = false;
+      try {
+        dismissed = sessionStorage.getItem('adjAndroidBannerDismissed') === '1';
+      } catch (e) {}
+
+      if (isIOS || isInAppWebview || !isMobileWidth || dismissed) return;
+
+      var banner = document.getElementById('adj-android-app-banner');
+      if (!banner) return;
+
+      setTimeout(function () {
+        banner.classList.add('is-visible');
+        banner.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('adj-android-app-banner-open');
+      }, 1200);
+    } catch (e) {}
+  })();
+</script>

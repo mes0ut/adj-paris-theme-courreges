@@ -1,0 +1,39 @@
+/* ============================================================================
+  Blog Navigation
+============================================================================== */
+.blog-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  margin: 0 0 3.2rem;
+  padding: 0;
+  text-align: center;
+  row-gap: 1rem;
+}
+
+@media only screen and (min-width: 750px) {
+  .blog-navigation {
+    margin: 0 0 6.4rem;
+  }
+}
+
+.blog-navigation li {
+  padding: 0 1.8rem;
+}
+
+/* ============================================================================
+  Blog Articles
+============================================================================== */
+.blog-articles {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+@media screen and (min-width: 750px) {
+  .blog-articles {
+    column-gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 12rem;
+  }
+}

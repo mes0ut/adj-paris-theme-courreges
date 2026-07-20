@@ -1,0 +1,378 @@
+{% comment %}
+  ADJ Grid – Mobile-first product grid (no slider)
+{% endcomment %}
+
+<style>
+  .adj-grid {
+    width: 100%;
+    padding: 48px 0 60px;
+    box-sizing: border-box;
+  }
+
+  .adj-grid__inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .adj-grid--full .adj-grid__inner {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  /* ── Header ─────────────────────────────────── */
+  .adj-grid__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 32px;
+    gap: 10px;
+  }
+
+  .adj-grid__title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #111;
+    margin: 0;
+    line-height: 1;
+  }
+
+  @media (min-width: 768px) {
+    .adj-grid__title {
+      font-size: 48px;
+    }
+  }
+
+  .adj-grid__sub {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin: 0;
+  }
+
+  .adj-grid__cta {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #111;
+    text-decoration: none;
+    border-bottom: 1px solid #111;
+    padding-bottom: 1px;
+    transition: opacity 0.15s;
+  }
+  .adj-grid__cta:hover { opacity: 0.45; }
+
+  /* ── Grid layout ─────────────────────────────── */
+  .adj-grid__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--adj-cols-mobile, 2), 1fr);
+    gap: 2px;
+  }
+
+  @media (min-width: 768px) {
+    .adj-grid__grid {
+      grid-template-columns: repeat(var(--adj-cols-desktop, 4), 1fr);
+      gap: 2px;
+    }
+  }
+
+  /* ── Card ────────────────────────────────────── */
+  .adj-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .adj-card__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+  }
+
+  .adj-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    transition: transform 0.45s ease;
+  }
+
+  .adj-card:hover .adj-card__img {
+    transform: scale(1.03);
+  }
+
+  .adj-card__badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #111;
+    padding: 3px 7px;
+    line-height: 1;
+  }
+
+  .adj-card__body {
+    padding: 10px 8px 8px;
+    text-align: center;
+  }
+
+  .adj-card__name {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #111;
+    margin-bottom: 5px;
+    line-height: 1.5;
+  }
+
+  .adj-card__price {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .adj-card__price-now {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: #111;
+  }
+
+  .adj-card__price-was {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: #bbb;
+    text-decoration: line-through;
+  }
+
+  /* ── Bottom CTA — varsayılan SİYAH, hover BEYAZ ── */
+  .adj-grid__bottom {
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  .adj-grid__btn {
+    display: inline-block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: #111;
+    color: #fff !important;
+    text-decoration: none;
+    border: 1px solid #111;
+    padding: 14px 36px;
+    transition: background 0.2s, color 0.2s;
+    border-radius: 0;
+  }
+  .adj-grid__btn:hover {
+    background: #fff;
+    color: #111 !important;
+  }
+
+  .adj-grid__empty {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: #aaa;
+    text-align: center;
+    padding: 40px 0;
+  }
+</style>
+
+<section class="adj-grid {% if section.settings.tight %}adj-grid--tight{% else %}adj-grid--normal{% endif %}{% if section.settings.full_width %} adj-grid--full{% endif %}">
+  <div class="adj-grid__inner">
+
+    <div class="adj-grid__head">
+      {% if section.settings.heading != blank %}
+        <h2 class="adj-grid__title">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <p class="adj-grid__sub">{{ section.settings.subheading | escape }}</p>
+      {% endif %}
+
+      {% if section.settings.cta_label != blank and section.settings.cta_link != blank %}
+        <a class="adj-grid__cta" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label | escape }}</a>
+      {% endif %}
+    </div>
+
+    {% assign coll = section.settings.collection %}
+    {% if coll != blank and coll.products_count > 0 %}
+      <div class="adj-grid__grid"
+        style="--adj-cols-mobile: {{ section.settings.cols_mobile }}; --adj-cols-desktop: {{ section.settings.cols_desktop }};">
+        {% for product in coll.products limit: section.settings.limit %}
+          <a class="adj-card" href="{{ product.url }}">
+            <div class="adj-card__media">
+              {% if product.featured_image %}
+                {{ product.featured_image
+                  | image_url: width: 900
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'adj-card__img',
+                    alt: product.title,
+                    widths: '338, 450, 600, 900',
+                    sizes: '(max-width: 767px) calc(50vw - 12px), calc(25vw - 12px)'
+                }}
+              {% endif %}
+
+              {% if section.settings.show_badge %}
+                {% if product.available == false %}
+                  <span class="adj-card__badge">Sold out</span>
+                {% elsif product.compare_at_price > product.price %}
+                  <span class="adj-card__badge">Sale</span>
+                {% endif %}
+              {% endif %}
+            </div>
+
+            <div class="adj-card__body">
+              <div class="adj-card__name">{{ product.title }}</div>
+
+              {% if section.settings.show_price %}
+                <div class="adj-card__price">
+                  <span class="adj-card__price-now">{{ product.price | money }}</span>
+                  {% if product.compare_at_price > product.price %}
+                    <span class="adj-card__price-was">{{ product.compare_at_price | money }}</span>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.bottom_cta_label != blank and coll.url != blank %}
+        <div class="adj-grid__bottom">
+          <a class="adj-grid__btn" href="{{ coll.url }}">{{ section.settings.bottom_cta_label | escape }}</a>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="adj-grid__empty">Please select a collection with products.</div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ADJ Grid",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "BEST SELLERS"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Les plus aimés"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Top link label",
+      "default": "Voir tout"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Top link URL"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Number of products",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "select",
+      "id": "cols_mobile",
+      "label": "Columns (mobile)",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "1", "label": "1" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "cols_desktop",
+      "label": "Columns (desktop)",
+      "options": [
+        { "value": "4", "label": "4" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Show price",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show badge (Sale/Sold out)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "tight",
+      "label": "Tight spacing",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "bottom_cta_label",
+      "label": "Bottom button label",
+      "default": "Voir la collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "ADJ Grid"
+    }
+  ]
+}
+{% endschema %}

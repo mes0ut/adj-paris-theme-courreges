@@ -1,0 +1,168 @@
+{% liquid
+  assign block_count = section.blocks.size
+%}
+
+<script src="{{ 'currency-converter.js' | asset_url }}" defer="async"></script>
+
+{% if block_count != 0 %}
+  <div
+    class="
+      announcement-bar
+      announcement-bar--align-{{ section.settings.text_align }}
+      gradient
+      color-{{ section.settings.color_scheme }}
+      {% if section.settings.show_border_bottom %}section-border-bottom{% endif %}
+    "
+    role="region"
+    aria-label="{{ 'sections.header.announcement' | t }}"
+    {{ section.shopify_attributes }}
+  >
+    <currency-converter class="page-width">
+      {% if block_count > 1 %}
+        <embla-component class="announcement-bar__carousel">
+          <div
+            class="embla"
+            data-autoplay="{{ section.settings.carousel_autoplay }}"
+            data-autoplay-speed="{{ section.settings.carousel_autoplay_speed | times: 1000 }}"
+          >
+            <div class="embla__viewport">
+              <div class="embla__container">
+      {% endif %}
+
+      {% for block in section.blocks %}
+        {%- if block_count > 1 -%}
+          <div
+            class="embla__slide"
+            data-slide-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+        {%- endif -%}
+        {%- if block.settings.text != blank -%}
+          {%- if block.settings.link != blank -%}
+            <a
+              href="{{ block.settings.link }}"
+              class="announcement-bar__message tag"
+              {% if block.settings.text contains '{'
+                and block.settings.text contains '}'
+              %}
+                data-currency-text="true"
+                data-currency-symbol="{{ cart.currency.symbol }}"
+              {% endif %}
+            >
+          {%- else -%}
+            <p
+              class="announcement-bar__message tag"
+              {% if block.settings.text contains '{'
+                and block.settings.text contains '}'
+              %}
+                data-currency-text="true"
+                data-currency-symbol="{{ cart.currency.symbol }}"
+              {% endif %}
+            >
+          {%- endif -%}
+          {{ block.settings.text | escape }}
+          {%- if block.settings.link != blank -%}
+            </a>
+          {%- else -%}
+            </p>
+          {%- endif -%}
+        {%- endif -%}
+        {%- if block_count > 1 -%}
+          </div>
+        {%- endif -%}
+      {% endfor %}
+
+      {% if block_count > 1 %}
+        </div>
+        </div>
+        </div>
+        </embla-component>
+      {% endif %}
+    </currency-converter>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:sections.announcement-bar.name",
+  "class": "shopify-section-announcement-bar",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-4"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "t:sections.all.border.show_border_bottom.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "carousel_autoplay",
+      "label": "t:sections.announcement-bar.settings.announcement_autoplay.label",
+      "info": "t:sections.announcement-bar.settings.announcement_autoplay.info",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "carousel_autoplay_speed",
+      "min": 3,
+      "max": 15,
+      "step": 1,
+      "label": "t:sections.announcement-bar.settings.announcement_autoplay_speed.label",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.announcement-bar.settings.text_alignment.option_1"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.announcement-bar.settings.text_alignment.option_2"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.announcement-bar.settings.text_alignment.option_3"
+        }
+      ],
+      "default": "center",
+      "label": "t:sections.announcement-bar.settings.text_alignment.label"
+    }
+  ],
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "t:sections.announcement-bar.blocks.announcement.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Welcome to our store",
+          "label": "t:sections.announcement-bar.blocks.announcement.settings.text.label",
+          "info": "t:sections.announcement-bar.blocks.announcement.settings.text.info"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.announcement-bar.blocks.announcement.settings.link.label"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "announcement"
+      }
+    ]
+  }
+}
+{% endschema %}

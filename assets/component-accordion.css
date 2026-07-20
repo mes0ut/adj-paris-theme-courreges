@@ -1,0 +1,338 @@
+/* ============================================================================
+  Accordion
+============================================================================== */
+.accordion summary {
+  display: flex;
+  line-height: 1;
+  padding: 1.5rem 0;
+  position: relative;
+}
+
+.accordion.accordion--faqs summary {
+  padding: 0;
+}
+
+.accordion .summary__title {
+  display: flex;
+  flex: 1;
+}
+
+.accordion + .accordion {
+  border-top: none;
+  margin-top: 0;
+}
+
+.accordion {
+  display: block;
+  border-bottom: 0.1rem solid rgb(var(--color-border-1));
+  border-top: 0.1rem solid rgb(var(--color-border-1));
+  margin-bottom: 0;
+  margin-top: 2.5rem;
+}
+
+.accordion--no-border-top {
+  border-top: none;
+}
+
+.accordion__title {
+  display: inline-block;
+  margin: 0;
+  max-width: calc(100% - 4rem);
+  min-height: 1.6rem;
+  word-break: break-word;
+}
+
+.accordion__title * {
+  font-size: inherit;
+}
+
+.accordion__icon-caret {
+  align-items: center;
+  margin-right: 2rem;
+  display: flex;
+}
+
+.accordion__icon-caret .icon-caret {
+  color: rgb(var(--color-foreground));
+  height: 1.4rem;
+  position: absolute;
+  right: 2rem;
+  top: unset;
+  transition: transform var(--duration-short) var(--transition-ease-in-out);
+}
+
+.accordion details[open] > summary .icon-caret {
+  transform: rotate(180deg);
+}
+
+.accordion__content {
+  --accordion-margin-bottom: 1.5rem;
+  margin-bottom: var(--accordion-margin-bottom);
+  overflow-x: auto;
+  padding: 0;
+  word-break: break-word;
+  text-align: left;
+}
+
+.accordion-container {
+  margin: 0 auto;
+}
+
+.accordion__content img {
+  max-width: 100%;
+}
+
+.accordion__content-more {
+  cursor: pointer;
+  display: block;
+  text-decoration: underline;
+}
+
+.accordion__content-more + p {
+  display: none;
+}
+
+.accordion__content-more[clicked] + p {
+  display: block;
+}
+
+/* ============================================================================
+  Disclosure
+============================================================================== */
+.disclosure {
+  position: relative;
+}
+
+.disclosure__list {
+  background-color: rgb(var(--color-background));
+  border: 0.1rem solid rgb(var(--color-border-1));
+  bottom: 100%;
+  margin-top: -0.5rem;
+  max-height: 19rem;
+  max-width: 22rem;
+  min-height: 8.2rem;
+  min-width: 12rem;
+  overflow-y: auto;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  position: absolute;
+  transform: translateY(-1rem);
+  width: max-content;
+  z-index: 2;
+}
+
+.disclosure__item {
+  position: relative;
+}
+
+.disclosure__link {
+  display: block;
+  line-height: 1.8;
+  padding: 0.5rem 2.2rem;
+  text-decoration: none;
+}
+
+/* ============================================================================
+  Header and Text block
+============================================================================== */
+.accordion-text-block {
+  margin-bottom: 1.8rem;
+  margin-top: 4.2rem;
+}
+
+@media only screen and (min-width: 750px) {
+  .accordion-text-block {
+    margin-bottom: 2.4rem;
+    margin-top: 5.5rem;
+  }
+
+  .collapsible-content--side-by-side .accordion-text-block:first-child,
+  .collapsible-content--side-by-side .accordion-text-block__title:first-child {
+    margin-top: 0;
+  }
+}
+
+.accordion-text-block__title {
+  margin-bottom: 1.5rem;
+}
+
+.accordion-text-block p {
+  margin-top: 0;
+}
+
+/* ============================================================================
+  Side by side layout
+============================================================================== */
+@media only screen and (min-width: 990px) {
+  .collapsible-content--side-by-side .collapsible-content__inner {
+    align-items: flex-start;
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: repeat(12, 1fr);
+    justify-content: flex-start;
+  }
+
+  .collapsible-content--side-by-side
+    .collapsible-content__inner
+    .section-title-header {
+    grid-column: 1 / 6;
+  }
+
+  .collapsible-content--side-by-side
+    .collapsible-content__inner
+    .section-title-header.page-width {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .collapsible-content--side-by-side
+    .collapsible-content__inner
+    .accordion-container {
+    grid-column: 6 / 13;
+    width: 100%;
+  }
+
+  .collapsible-content--side-by-side .collapsible-content__inner .accordion {
+    margin-top: 0;
+  }
+}
+
+/* ============================================================================
+  Detailed
+============================================================================== */
+.collapsible-content-block--border-top {
+  border-top: 0.1rem solid rgb(var(--color-border-1));
+}
+
+.accordion--detailed {
+  margin-top: 0;
+  padding: 0;
+}
+
+.accordion--detailed summary {
+  padding: 0;
+}
+
+.accordion--detailed + .accordion--detailed:not(.accordion--drawer) {
+  margin-top: calc(var(--space-xs) * -1);
+}
+
+.accordion--detailed .accordion__title-inner {
+  display: grid;
+  align-items: center;
+  margin: 1.6rem 0;
+}
+
+.accordion--detailed .accordion__title-inner--with-image {
+  grid-template-columns: auto 1fr;
+  gap: 1.6rem;
+}
+
+.accordion--detailed .accordion__title-inner__content {
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.accordion--detailed .accordion__title-inner__content * {
+  margin: 0;
+}
+
+.accordion__title-inner__image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  min-width: 4rem;
+  max-width: 4rem;
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 0rem;
+  overflow: hidden;
+}
+
+.accordion--detailed .accordion__title-inner__image img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.accordion--detailed .accordion__title__heading {
+  margin-bottom: 0;
+}
+
+.accordion--detailed .p--small {
+  display: block;
+  margin-top: 0.4rem;
+}
+
+/* ============================================================================
+  Drawer
+============================================================================== */
+.accordion--drawer {
+  position: relative;
+}
+
+.accordion--drawer .accordion__title {
+  text-align: left;
+}
+
+.accordion--drawer .icon-caret {
+  transform: rotate(-90deg);
+}
+
+
+/* ============================================================================
+  Animate on open
+============================================================================== */
+@keyframes openDetails {
+  0% {
+    padding: 0;
+    opacity: 0;
+    height: 0;
+    margin-bottom: 0;
+  }
+
+  25% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+    height: auto;
+    margin-bottom: var(--accordion-margin-bottom);
+  }
+}
+
+@keyframes closeDetails {
+  0% {
+    opacity: 1;
+    height: auto;
+    margin-bottom: var(--accordion-margin-bottom);
+  }
+
+  100% {
+    padding: 0;
+    opacity: 0;
+    height: 0;
+    margin-bottom: 0;
+  }
+}
+
+accordion-item details summary~* {
+  padding: 0;
+  /* Do not remove this. It's needed to animate height auto. */
+  interpolate-size: allow-keywords;
+  height: 0;
+  overflow: hidden;
+}
+
+accordion-item details[open] summary~* {
+  animation: openDetails var(--duration-long) var(--transition-ease-out);
+  height: auto;
+}
+
+accordion-item details.is-closing summary~* {
+  animation: closeDetails var(--duration-long) var(--transition-ease-out);
+}

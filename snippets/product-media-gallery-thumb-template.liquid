@@ -1,0 +1,60 @@
+{%- for product_media in product.media -%}
+  {%- liquid
+    assign media_id = product_media.id
+    assign enable_media_group = section.settings.enable_media_group
+    if enable_media_group == true
+      if product_media_group_include contains media_id
+        assign skip_media_group = false
+      else
+        assign skip_media_group = true
+      endif
+    else
+      assign skip_media_group = false
+    endif
+  -%}
+
+  {% if skip_media_group == false %}
+    <li
+      class="embla-thumbs__slide js-gallery-thumb"
+      data-slide-index="{{ forloop.index0 }}"
+    >
+      {% capture thumbnail %}
+        {{
+          product_media.preview_image
+          | image_url: width: 160
+          | image_tag:
+          loading: 'lazy',
+          width: product_media.preview_image.width,
+          height: product_media.preview_image.height,
+          sizes: '160px',
+          widths: '160',
+          data-slide-index: forloop.index0,
+          class: thumbnail_classes,
+          alt: product_media.alt
+          | escape
+        }}
+      {% endcapture %}
+      {% case product_media.media_type %}
+        {% when 'image' %}
+          <div class="gallery-thumbs__image {{ thumbnail_parent_class }}">
+            {{ thumbnail }}
+          </div>
+        {% when 'video' %}
+          <div class="gallery-thumbs__video {{ thumbnail_parent_class }}">
+            {{ thumbnail }}
+            {%- render 'icon-play' -%}
+          </div>
+        {% when 'external_video' %}
+          <div class="gallery-thumbs__video {{ thumbnail_parent_class }}">
+            {{ thumbnail }}
+            {%- render 'icon-play' -%}
+          </div>
+        {% when 'model' %}
+          <div class="gallery-thumbs__model {{ thumbnail_parent_class }}">
+            {{ thumbnail }}
+            {%- render 'icon-3d-model' -%}
+          </div>
+      {% endcase %}
+    </li>
+  {% endif %}
+{%- endfor -%}

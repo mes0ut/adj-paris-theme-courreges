@@ -1,0 +1,281 @@
+{{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+  {% render 'breadcrumbs' %}
+</div>
+
+<article
+  class="article-template"
+  itemscope
+  itemtype="http://schema.org/BlogPosting"
+>
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when '@app' -%}
+        <div class="page-width page-width--narrow">
+          {% render block %}
+        </div>
+      {%- when 'featured_image' -%}
+        {%- if article.image -%}
+          <div
+            class="page-width page-width--narrow"
+            {{ block.shopify_attributes }}
+          >
+            <div
+              class="article-template__hero-container"
+            >
+              <div
+                class="article-template__hero-{{ block.settings.image_height }} media {{ block.settings.image_style }}"
+                itemprop="image"
+                {% if block.settings.image_height == 'adapt'
+                  and article.image
+                %}
+                  style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
+                {% endif %}
+              >
+                {{
+                  article.image
+                  | image_url: width: 1100
+                  | image_tag:
+                    loading: 'lazy',
+                    width: article.image.width,
+                    height: article.image.height,
+                    sizes: '(min-width: 1200px) 1100px, (min-width: 750px) calc(100vw - 10rem), 100vw',
+                    widths: '350, 700, 749, 1100, 1498',
+                    alt: article.image.alt
+                  | escape
+                }}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- when 'title' -%}
+        <header
+          class="page-width page-width--narrow"
+          {{ block.shopify_attributes }}
+        >
+          {% liquid
+            assign title_style = block.settings.title_style
+            if title_style == 'uppercase'
+              assign title_style = 'uppercase'
+            endif
+          %}
+          {% if article.tags.size != 0 %}
+            <ul class="article-template__tags">
+              {% for tag in article.tags %}
+                <li>
+                  <a
+                    href="{{ blog.url }}/tagged/{{ tag | handle }}"
+                    class="tag"
+                  >
+                    {{- tag -}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          <h1
+            class="article-template__title h2 {{ title_style }}"
+            itemprop="headline"
+          >
+            {{ article.title | escape }}
+          </h1>
+
+          {%- if block.settings.blog_show_author
+            or block.settings.blog_show_date
+          -%}
+            <p>
+              {%- if block.settings.blog_show_author -%}
+                <span
+                  itemprop="author"
+                  itemscope
+                  itemtype="http://schema.org/Person"
+                >
+                  {{ 'blogs.article.posted_by' | t }}
+                  <span itemprop="name">{{ article.author }}</span>
+                </span>
+              {%- endif -%}
+
+              {%- if block.settings.blog_show_author
+                and block.settings.blog_show_date
+              -%}
+                <span>
+                  <span>
+                    {{ 'blogs.article.date_prefix' | t }}
+                  </span>
+                </span>
+              {%- endif -%}
+
+              {%- if block.settings.blog_show_date -%}
+                <span itemprop="dateCreated pubdate datePublished">
+                  {{- article.published_at | time_tag: '%B %d, %Y' -}}
+                </span>
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+        </header>
+      {%- when 'content' -%}
+        <div
+          class="article-template__content page-width page-width--narrow rte"
+          itemprop="articleBody"
+          {{ block.shopify_attributes }}
+        >
+          {{ article.content }}
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
+
+  <div class="page-width page-width--narrow">
+    <div class="article-template__footer">
+      <div class="article-template__social-sharing">
+        {% render 'social-sharing',
+          share_title: article.title,
+          share_permalink: article.url,
+          share_image: article.image
+        %}
+      </div>
+
+      <div class="center">
+        <a
+          href="{{ blog.url }}"
+          class="article-template__link link link-with-icon"
+        >
+          {% render 'icon-arrow-back' %}
+          {{ 'blogs.article.back_to_blog' | t: title: blog.title }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {%- if blog.comments_enabled? -%}
+    {% render 'article-comments',
+      article: article,
+      background: section.settings.comment_color_scheme
+    %}
+  {%- endif -%}
+</article>
+
+{% schema %}
+{
+  "name": "t:sections.main-article.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "comment_color_scheme",
+      "label": "t:sections.main-article.settings.comment_color.label",
+      "default": "background-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "featured_image",
+      "name": "t:sections.main-article.blocks.featured_image.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "image_height",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options_1.label"
+            },
+            {
+              "value": "medium",
+              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options_2.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.main-article.blocks.featured_image.settings.image_height.options_3.label"
+            }
+          ],
+          "default": "adapt",
+          "label": "t:sections.main-article.blocks.featured_image.settings.image_height.label",
+          "info": "t:sections.main-article.blocks.featured_image.settings.image_height.info"
+        },
+        {
+          "type": "select",
+          "id": "image_style",
+          "options": [
+            {
+              "value": "image-border-radius--none",
+              "label": "t:sections.all.radius.none.label"
+            },
+            {
+              "value": "image-border-radius--rounded-xxs",
+              "label": "t:sections.all.radius.xxs.label"
+            },
+            {
+              "value": "image-border-radius--rounded-xs",
+              "label": "t:sections.all.radius.xs.label"
+            },
+            {
+              "value": "image-border-radius--rounded-small",
+              "label": "t:sections.all.radius.small.label"
+            },
+            {
+              "value": "image-border-radius--rounded",
+              "label": "t:sections.all.radius.standard.label"
+            },
+            {
+              "value": "image-border-radius--rounded-extra",
+              "label": "t:sections.all.radius.extra.label"
+            },
+            {
+              "value": "image-border-radius--curved-top",
+              "label": "t:sections.all.radius.curved.label"
+            }
+          ],
+          "default": "image-border-radius--none",
+          "label": "t:sections.all.radius.label"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "t:sections.main-article.blocks.title.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "blog_show_date",
+          "default": true,
+          "label": "t:sections.main-article.blocks.title.settings.blog_show_date.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "blog_show_author",
+          "default": false,
+          "label": "t:sections.main-article.blocks.title.settings.blog_show_author.label"
+        },
+        {
+          "type": "select",
+          "id": "title_style",
+          "label": "t:sections.all.text.style.label",
+          "options": [
+            {
+              "value": "normal",
+              "label": "t:sections.all.text.style.option_1"
+            },
+            {
+              "value": "uppercase",
+              "label": "t:sections.all.text.style.option_2"
+            }
+          ],
+          "default": "normal"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "name": "t:sections.main-article.blocks.content.name",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}

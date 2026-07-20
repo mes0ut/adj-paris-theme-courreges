@@ -1,0 +1,856 @@
+{% liquid
+  render 'css-delay', css_file: 'section-feed-videos.css'
+  render 'css-delay', css_file: 'component-marquee.css'
+  render 'css-delay', css_file: 'component-social-feed-popup.css', force_delay: true
+  render 'section-spacing', id: section.id
+%}
+
+{%- style -%}
+  {% if request.design_mode %}
+    .section-{{ section.id }} .marquee__text {
+      animation-name: none !important;
+    }
+
+    .section-{{ section.id }} .marquee__align {
+      overflow: scroll;
+      width: 100%;
+      transform: none;
+    }
+
+    .section-{{ section.id }} .marquee__text {
+      justify-content: flex-start;
+      padding-left: 3rem;
+    }
+
+    @media screen and (max-width: 750px) {
+      .section-{{ section.id }} .marquee__text {
+        padding-left: 1.8rem;
+      }
+    }
+  {% endif %}
+{%- endstyle -%}
+
+{% liquid
+  if section.settings.enable_animation
+    assign animate_class = 'animate'
+  else
+    assign animate_class = ''
+  endif
+
+  assign direction = section.settings.direction
+  if direction == 'forward'
+    assign direction = 'marquee__text--forwards'
+  endif
+
+  if request.design_mode
+    assign loop_count = 1
+  else
+    assign loop_count = 3
+  endif
+%}
+
+{%- capture blocks_markup -%}
+  {% if section.blocks.size > 0 %}
+    {% for block in section.blocks %}
+      {% if block.type == 'post' %}
+        <modal-opener
+          {% if section.settings.layout == 'carousel' %}
+            class="videos-feed__post-wrapper videos-feed__post-wrapper--{{ section.settings.card_size }} embla__slide"
+          {% endif %}
+          data-modal="#PopupModal-{{ section.id }}"
+        >
+          <div
+            class="
+              videos-feed__post
+              videos-feed__post--{{ section.settings.card_size }}
+              {{ section.settings.border_radius }}
+            "
+            id="ModalOpenerBtn-{{ block.id }}"
+            data-post-id="post-{{ forloop.index0 }}"
+            type="button"
+            aria-haspopup="dialog"
+            {{ block.shopify_attributes }}
+          >
+            <div class="videos-feed__post-media-wrapper">
+              {% if block.settings.post_video != blank %}
+                {% render 'video-delay-loader',
+                  video_data: block.settings.post_video,
+                  image_size: '600x',
+                  class_name: 'videos-feed__post-video js-autoplay',
+                  autoplay: true,
+                  loop: true,
+                  controls: false,
+                  muted: true,
+                  delay_loader: section.settings.delay_loader
+                %}
+                <div class="videos-feed__post-video-play">
+                  {% render 'icon-play' %}
+                </div>
+              {% else %}
+                {{
+                  'image'
+                  | placeholder_svg_tag: 'videos-feed__post-image'
+                }}
+              {% endif %}
+            </div>
+          </div>
+        </modal-opener>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    {% render 'feed-video-placeholder' %}
+  {% endif %}
+{%- endcapture -%}
+
+<div
+  class="
+    videos-feed videos-feed--{{ section.settings.layout }}
+    section-{{ section.id }}
+    gradient
+    color-{{ section.settings.color_scheme }}
+    {% if section.settings.show_border_bottom %}section-border-bottom{% endif %}
+  "
+>
+  {% render 'component-section-header',
+    type: 'header',
+    animate_class: animate_class,
+    profile_image: section.settings.profile_image,
+    heading: section.settings.heading,
+    title_style: section.settings.title_style,
+    subheading: section.settings.subheading,
+    show_decorative_icon: section.settings.show_decorative_icon,
+    link: section.settings.link,
+    link_text: section.settings.link_text,
+    button_color_scheme: section.settings.button_color_scheme
+  %}
+
+  <div class="videos-feed__posts {{ animate_class }}{% if section.settings.layout == 'carousel' %} page-width{% endif %}">
+    {%- if section.settings.layout == 'marquee' -%}
+      <div class="marquee__align">
+        {% for i in (1..loop_count) %}
+          <div
+            style="animation-duration: {{ 110 | minus: section.settings.speed }}s"
+            class="marquee__text {{ direction }}"
+          >
+            {{ blocks_markup }}
+          </div>
+        {% endfor %}
+      </div>
+    {%- else -%}
+      <embla-component class="embla-carousel">
+        <div
+          class="embla"
+          data-align="start"
+          data-slides-to-scroll="1"
+          data-duration="20"
+        >
+          <div class="embla__viewport">
+            <ul class="embla__container">
+              {{ blocks_markup }}
+            </ul>
+            <button
+              class="embla__button embla__button--prev"
+              disabled=""
+              aria-label="{{ 'general.pagination.previous' | t }}"
+            >
+              {% render 'icon-arrow-left-large' %}
+            </button>
+            <span class="embla__button-gradient"></span>
+            <button
+              class="embla__button embla__button--next"
+              disabled=""
+              aria-label="{{ 'general.pagination.next' | t }}"
+            >
+              {% render 'icon-arrow-right-large' %}
+            </button>
+            <span class="embla__button-gradient"></span>
+          </div>
+        </div>
+      </embla-component>
+    {%- endif -%}
+  </div>
+
+  {% render 'component-section-header',
+    type: 'footer',
+    animate_class: animate_class,
+    link: section.settings.link,
+    link_text: section.settings.link_text,
+    button_color_scheme: section.settings.button_color_scheme
+  %}
+</div>
+
+<social-feed-popup
+  id="PopupModal-{{ section.id }}"
+  class="
+    modal
+    product-popup-modal social-feed-popup
+    social-feed-popup--{{ section.settings.post_card_media }}
+    color-{{ section.settings.modal_color_scheme }}
+  "
+>
+  <div
+    role="dialog"
+    class="modal__content sm-feed-popup__card sm-feed-popup__card--video"
+    aria-label="{{ section.settings.title }}"
+    aria-modal="true"
+    tabindex="-1"
+  >
+    {% for block in section.blocks %}
+      {% if block.type == 'post' %}
+        {% liquid
+          assign username = ''
+          assign avatar = ''
+          assign products_exist = false
+
+          if block.settings.product_1 != blank or block.settings.product_2 != blank or block.settings.product_3 != blank
+            assign products_exist = true
+          endif
+        %}
+
+        <div
+          class="sm-feed-popup__post sm-feed-popup__post--video"
+          data-post-id="post-{{ forloop.index0 }}"
+          style="display: none"
+        >
+          <div class="sm-feed-popup__post-media-wrapper sm-feed-popup__post-media-wrapper--video">
+            {% if block.settings.post_video != blank %}
+              {% render 'video-delay-loader',
+                video_data: block.settings.post_video,
+                image_size: '600x',
+                class_name: 'sm-feed-popup__post-video',
+                autoplay: false,
+                loop: true,
+                controls: false,
+                muted: false,
+                delay_loader: true
+              %}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'videos-feed__post-image' }}
+            {% endif %}
+          </div>
+          <div class="sm-feed-popup__post-content-outer">
+            <div class="sm-feed-popup__post-content-wrapper {% if products_exist %}sm-feed-popup__post-content-wrapper--extra-content{% endif %}">
+              <div
+                id="ModalClose-{{ section.id }}-{{ forloop.index0 }}"
+                class="sm-feed-popup__post-content-close"
+              >
+                {% render 'icon-close' %}
+              </div>
+              <div class="sm-feed-popup-content">
+                {% assign avatar = block.settings.post_profile_image %}
+                <div class="sm-feed-popup-header {% if avatar == blank %}sm-feed-popup-header--avatar-empty{% endif %}">
+                  {% if forloop.first == false %}
+                    <div class="sm-feed-popup__post-content-left-arrow js-sm-feed-popup-left-arrow">
+                      {% render 'icon-arrow-left-large' %}
+                    </div>
+                  {% endif %}
+                  {% if forloop.last == false %}
+                    <div class="sm-feed-popup__post-content-right-arrow js-sm-feed-popup-right-arrow">
+                      {% render 'icon-arrow-right-large' %}
+                    </div>
+                  {% endif %}
+
+                  {% if avatar != blank %}
+                    <div class="sm-feed-popup__post-avatar-wrapper">
+                      {{
+                        avatar
+                        | image_url: width: 160
+                        | image_tag:
+                          loading: 'lazy',
+                          width: avatar.width,
+                          height: avatar.height,
+                          sizes: '160px',
+                          widths: '160',
+                          class: 'sm-feed-popup__post-avatar',
+                          alt: avatar.alt
+                        | escape
+                      }}
+                    </div>
+                  {% endif %}
+
+                  {% assign username = block.settings.post_profile_username %}
+                  {% if username != blank %}
+                    <h5 class="sm-feed-popup__post-content-username">
+                      {% liquid
+                        case block.settings.post_video_type
+                          when 'tiktok'
+                            render 'icon-tiktok', color: section.settings.icon_tiktok_color
+                          when 'instagram'
+                            render 'icon-instagram', color: section.settings.icon_instagram_color
+                          when 'youtube'
+                            render 'icon-youtube', color: section.settings.icon_vimeo_color
+                          when 'vimeo'
+                            render 'icon-vimeo', color: section.settings.icon_youtube_color
+                        endcase
+                      %}
+                      <span>{{ username }}</span>
+                    </h5>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.post_caption != blank %}
+                  <div class="p-large sm-feed-popup__post-content-caption">
+                    {{ block.settings.post_caption }}
+                  </div>
+                {% endif %}
+              </div>
+
+              {% if products_exist %}
+                {% if block.settings.products_header != blank %}
+                  <div class="sm-feed-popup__post-content-heading-wrapper">
+                    <h5 class="sm-feed-popup__post-content-heading">
+                      {{ block.settings.products_header }}
+                    </h5>
+                    {% if block.settings.show_products_header_icon %}
+                      {% render 'icon-star-cluster-one' %}
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                <div class="sm-feed-popup__products">
+                  {% liquid
+                    if block.settings.product_link_text != blank
+                      assign product_link_text = block.settings.product_link_text
+                    endif
+                  %}
+
+                  {% for i in (1..3) %}
+                    {% liquid
+                      assign related_product = 'product_' | append: i
+                      assign related_product = block.settings[related_product]
+                      assign card_style = section.settings.card_title_style
+                      assign card_color_scheme = section.settings.card_color_scheme
+                      assign card_radius = section.settings.card_radius
+                    %}
+                    {% if related_product != blank %}
+                      <a
+                        href="{{ related_product.url }}"
+                        class="sm-feed-popup__product color-{{ card_color_scheme }}"
+                        id="Related-{{ section.id }}-{{ forloop.index }}"
+                        style="border-radius: {{ card_radius }}px;"
+                      >
+                        <div class="sm-feed-popup__product-image-wrapper">
+                          {{
+                            related_product.featured_image
+                            | image_url: width: 300
+                            | image_tag:
+                              loading: 'lazy',
+                              width: related_product.featured_image.width,
+                              height: related_product.featured_image.height,
+                              sizes: '300px',
+                              widths: '300',
+                              class: 'sm-feed-popup__product-image',
+                              alt: related_product.featured_image
+                            | escape
+                          }}
+                        </div>
+                        <div class="sm-feed-popup__product-info-wrapper">
+                          <p class="sm-feed-popup__product-info-title h6 {{ card_style }}">
+                            {{ related_product.title }}
+                          </p>
+                          <p class="sm-feed-popup__product-info-price">
+                            {{ related_product.price | money }}
+                          </p>
+                          {% if product_link_text != blank %}
+                            <p class="sm-feed-popup__product-info-link link p p-m--small">
+                              {{ product_link_text }}
+                            </p>
+                          {% endif %}
+                        </div>
+                      </a>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</social-feed-popup>
+
+{% schema %}
+{
+  "name": "t:sections.feed-videos.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-5"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "t:sections.all.border.show_border_bottom.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.feed-social.settings.heading.label",
+      "default": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "title_style",
+      "label": "t:sections.all.text.style.label",
+      "options": [
+        {
+          "value": "normal",
+          "label": "t:sections.all.text.style.option_1"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:sections.all.text.style.option_2"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:sections.feed-social.settings.subheading.label",
+      "default": "Subheading"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_decorative_icon",
+      "label": "t:sections.feed-social.settings.decorative_icon.label",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:sections.feed-social.settings.link.label"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "t:sections.feed-social.settings.link_text.label",
+      "default": "View more"
+    },
+    {
+      "type": "select",
+      "id": "button_color_scheme",
+      "options": [
+        {
+          "value": "button",
+          "label": "t:sections.all.buttons.primary.label"
+        },
+        {
+          "value": "button button--secondary",
+          "label": "t:sections.all.buttons.secondary.label"
+        },
+        {
+          "value": "link link-with-icon",
+          "label": "t:sections.all.buttons.text_link.label"
+        }
+      ],
+      "default": "button",
+      "label": "t:sections.all.buttons.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "profile_image",
+      "label": "t:sections.feed-social.settings.profile_image.label"
+    },
+    {
+      "type": "select",
+      "id": "border_radius",
+      "options": [
+        {
+          "value": "image-border-radius--none",
+          "label": "t:sections.all.radius.none.label"
+        },
+        {
+          "value": "image-border-radius--rounded-xxs",
+          "label": "t:sections.all.radius.xxs.label"
+        },
+        {
+          "value": "image-border-radius--rounded-xs",
+          "label": "t:sections.all.radius.xs.label"
+        },
+        {
+          "value": "image-border-radius--rounded-small",
+          "label": "t:sections.all.radius.small.label"
+        },
+        {
+          "value": "image-border-radius--rounded",
+          "label": "t:sections.all.radius.standard.label"
+        }
+      ],
+      "default": "image-border-radius--rounded-small",
+      "label": "t:sections.all.radius.label_two"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.feed-social.settings.layout.label"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "marquee",
+          "label": "t:sections.feed-social.settings.layout.option_1.label"
+        },
+        {
+          "value": "carousel",
+          "label": "t:sections.feed-social.settings.layout.option_2.label"
+        }
+      ],
+      "default": "marquee",
+      "label": "t:sections.feed-social.settings.layout.label"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.feed-social.settings.info",
+      "visible_if": "{{ section.settings.layout == 'marquee' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.feed-social.settings.marquee.label",
+      "visible_if": "{{ section.settings.layout == 'marquee' }}"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 100,
+      "step": 10,
+      "label": "t:sections.feed-social.settings.speed.label",
+      "default": 50,
+      "visible_if": "{{ section.settings.layout == 'marquee' }}"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "t:sections.marquee.settings.direction.label",
+      "options": [
+        {
+          "value": "forward",
+          "label": "Forward"
+        },
+        {
+          "value": "backwards",
+          "label": "Backwards"
+        }
+      ],
+      "default": "backwards",
+      "visible_if": "{{ section.settings.layout == 'marquee' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-product.blocks.complementary_products.settings.cards.settings.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "card_color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "delay_loader",
+      "label": "t:settings_schema.global.video.delay_loader.label",
+      "info": "t:settings_schema.global.video.delay_loader.info",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "card_size",
+      "label": "t:sections.feed-social.settings.card_size.label",
+      "info": "t:sections.feed-social.settings.card_size.info",
+      "options": [
+        {
+          "value": "standard",
+          "label": "t:sections.feed-social.settings.card_size.option_1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.feed-social.settings.card_size.option_2.label"
+        }
+      ],
+      "default": "standard"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "t:settings_schema.global.settings.corner_radius.label",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "card_title_style",
+      "label": "t:sections.all.text.style.label",
+      "options": [
+        {
+          "value": "normal",
+          "label": "t:sections.all.text.style.option_1"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:sections.all.text.style.option_2"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.modal.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "modal_color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-1"
+    },
+    {
+      "type": "select",
+      "id": "post_card_media",
+      "label": "t:sections.feed-social.settings.popup_settings_image.label",
+      "options": [
+        {
+          "value": "cover",
+          "label": "t:sections.feed-social.settings.popup_settings_image.option_1.label"
+        },
+        {
+          "value": "contain",
+          "label": "t:sections.feed-social.settings.popup_settings_image.option_2.label"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "header",
+      "content": "Icon colors",
+      "info": "t:sections.all.padding.desktop_padding_header"
+    },
+    {
+      "type": "color",
+      "id": "icon_tiktok_color",
+      "label": "t:settings_schema.global.icon.settings.icon_tiktok.label",
+      "default": "#D1D1D1"
+    },
+    {
+      "type": "color",
+      "id": "icon_instagram_color",
+      "label": "t:settings_schema.global.icon.settings.icon_instagram.label",
+      "default": "#D1D1D1"
+    },
+    {
+      "type": "color",
+      "id": "icon_vimeo_color",
+      "label": "t:settings_schema.global.icon.settings.icon_vimeo.label",
+      "default": "#D1D1D1"
+    },
+    {
+      "type": "color",
+      "id": "icon_youtube_color",
+      "label": "t:settings_schema.global.icon.settings.icon_youtube.label",
+      "default": "#D1D1D1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.desktop_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.mobile_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_top",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_bottom",
+      "default": 44
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.desktop_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.margin_bottom",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.mobile_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.mobile_margin_bottom",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.animations.section_animation.header",
+      "visible_if": "{{ settings.enable_global_animations }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "t:sections.all.animations.section_animation.label",
+      "default": true,
+      "visible_if": "{{ settings.enable_global_animations }}"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.feed-social.blocks.video.name",
+      "type": "post",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "video",
+          "id": "post_video",
+          "label": "t:sections.feed-social.blocks.post.settings.post_video.label",
+          "info": "t:sections.feed-social.blocks.post.settings.post_video.info"
+        },
+        {
+          "type": "select",
+          "id": "post_video_type",
+          "label": "t:sections.feed-social.blocks.post.settings.post_video_type.label",
+          "info": "t:sections.feed-social.blocks.post.settings.post_video_type.info",
+          "options": [
+            {
+              "value": "tiktok",
+              "label": "t:sections.feed-social.blocks.post.settings.post_video_type.options.tiktok.label"
+            },
+            {
+              "value": "youtube",
+              "label": "t:sections.feed-social.blocks.post.settings.post_video_type.options.youtube.label"
+            },
+            {
+              "value": "instagram",
+              "label": "t:sections.feed-social.blocks.post.settings.post_video_type.options.instagram.label"
+            },
+            {
+              "value": "vimeo",
+              "label": "t:sections.feed-social.blocks.post.settings.post_video_type.options.vimeo.label"
+            },
+            {
+              "value": "other",
+              "label": "t:sections.feed-social.blocks.post.settings.post_video_type.options.other.label"
+            }
+          ],
+          "default": "other"
+        },
+        {
+          "type": "image_picker",
+          "id": "post_profile_image",
+          "label": "t:sections.feed-social.blocks.post.settings.post_profile_image.label"
+        },
+        {
+          "type": "text",
+          "id": "post_profile_username",
+          "label": "t:sections.feed-social.blocks.post.settings.post_profile_username.label"
+        },
+        {
+          "type": "richtext",
+          "id": "post_caption",
+          "label": "t:sections.feed-social.blocks.post.settings.post_caption.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.feed-social.blocks.post.settings.header_post_products.content",
+          "info": "t:sections.feed-social.blocks.post.settings.header_post_products.info"
+        },
+        {
+          "type": "text",
+          "id": "products_header",
+          "label": "t:sections.feed-social.blocks.post.settings.products_heading.label",
+          "default": "Related products"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_products_header_icon",
+          "label": "t:sections.feed-social.blocks.post.settings.products_heading_icon.label",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "product_link_text",
+          "label": "t:sections.feed-social.blocks.post.settings.product_link_text.label",
+          "default": "View product"
+        },
+        {
+          "type": "product",
+          "id": "product_1",
+          "label": "t:sections.feed-social.blocks.post.settings.related_products.label"
+        },
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "t:sections.feed-social.blocks.post.settings.related_products.label"
+        },
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "t:sections.feed-social.blocks.post.settings.related_products.label"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "presets": [
+    {
+      "name": "t:sections.feed-videos.name",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

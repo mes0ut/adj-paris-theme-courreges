@@ -1,0 +1,179 @@
+#orders {
+  display: none;
+}
+
+#orders:target {
+  display: block;
+}
+
+#orders:target ~ #last-order,
+#orders:target ~ #addresses {
+  display: none;
+}
+
+.main-account__intro {
+  padding: 4rem 0 3rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 990px) {
+  .main-account__intro {
+    padding: 4rem 0;
+  }
+}
+
+.main-account__intro-heading {
+  margin-bottom: 1.6rem;
+}
+
+.main-account__intro-text {
+  margin: 0;
+}
+
+.main-account__inner {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .main-account__inner {
+    margin-bottom: 5rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .main-account__inner {
+    flex-direction: row;
+  }
+}
+
+.main-account__inner-standard-links {
+  align-items: center;
+  column-gap: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.main-account__main {
+  padding: 3rem 0 6rem;
+  width: 100%;
+}
+
+@media screen and (min-width: 750px) {
+  .main-account__main {
+    border: 0.1rem solid rgb(var(--color-border-1));
+    padding: 3rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .main-account__main {
+    padding: 4rem 6rem;
+  }
+}
+
+.main-account__main-heading {
+  margin: 0 0 2.4rem;
+}
+
+.main-account__details {
+  border-top: 0.1rem solid rgb(var(--color-border-1));
+  display: flex;
+  flex-direction: column;
+  padding-top: 3rem;
+}
+
+@media screen and (min-width: 750px) {
+  .main-account__details {
+    flex-direction: row;
+  }
+}
+
+.main-account__details-order,
+.main-account__details-addresses {
+  flex: 1 1 0rem;
+}
+
+.main-account__details-order {
+  border-bottom: 0.1rem solid rgb(var(--color-border-1));
+  padding-bottom: 4rem;
+}
+
+@media screen and (min-width: 750px) {
+  .main-account__details-order {
+    border-bottom: none;
+    padding-bottom: 0;
+    padding-right: 4rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .main-account__details-order {
+    padding-right: 6rem;
+  }
+}
+
+.main-account__details-addresses {
+  margin-top: 2.8rem;
+}
+
+@media screen and (min-width: 750px) {
+  .main-account__details-addresses {
+    border-left: 0.1rem solid rgb(var(--color-border-1));
+    margin-top: 0;
+    padding-left: 4rem;
+  }
+
+  .main-account__details-order-list-none {
+    padding-right: 4rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .main-account__details-addresses {
+    padding-left: 6rem;
+  }
+}
+
+.main-account__details-addresses-heading,
+.main-account__details-order-heading {
+  font-family: var(--font-heading-family);
+  margin: 0 0 2.4rem;
+}
+
+.main-account__details-order-subheading {
+  margin: 2.4rem 0 0.4rem;
+  text-transform: uppercase;
+}
+
+.main-account__details-order-btn {
+  margin-top: 2.6rem;
+}
+
+.main-account__details-addresses-btn {
+  margin-top: 1rem;
+}
+
+.main-account__details-order-list {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  row-gap: 4rem;
+  width: 100%;
+}
+
+.main-account__details-order-list table {
+  width: 100%;
+}
+
+.main-account__details-order-list th {
+  border-bottom: 0.1rem solid rgb(var(--color-border-1));
+}
+
+.main-account__details-order-list th,
+.main-account__details-order-list td {
+  padding: 2rem 1rem;
+}

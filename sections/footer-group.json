@@ -1,0 +1,136 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer Group",
+  "sections": {
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Inscrivez-vous à la newsletter",
+            "title_style": "uppercase",
+            "heading_size": "h3"
+          }
+        },
+        "paragraph": {
+          "type": "paragraph",
+          "settings": {
+            "paragraph": "<p>Recevez nos nouveautés et offres exclusives.<br/></p>"
+          }
+        },
+        "form": {
+          "type": "email_form",
+          "settings": {
+            "form_style": "stacked"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "paragraph",
+        "form"
+      ],
+      "settings": {
+        "color_scheme": "background-4",
+        "show_border_bottom": true,
+        "button_color_scheme": "button",
+        "full_width": true,
+        "padding_top": 56,
+        "padding_bottom": 68,
+        "mobile_padding_top": 44,
+        "mobile_padding_bottom": 44,
+        "margin_bottom": 0,
+        "mobile_margin_bottom": 0,
+        "enable_animation": true
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "logo": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/logo-beyaz-adjparis.png",
+            "logo_width": 100,
+            "heading": "",
+            "title_style": "normal",
+            "subtext": "",
+            "subtext_two": ""
+          }
+        },
+        "newsletter_rBh7yL": {
+          "type": "newsletter",
+          "disabled": true,
+          "settings": {
+            "newsletter_heading": "Subscribe to our emails",
+            "title_style": "normal",
+            "button_color_scheme": "button"
+          }
+        },
+        "linklist2": {
+          "type": "link_list",
+          "settings": {
+            "heading": "À Propos De ADJ",
+            "title_style": "uppercase",
+            "menu": "a-propos",
+            "menu_size": "medium",
+            "menu_style": "normal"
+          }
+        },
+        "linklist": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Catégories",
+            "title_style": "uppercase",
+            "menu": "kullan-mda-olan-men-kopya",
+            "menu_size": "medium",
+            "menu_style": "normal"
+          }
+        },
+        "link_list_bCppRQ": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Aide & Services",
+            "title_style": "uppercase",
+            "menu": "footer",
+            "menu_size": "medium",
+            "menu_style": "normal"
+          }
+        }
+      },
+      "block_order": [
+        "logo",
+        "newsletter_rBh7yL",
+        "linklist2",
+        "linklist",
+        "link_list_bCppRQ"
+      ],
+      "settings": {
+        "color_scheme": "background-5",
+        "large_logo_width": 20,
+        "menu": "mentions-l-gales",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "locale_display_type": "icon",
+        "payment_enable": true,
+        "enable_animation": true
+      }
+    }
+  },
+  "order": [
+    "newsletter",
+    "footer"
+  ]
+}

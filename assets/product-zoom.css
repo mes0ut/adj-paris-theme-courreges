@@ -1,0 +1,53 @@
+/* Lens Zoom + Basit Lightbox */
+.ProductZoom {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+.ProductZoom img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Lens */
+.ProductZoom__Lens {
+  position: absolute;
+  pointer-events: none;
+  width: 220px;
+  height: 220px;
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 50%;
+  box-shadow: 0 10px 25px rgba(0,0,0,.18);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  display: none;
+  will-change: transform, background-position;
+}
+@media (hover: none) {
+  /* Mobilde lensi kapat; lightbox yeterli */
+  .ProductZoom__Lens { display: none !important; }
+}
+
+/* Lightbox (modal) */
+.pz-lightbox__overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.86);
+  display: none;
+  align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.pz-lightbox__overlay.is-open { display: flex; }
+.pz-lightbox__img {
+  max-width: 95vw; max-height: 95vh;
+  /* ÖNEMLİ: Mobilde pinch-to-zoom için tarayıcı davranışını engelleme! */
+}
+.pz-lightbox__close {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 999px;
+  padding: 8px 10px;
+  color: #fff; font-size: 14px; line-height: 1;
+  cursor: pointer;
+}

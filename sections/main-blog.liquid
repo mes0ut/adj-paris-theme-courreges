@@ -1,0 +1,225 @@
+{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
+{{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
+
+{% render 'section-spacing', id: section.id %}
+
+{%- paginate blog.articles by section.settings.blog_posts_per_page -%}
+  <div
+    class="
+      main-blog
+      section-{{ section.id }}
+      gradient
+      color-{{ section.settings.color_scheme }}
+      {% if section.settings.show_border_bottom %}section-border-bottom{% endif %}
+    "
+  >
+    <div class="page-width">
+      {%- if section.settings.blog_show_tags and blog.all_tags.size != 0 %}
+        <ul class="blog-navigation">
+          <li>
+            <a
+              href="{{ blog.url }}"
+              class="tag {% unless current_tags %}is-active{% endunless %}"
+            >
+              {{ 'blogs.article.all_articles' | t }}
+            </a>
+          </li>
+          {%- for tag in blog.all_tags -%}
+            <li>
+              <a
+                href="{{ blog.url }}/tagged/{{ tag | handle }}"
+                class="tag {% if current_tags contains tag %}is-active{% endif %}"
+              >
+                {{ tag }}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if blog.articles.size == 0 -%}
+        <div class="title-wrapper center">
+          <h2 class="title title--primary p" style="margin-bottom: 6.4rem;">
+            {{ 'blogs.article.no_posts_found' | t }}
+          </h2>
+        </div>
+      {%- else -%}
+        <div class="blog-articles">
+          {%- for article in blog.articles -%}
+            <div class="blog-articles__article article">
+              {%- render 'article-card',
+                article: article,
+                title_style: title_style
+              -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if paginate.pages > 1 -%}
+        {%- render 'pagination', paginate: paginate -%}
+      {%- endif -%}
+    </div>
+  </div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "t:sections.main-blog.posts.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "t:sections.all.border.show_border_bottom.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-blog.posts.settings.navigation_header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_show_tags",
+      "label": "t:sections.main-blog.posts.settings.show_tags.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-blog.posts.settings.pagination_header.content"
+    },
+    {
+      "type": "range",
+      "id": "blog_posts_per_page",
+      "label": "t:sections.main-blog.posts.settings.posts_per_page.label",
+      "min": 2,
+      "max": 48,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.desktop_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.mobile_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_top",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_bottom",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "t:sections.main-blog.posts.blocks.title.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "title_style",
+          "options": [
+            {
+              "value": "normal",
+              "label": "t:sections.all.text.style.option_1"
+            },
+            {
+              "value": "uppercase",
+              "label": "t:sections.all.text.style.option_2"
+            }
+          ],
+          "default": "normal",
+          "label": "t:sections.all.text.style.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_date",
+          "default": true,
+          "label": "t:sections.main-blog.posts.blocks.title.settings.show_date.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_author",
+          "default": false,
+          "label": "t:sections.main-blog.posts.blocks.title.settings.show_author.label"
+        }
+      ]
+    },
+    {
+      "type": "summary",
+      "name": "t:sections.main-blog.posts.blocks.summary.name",
+      "limit": 1
+    },
+    {
+      "type": "link",
+      "name": "t:sections.main-blog.posts.blocks.link.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "button_color_scheme",
+          "options": [
+            {
+              "value": "button",
+              "label": "t:sections.all.buttons.primary.label"
+            },
+            {
+              "value": "button button--secondary",
+              "label": "t:sections.all.buttons.secondary.label"
+            },
+            {
+              "value": "link link-with-icon",
+              "label": "t:sections.all.buttons.text_link.label"
+            }
+          ],
+          "default": "link link-with-icon",
+          "label": "t:sections.all.buttons.label"
+        }
+      ],
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,116 @@
+<ul class="social-sharing list-social list-unstyled">
+  {%- if settings.share_facebook -%}
+    <li class="list-social__item">
+      <a
+        class="list-social__link link link--text"
+        href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}"
+        target="_blank"
+      >
+        {% render 'icon-facebook' %}
+        <span class="visually-hidden visually-hidden--inline">
+          {{- 'general.social.alt_text.share_on_facebook' | t -}}
+        </span>
+        <span class="visually-hidden visually-hidden--inline">
+          {{- 'accessibility.link_messages.new_window' | t -}}
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+
+  {%- if settings.share_twitter -%}
+    <li class="list-social__item">
+      <a
+        class="list-social__link link link--text"
+        href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}"
+        target="_blank"
+      >
+        {% render 'icon-twitter' %}
+        <span class="visually-hidden visually-hidden--inline">
+          {{- 'general.social.alt_text.share_on_twitter' | t -}}
+        </span>
+        <span class="visually-hidden visually-hidden--inline">
+          {{- 'accessibility.link_messages.new_window' | t -}}
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+
+  {%- if settings.share_pinterest -%}
+    <li class="list-social__item">
+      <a
+        class="list-social__link link link--text"
+        href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}}&amp;media={{ share_image | image_url: width: 1024, height: 1024 }}&amp;description={{ share_title | url_param_escape }}"
+        target="_blank"
+      >
+        {% render 'icon-pinterest' %}
+        <span class="visually-hidden visually-hidden--inline">
+          {{- 'general.social.alt_text.share_on_pinterest' | t -}}
+        </span>
+        <span class="visually-hidden visually-hidden--inline">
+          {{- 'accessibility.link_messages.new_window' | t -}}
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+
+  {% if template.name contains 'product' %}
+    <li class="list-social__item">
+      <share-button
+        id="Share-{{ section.id }}"
+        class="share-button"
+        {{ block.shopify_attributes }}
+      >
+        <button class="share-button__button button hidden">
+          {% render 'icon-share' %}
+          <span class="visually-hidden">
+            {{- block.settings.share_label | escape -}}
+          </span>
+        </button>
+        <details id="Details-{{ block.id }}-{{ section.id }}">
+          <summary class="share-button__button">
+            {% render 'icon-share' %}
+            {{ block.settings.share_label | escape }}
+          </summary>
+          <div
+            id="Product-share-{{ section.id }}"
+            class="share-button__fallback motion-reduce"
+          >
+            <div class="field">
+              <span
+                id="ShareMessage-{{ section.id }}"
+                class="share-button__message hidden"
+                role="status"
+              >
+              </span>
+              <label class="field__label visually-hidden" for="url">
+                {{- 'general.share.share_url' | t -}}
+              </label>
+              <input
+                type="text"
+                class="field__input"
+                id="url"
+                value="{{ product.selected_variant.url | default: product.url | prepend: request.origin }}"
+                placeholder="{{ 'general.share.share_url' | t }}"
+                onclick="this.select();"
+                readonly
+              >
+            </div>
+            <button class="share-button__close hidden no-js-hidden">
+              {% render 'icon-close' %}
+              <span class="visually-hidden">
+                {{- 'general.share.close' | t -}}
+              </span>
+            </button>
+            <button class="button share-button__copy no-js-hidden">
+              {% render 'icon-clipboard' %}
+              <span class="visually-hidden">
+                {{- 'general.share.copy_to_clipboard' | t -}}
+              </span>
+            </button>
+          </div>
+        </details>
+      </share-button>
+      <script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
+    </li>
+  {% endif %}
+</ul>

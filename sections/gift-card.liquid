@@ -1,0 +1,226 @@
+{% render 'section-spacing', id: section.id %}
+
+{% style %}
+  .header-menu-logo {
+    max-width: {{ section.settings.logo_max_width }}px
+  }
+{% endstyle %}
+
+<header class="gift-card__header">
+  <a
+    href="{{ routes.root_url }}"
+    class="header-menu-logo link link--text focus-inset"
+  >
+    {%- if section.settings.logo != blank -%}
+      {%- liquid
+        assign logo_alt = section.settings.logo.alt | default: shop.name | escape
+        assign logo_height = section.settings.logo_max_width | divided_by: section.settings.logo.aspect_ratio
+      -%}
+
+      {{
+        section.settings.logo
+        | image_url: width: section.settings.width
+        | image_tag:
+          class: 'header__heading-logo',
+          widths: '50, 100, 150, 200, 250, 300, 400, 500',
+          height: logo_height,
+          width: section.settings.logo_max_width,
+          alt: logo_alt
+      }}
+
+    {%- else -%}
+      <span class="h3">{{ shop.name }}</span>
+    {%- endif -%}
+  </a>
+</header>
+
+<div class="page-width">
+  <div class="section-{{ section.id }} color-{{ section.settings.color_scheme }}">
+    <div class="gift-card__title">
+      <h1 class="gift-card__heading h3">
+        {{ 'gift_cards.issued.subtext' | t }}
+      </h1>
+      <div class="gift-card__price h4">
+        <p>{{ gift_card.initial_value | money }}</p>
+        {%- if gift_card.enabled == false or gift_card.expired -%}
+          <p class="gift-card__label p p-m--small badge badge--{{ settings.sold_out_badge_color_scheme }}">
+            {{ 'gift_cards.issued.expired' | t }}
+          </p>
+        {%- endif -%}
+      </div>
+
+      {%- assign gift_card_balance = gift_card.balance | money -%}
+      {%- if gift_card.balance != gift_card.initial_value -%}
+        <p class="gift-card__label caption-large p">
+          {{
+            'gift_cards.issued.remaining_html'
+            | t: balance: gift_card_balance
+          }}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <main class="gift-card">
+      <div class="gift-card__image-wrapper">
+        {% if section.settings.gift_card_image != blank %}
+          <img
+            src="{{ section.settings.gift_card_image | image_url: width: 570 }}"
+            width="570"
+            height="{{ 570 | divided_by: 1.5 }}"
+            alt="{{ section.settings.gift_card_image.alt }}"
+            loading="lazy"
+          >
+        {% else %}
+          <img
+            src="{{ 'gift-card/card.svg' | shopify_asset_url }}"
+            alt=""
+            class="gift-card__image"
+            height="{{ 570 | divided_by: 1.5 }}"
+            width="570"
+            loading="lazy"
+          >
+        {% endif %}
+      </div>
+      <div
+        class="gift-card__qr-code"
+        data-identifier="{{ gift_card.qr_identifier }}"
+      ></div>
+      <div class="gift-card__information">
+        <p class="gift-card__number h5">{{ gift_card.code | format_code }}</p>
+        <div class="gift-card__copy-code">
+          <button class="link gift-card__copy-link">
+            {{ 'gift_cards.issued.copy_code' | t }}
+          </button>
+          <span
+            class="gift-card__copy-success form__message p p-m--small"
+            role="status"
+          ></span>
+          <template>
+            <div class="form-status-list">
+              {%- render 'icon-success' -%}
+              {{ 'gift_cards.issued.copy_code_success' | t }}
+            </div>
+          </template>
+        </div>
+        {%- if gift_card.pass_url -%}
+          <a href="{{ gift_card.pass_url }}" class="gift_card__apple-wallet">
+            <img
+              src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}"
+              width="120"
+              height="40"
+              alt="{{ 'gift_cards.issued.add_to_apple_wallet' | t }}"
+              loading="lazy"
+            >
+          </a>
+        {%- endif -%}
+        <div class="gift-card__buttons no-print">
+          <a
+            href="{{ shop.url }}"
+            class="button button-with-icon button--full-width"
+            target="_blank"
+            rel="noopener"
+            aria-describedby="a11y-new-window-message"
+          >
+            {{ 'gift_cards.issued.shop_link' | t }}
+            {% render 'icon-arrow' %}
+          </a>
+          <button
+            class="button button--secondary button--full-width"
+            onclick="window.print();"
+          >
+            {{ 'gift_cards.issued.print_gift_card' | t }}
+          </button>
+        </div>
+      </p>
+    </main>
+  </div>
+
+  <div hidden>
+    <span id="a11y-new-window-message">
+      {{- 'accessibility.link_messages.new_window' | t -}}
+    </span>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-gift-card.name",
+  "class": "section-header shopify-section-header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.main-gift-card.settings.logo.label"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "default": 100,
+      "unit": "t:sections.main-gift-card.settings.logo_max_width.unit",
+      "label": "t:sections.main-gift-card.settings.logo_max_width.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "gift_card_image",
+      "label": "t:sections.main-gift-card.settings.image.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.desktop_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.mobile_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_top",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_bottom",
+      "default": 72
+    }
+  ]
+}
+{% endschema %}

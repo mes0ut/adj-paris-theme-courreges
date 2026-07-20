@@ -1,0 +1,113 @@
+/* Below styles are only applied to mega menu */
+
+.header__submenu .icon-caret {
+  right: 4rem;
+}
+
+.header__submenu .header__menu-item {
+  padding: 1.2rem 3.5rem 1.2rem var(--page-width-padding);
+}
+
+.header__submenu.list-menu {
+  min-width: 0;
+  padding: 2rem 0;
+}
+
+.header__mega-menu.list-menu > li {
+  width: 40%;
+}
+
+.header__menu-item-container .header__submenu .header__submenu {
+  background-color: rgb(var(--color-background));
+  bottom: 0;
+  left: 40%;
+  margin: 0;
+  overflow: auto;
+  padding: 2rem 0;
+  position: absolute;
+  top: 0;
+  width: 60%;
+}
+
+.mega-menu-image {
+  bottom: 0;
+  max-width: var(--space-3xl);
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30%;
+}
+
+.mega-menu-image__background.mega-menu-image__background {
+  background-color: rgb(var(--color-header-accent));
+  bottom: 0;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: calc(100% - var(--space-m));
+}
+
+.mega-menu-image__container {
+  bottom: var(--space-s);
+  display: grid;
+  left: 0;
+  position: absolute;
+  right: var(--space-m);
+  top: var(--space-s);
+}
+
+.mega-menu-image__image-container {
+  overflow: hidden;
+}
+
+.mega-menu-image a {
+  text-decoration: none;
+}
+
+.mega-menu-image img {
+  height: 100%;
+  margin-bottom: 0;
+  min-width: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.mega-menu-image__title {
+  align-items: center;
+  column-gap: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0;
+  margin-top: var(--space-xs);
+  text-align: left;
+  text-decoration: none;
+}
+
+.mega-menu-image__title svg {
+  width: 5rem;
+}
+
+.mega-menu-image__icon {
+  position: relative;
+  z-index: 1;
+}
+
+.mega-menu-image__icon-inner {
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--space-s);
+}
+
+.mega-menu-image__icon-inner svg:first-child {
+  margin-bottom: 0.7rem;
+  margin-left: auto;
+  margin-right: 1.3rem;
+  margin-top: 0.7rem;
+}
+
+.mega-menu-image__icon-inner svg:last-child {
+  margin-left: auto;
+  margin-right: 2.9rem;
+}

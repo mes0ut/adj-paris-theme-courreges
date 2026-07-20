@@ -1,0 +1,21 @@
+.template-404 {
+  margin-bottom: 4rem;
+}
+
+.template-404__content * {
+  margin-top: 0;
+}
+
+.template-404__content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 62rem;
+  min-height: 50vh;
+}
+
+.template-404__content-text {
+  margin-bottom: 3rem;
+}

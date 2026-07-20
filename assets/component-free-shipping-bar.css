@@ -1,0 +1,49 @@
+:root {
+  --fs-corners: 0.6rem;
+}
+
+free-shipping-bar {
+  margin-bottom: 2.5rem;
+}
+
+@media only screen and (min-width: 750px) {
+  free-shipping-bar {
+    margin-bottom: 3.5rem;
+  }
+}
+
+.free-shipping__wrapper {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+}
+
+.free-shipping__wrapper p {
+  font-size: inherit;
+  margin: 0 0 var(--space-3xs) !important;
+  padding: 0 !important;
+  text-align: center;
+}
+
+.free-shipping__bar {
+  background-color: rgb(var(--color-background));
+  border: 0.1rem solid rgb(var(--color-foreground));
+  border-radius: var(--fs-corners);
+  height: 1.2rem;
+  margin-top: 1rem;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.free-shipping__fill {
+  background-color: rgb(var(--color-foreground));
+  border: 0.2rem solid rgb(var(--color-background));
+  border-radius: var(--fs-corners);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: width 0.66s ease-in-out;
+  width: 0;
+}

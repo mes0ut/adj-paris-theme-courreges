@@ -1,0 +1,119 @@
+.card-slider__heading {
+  margin: 0;
+  margin-bottom: var(--space-xs);
+  text-align: center;
+}
+
+@media screen and (min-width: 990px) {
+  .card-slider__heading {
+    text-align: left;
+  }
+}
+
+.card-slider__subheading {
+  color: rgb(var(--color-foreground-secondary));
+  display: inline-block;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+
+@media screen and (min-width: 990px) {
+  .card-slider__subheading {
+    text-align: left;
+  }
+}
+
+.card-slider__intro-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  justify-content: center;
+}
+
+@media screen and (min-width: 990px) {
+  .card-slider__intro-wrapper {
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.card-slider__link-wrapper {
+  margin-top: var(--space-s);
+  text-align: center;
+}
+
+.card-slider__link {
+  display: none;
+}
+
+.card-slider__link--mobile {
+  display: inline-flex;
+}
+
+@media screen and (min-width: 990px) {
+  .card-slider__link {
+    display: inline-flex;
+  }
+
+  .card-slider__link--mobile {
+    display: none;
+  }
+}
+
+/* ============================================================================
+  Product Cards
+============================================================================== */
+.card-slider__card-item {
+  margin-right: calc(var(--space-3xs) + var(--space-xs));
+  min-width: 20rem;
+  width: 100%;
+  width: 42%;
+}
+
+@media screen and (min-width: 750px) {
+  .card-slider__card-item {
+    margin-right: var(--space-s);
+    width: var(--space-3xl);
+  }
+}
+
+@media only screen and (min-width: 990px) {
+  .card-slider__card-item {
+    width: 38rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .card-slider__card-item {
+    width: 41.6rem;
+  }
+}
+
+/* ============================================================================
+  Collection List slider
+============================================================================== */
+.card-slider--collection-list .card-slider__card-item {
+  max-width: 80vw;
+  width: 30rem;
+}
+
+@media screen and (min-width: 750px) {
+  .card-slider--collection-list .card-slider__card-item {
+    width: 40rem;
+  }
+}
+
+@media only screen and (min-width: 990px) {
+  .card-slider--collection-list .card-slider__card-item {
+    width: 46rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .card-slider--collection-list .card-slider__card-item {
+    width: 50rem;
+  }
+}

@@ -1,0 +1,54 @@
+{% liquid
+  render 'css-delay', css_file: 'component-recommended-product.css', force_delay: true
+  assign title_style = block.settings.title_style
+  if title_style == 'uppercase'
+    assign title_style = 'uppercase'
+  endif
+
+  assign show_icon = false
+  if block.settings.complementary_products_list_icon
+    assign show_icon = true
+  endif
+%}
+
+<product-recommendations
+  data-product-id="{{ product.id }}"
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.complementary_products_list_limit }}&intent=complementary"
+  {{ block.shopify_attributes }}
+>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <h2
+      class="
+        product__recommended-products-heading
+        {% unless show_icon %}
+          product__recommended-products-heading--no-icon
+        {% endunless %}
+        h5
+        {{ title_style }}
+      "
+    >
+      {% if block.settings.complementary_products_list_heading != blank %}
+        {{ block.settings.complementary_products_list_heading }}
+        {% if show_icon %}
+          <div class="product__recommended-products-heading-icon">
+            {% render 'icon-star-cluster-one' %}
+          </div>
+        {% endif %}
+      {% endif %}
+    </h2>
+    <ul
+      class="product__recommended-products-wrapper"
+      role="list"
+    >
+      {% for recommendation in recommendations.products %}
+        {% render 'recommended-product',
+          recommended_product: recommendation,
+          card_title_style: block.settings.card_title_style,
+          card_radius: block.settings.card_radius,
+          link_text: block.settings.complementary_products_list_link_text,
+          color_scheme: block.settings.color_scheme
+        %}
+      {% endfor %}
+    </ul>
+  {%- endif -%}
+</product-recommendations>

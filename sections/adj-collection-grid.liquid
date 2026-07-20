@@ -1,0 +1,421 @@
+{% liquid
+  render 'css-delay', css_file: 'section-collection-list.css'
+  render 'section-spacing', id: section.id
+
+  if section.settings.enable_animation
+    assign animate_class = 'animate'
+  else
+    assign animate_class = ''
+  endif
+
+  assign collection = section.settings.collection
+%}
+
+<div
+  class="
+    gradient
+    color-{{ section.settings.color_scheme }}
+    section-{{ section.id }}
+    adj-collection-grid-section
+    {% if section.settings.show_border_bottom %}section-border-bottom{% endif %}
+  "
+>
+  {% render 'component-section-header',
+    type: 'header',
+    animate_class: animate_class,
+    heading: section.settings.heading,
+    title_style: section.settings.title_style,
+    heading_size: section.settings.heading_size,
+    subheading: section.settings.subheading,
+    show_decorative_icon: section.settings.heading_icon,
+    link: section.settings.link,
+    link_text: section.settings.link_text,
+    button_color_scheme: section.settings.button_color_scheme
+  %}
+
+  <div class="page-width">
+    {% if collection != blank and collection.products_count > 0 %}
+      <div
+        class="
+          adj-collection-grid
+          adj-cols-desktop-{{ section.settings.columns_desktop }}
+          adj-cols-mobile-{{ section.settings.columns_mobile }}
+          {{ animate_class }}
+        "
+        data-initial-count="{{ section.settings.initial_count }}"
+        data-load-step="{{ section.settings.load_step }}"
+        data-collection-url="{{ collection.url }}"
+        data-view-all-label="{{ section.settings.view_collection_label }}"
+      >
+        {% for product in collection.products %}
+          <div class="adj-collection-grid-item" data-index="{{ forloop.index0 }}">
+            {% render 'product-card',
+              card_product: product,
+              section_id: section.id
+            %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="adj-collection-grid-footer">
+        <a
+          href="{{ collection.url }}"
+          class="adj-load-more-btn {{ section.settings.button_color_scheme }}"
+        >
+          {{ section.settings.load_more_label }}
+        </a>
+      </div>
+    {% else %}
+      <p style="text-align:center;">
+        Lütfen bu bölüm için bir koleksiyon seçin.
+      </p>
+    {% endif %}
+  </div>
+
+  {% render 'component-section-header',
+    type: "footer",
+    animate_class: animate_class,
+    link: section.settings.link,
+    link_text: section.settings.link_text,
+    button_color_scheme: section.settings.button_color_scheme
+  %}
+</div>
+
+{% style %}
+  .section-{{ section.id }}.adj-collection-grid-section {
+    position: relative;
+  }
+
+  /* Full genişlik */
+  .section-{{ section.id }}.adj-collection-grid-section .page-width {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* GRID – artık çerçeve yok, gap 0 */
+  .section-{{ section.id }}.adj-collection-grid-section .adj-collection-grid {
+    display: grid;
+    gap: 0;
+  }
+
+  .section-{{ section.id }}.adj-collection-grid-section .adj-collection-grid-item {
+    /* sınırlar kaldırıldı */
+  }
+
+  /* Desktop kolon sayıları */
+  @media (min-width: 990px) {
+    .section-{{ section.id }}.adj-collection-grid-section .adj-cols-desktop-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .section-{{ section.id }}.adj-collection-grid-section .adj-cols-desktop-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .section-{{ section.id }}.adj-collection-grid-section .adj-cols-desktop-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  /* Mobil kolon sayıları */
+  @media (max-width: 989px) {
+    .section-{{ section.id }}.adj-collection-grid-section .adj-cols-mobile-1 {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    .section-{{ section.id }}.adj-collection-grid-section .adj-cols-mobile-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* Kartlar daha düz dursun */
+  .section-{{ section.id }}.adj-collection-grid-section .card-wrapper {
+    border-radius: 0;
+    box-shadow: none;
+    height: 100%;
+  }
+
+  .section-{{ section.id }}.adj-collection-grid-section .card {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .section-{{ section.id }}.adj-collection-grid-section .card-information {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .section-{{ section.id }}.adj-collection-grid-section .adj-collection-grid-footer {
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  .section-{{ section.id }}.adj-collection-grid-section .adj-load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    font-size: 13px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+{% endstyle %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var section = document.querySelector('.section-{{ section.id }}.adj-collection-grid-section');
+    if (!section) return;
+
+    var grid = section.querySelector('.adj-collection-grid');
+    if (!grid) return;
+
+    var items = Array.prototype.slice.call(
+      grid.querySelectorAll('.adj-collection-grid-item')
+    );
+    if (!items.length) return;
+
+    var initialCount = parseInt(grid.dataset.initialCount || '8', 10);
+    var loadStep = parseInt(grid.dataset.loadStep || '4', 10);
+    var collectionUrl = grid.dataset.collectionUrl;
+    var viewAllLabel = grid.dataset.viewAllLabel;
+
+    var button = section.querySelector('.adj-load-more-btn');
+    if (!button) return;
+
+    var visibleCount = initialCount;
+
+    function updateVisibility() {
+      items.forEach(function (item, index) {
+        if (index < visibleCount) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      if (visibleCount >= items.length) {
+        button.textContent = viewAllLabel;
+        button.setAttribute('href', collectionUrl);
+      }
+    }
+
+    updateVisibility();
+
+    button.addEventListener('click', function (e) {
+      if (visibleCount >= items.length) {
+        // Artık koleksiyon sayfasına gitsin
+        return;
+      }
+
+      e.preventDefault();
+      visibleCount += loadStep;
+      updateVisibility();
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "ADJ – Koleksiyon Grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Koleksiyon"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Arka plan renk şeması",
+      "default": "background-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "Alt sınır çizgisi göster",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Başlık",
+      "default": "LES NOUVEAUTÉS"
+    },
+    {
+      "type": "select",
+      "id": "title_style",
+      "label": "Başlık stil",
+      "options": [
+        { "value": "normal", "label": "Normal" },
+        { "value": "uppercase", "label": "Büyük harf" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Başlık boyutu",
+      "options": [
+        { "value": "h3", "label": "H3" },
+        { "value": "h2", "label": "H2" }
+      ],
+      "default": "h3"
+    },
+    {
+      "type": "checkbox",
+      "id": "heading_icon",
+      "label": "Başlık ikonunu göster",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Alt başlık",
+      "default": "Secondary heading"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Üst/alt link URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Üst/alt link yazısı",
+      "default": "Voir la collection"
+    },
+    {
+      "type": "select",
+      "id": "button_color_scheme",
+      "label": "Buton stili",
+      "options": [
+        { "value": "button", "label": "Primary button" },
+        { "value": "button button--secondary", "label": "Secondary button" },
+        { "value": "link link-with-icon", "label": "Text link" }
+      ],
+      "default": "link link-with-icon"
+    },
+    {
+      "type": "text",
+      "id": "view_collection_label",
+      "label": "Tüm koleksiyon buton yazısı",
+      "default": "VOIR LA COLLECTION"
+    },
+    {
+      "type": "range",
+      "id": "initial_count",
+      "label": "İlk etapta gösterilecek ürün sayısı",
+      "min": 4,
+      "max": 32,
+      "step": 4,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "load_step",
+      "label": "\"Daha fazla göster\" tıklayınca açılacak ürün sayısı",
+      "min": 2,
+      "max": 16,
+      "step": 2,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Desktop kolon sayısı",
+      "default": "4",
+      "options": [
+        { "value": "2", "label": "2 ürün" },
+        { "value": "3", "label": "3 ürün" },
+        { "value": "4", "label": "4 ürün" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Mobil kolon sayısı",
+      "default": "2",
+      "options": [
+        { "value": "1", "label": "1 ürün" },
+        { "value": "2", "label": "2 ürün" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "load_more_label",
+      "label": "Buton yazısı (ürün varken)",
+      "default": "VOIR PLUS"
+    },
+    {
+      "type": "header",
+      "content": "Padding (desktop)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Üst boşluk",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Alt boşluk",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Padding (mobil)"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Üst boşluk (mobil)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Alt boşluk (mobil)",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Animasyon"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "Bölüm animasyonunu etkinleştir",
+      "default": true
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "ADJ – Koleksiyon Grid",
+      "category": "Koleksiyonlar"
+    }
+  ]
+}
+{% endschema %}

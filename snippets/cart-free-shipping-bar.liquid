@@ -1,0 +1,38 @@
+{% liquid
+  if css_delay == 'true'
+    render 'css-delay', css_file: 'component-free-shipping-bar.css', force_delay: true
+  else
+    render 'css-delay', css_file: 'component-free-shipping-bar.css'
+  endif
+
+  assign threshold = settings.free_shipping_bar_threshold | plus: 0
+  assign cart_total = cart.total_price | plus: 0
+  assign percentage = cart_total | divided_by: threshold
+  assign pre_text = settings.free_shipping_bar_pre_text
+  assign post_text = settings.free_shipping_bar_post_text
+%}
+
+<free-shipping-bar>
+  <div class="free-shipping__wrapper p">
+    <div class="free-shipping-bar__container">
+      <p
+        class="free-shipping__diff"
+        data-currency="{{ cart.currency.symbol }}"
+        style="opacity: 0;"
+      >
+        <span class="free-shipping__inactive">{{ pre_text }}</span>
+        <span class="free-shipping__active">{{ post_text }}</span>
+      </p>
+      <div
+        class="free-shipping__bar"
+        data-threshold="{{ threshold }}"
+        data-total="{{ cart.total_price }}"
+      >
+        <span
+          class="free-shipping__fill"
+          style="width: {{ percentage }}%;"
+        ></span>
+      </div>
+    </div>
+  </div>
+</free-shipping-bar>

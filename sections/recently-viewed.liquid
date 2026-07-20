@@ -1,0 +1,209 @@
+{%- liquid
+  render 'css-delay', css_file: 'component-card-slider.css', force_delay: true
+  render 'section-spacing', id: section.id
+
+  assign title_style = section.settings.title_style
+-%}
+
+<recently-viewed
+  data-current-id="{{ product.id }}"
+  data-max-items="{{ section.settings.max_items }}"
+  data-section-id="{{ section.id }}"
+  class="recently-viewed section-{{ section.id }}{% if section.settings.show_border_bottom %} section-border-bottom{% endif %}"
+  style="display: block;"
+>
+  {%- if search.performed -%}
+    {%- assign parsed_terms = search.terms | split: ' OR ' -%}
+
+    {%- for term in parsed_terms -%}
+      {%- assign id = term | split: 'id:' | last | times: 1 -%}
+      {%- assign product_found = search.results | where: 'id', id | first -%}
+
+      {%- if product_found != blank -%}
+        <li class="embla__slide">
+          {%- render 'product-card', card_product: product_found -%}
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- else -%}
+    {%- render 'component-section-header',
+      type: 'header',
+      heading: section.settings.heading,
+      subheading: section.settings.subheading,
+      title_style: title_style
+    -%}
+
+    <div class="card-slider page-width">
+      <embla-component class="recently-viewed__carousel embla-carousel">
+        <div
+          class="embla"
+          data-align="start"
+          data-slides-to-scroll="1"
+          data-duration="20"
+        >
+          <div class="embla__viewport">
+            <ul class="embla__container" data-recently-viewed-container>
+              {%- comment -%} Injected via JS {%- endcomment -%}
+            </ul>
+
+            <button
+              class="embla__button embla__button--prev"
+              disabled
+              aria-label="{{ 'general.pagination.previous' | t }}"
+            >
+              {%- render 'icon-arrow-left-large' -%}
+            </button>
+
+            <button
+              class="embla__button embla__button--next"
+              disabled
+              aria-label="{{ 'general.pagination.next' | t }}"
+            >
+              {%- render 'icon-arrow-right-large' -%}
+            </button>
+          </div>
+        </div>
+      </embla-component>
+    </div>
+  {%- endif -%}
+</recently-viewed>
+
+{% schema %}
+{
+  "name": "t:sections.recently-viewed.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "t:sections.all.border.show_border_bottom.label",
+      "default": false
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.recently-viewed.settings.paragraph__1.content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Recently viewed",
+      "label": "t:sections.recently-viewed.settings.heading.label"
+    },
+    {
+      "type": "range",
+      "id": "max_items",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "label": "t:sections.recently-viewed.settings.limit.label",
+      "default": 10
+    },
+    {
+      "type": "select",
+      "id": "title_style",
+      "label": "t:sections.all.text.style.label",
+      "options": [
+        {
+          "value": "normal",
+          "label": "t:sections.all.text.style.option_1"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:sections.all.text.style.option_2"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:sections.recently-viewed.settings.subheading.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.desktop_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.mobile_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.desktop_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.margin_bottom",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.mobile_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.mobile_margin_bottom",
+      "default": 60
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "t:sections.recently-viewed.name",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

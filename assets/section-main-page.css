@@ -1,0 +1,34 @@
+.template-page .content-for-layout {
+  margin-bottom: 6rem;
+}
+
+@media only screen and (min-width: 990px) {
+  .template-page .content-for-layout {
+    margin-bottom: 12rem;
+  }
+}
+
+.main-page__title {
+  margin-bottom: 3rem;
+  margin-top: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .main-page__title {
+    margin-bottom: 4rem;
+  }
+}
+
+.main-page__editor-wrapper {
+  overflow-x: auto;
+}
+
+.page-placeholder-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.page-placeholder {
+  height: 52.5rem;
+  width: 52.5rem;
+}

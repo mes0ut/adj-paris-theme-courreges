@@ -1,0 +1,70 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "form": {
+      "type": "contact-form",
+      "blocks": {
+        "form_name": {
+          "type": "form_name",
+          "settings": {
+            "label": "Name",
+            "width": "half",
+            "required": true
+          }
+        },
+        "form_email": {
+          "type": "form_email",
+          "settings": {
+            "label": "Email",
+            "width": "half"
+          }
+        },
+        "form_message": {
+          "type": "form_message",
+          "settings": {
+            "label": "Message",
+            "width": "full",
+            "required": true
+          }
+        }
+      },
+      "block_order": [
+        "form_name",
+        "form_email",
+        "form_message"
+      ],
+      "settings": {
+        "color_scheme": "background-4",
+        "show_border_bottom": false,
+        "button_color_scheme": "button",
+        "enable_fullwidth": false,
+        "title": "Contact form",
+        "title_style": "uppercase",
+        "subheading": "<p>Send us your query, we are happy to help</p>",
+        "padding_top": 120,
+        "padding_bottom": 160,
+        "mobile_padding_top": 64,
+        "mobile_padding_bottom": 52,
+        "margin_bottom": 0,
+        "mobile_margin_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "main",
+    "form"
+  ]
+}

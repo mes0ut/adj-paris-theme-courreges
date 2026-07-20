@@ -1,0 +1,35 @@
+.modal--signup .modal__content-inner {
+  text-align: center;
+}
+
+.modal--signup .newsletter-form {
+  max-width: 100%;
+  margin-bottom: var(--space-s);
+}
+
+.modal--signup .newsletter-form .field__input {
+  border: 0.1rem solid rgb(var(--color-border-1));
+  background-color: rgb(var(--input-background-color));
+  font-family: inherit;
+  color: rgb(var(--input-text-color));
+}
+
+.modal--signup .no-thanks-button {
+  display: flex;
+  justify-content: center;
+}
+
+.modal--signup .no-thanks-button p {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.modal--signup .h-captcha[data-size="invisible"] {
+  display: none;
+}
+
+@media screen and (min-width: 750px) {
+  .modal--signup:not(.modal--has-media) .modal__content {
+    max-width: 52rem;
+  }
+}

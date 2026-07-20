@@ -1,0 +1,41 @@
+{% style %}
+  {% for scheme in settings.color_schemes -%}
+    {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
+    {% if forloop.index == 1 -%}
+      :root,
+    {%- endif %}
+    .color-{{ scheme.id }} {
+      --color-background: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }};
+      {% if scheme.settings.background_gradient != empty %}
+        --gradient-background: {{ scheme.settings.background_gradient }};
+      {% else %}
+        --gradient-background: {{ scheme.settings.background }};
+      {% endif %}
+
+      --color-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }};
+      --color-foreground-secondary: {{ scheme.settings.text_secondary.red }},{{ scheme.settings.text_secondary.green }},{{ scheme.settings.text_secondary.blue }};
+
+      --color-button: {{ scheme.settings.button.red }},{{ scheme.settings.button.green }},{{ scheme.settings.button.blue }};
+      --color-button-text: {{ scheme.settings.button_label.red }},{{ scheme.settings.button_label.green }},{{ scheme.settings.button_label.blue }};
+      --color-button-border: {{ scheme.settings.button_border.red }},{{ scheme.settings.button_border.green }},{{ scheme.settings.button_border.blue }};
+      --color-button-hover: {{ scheme.settings.button_hover.red }},{{ scheme.settings.button_hover.green }},{{ scheme.settings.button_hover.blue }};
+      --color-button-hover-text: {{ scheme.settings.button_label_hover.red }},{{ scheme.settings.button_label_hover.green }},{{ scheme.settings.button_label_hover.blue }};
+      --color-button-hover-border: {{ scheme.settings.button_border_hover.red }},{{ scheme.settings.button_border_hover.green }},{{ scheme.settings.button_border_hover.blue }};
+
+      --color-secondary-button: {{ scheme.settings.button_secondary.red }},{{ scheme.settings.button_secondary.green }},{{ scheme.settings.button_secondary.blue }};
+      --color-secondary-button-text: {{ scheme.settings.button_secondary_label.red }},{{ scheme.settings.button_secondary_label.green }},{{ scheme.settings.button_secondary_label.blue }};
+      --color-secondary-button-border: {{ scheme.settings.button_secondary_border.red }},{{ scheme.settings.button_secondary_border.green }},{{ scheme.settings.button_secondary_border.blue }};
+      --color-secondary-button-hover: {{ scheme.settings.button_secondary_hover.red }},{{ scheme.settings.button_secondary_hover.green }},{{ scheme.settings.button_secondary_hover.blue }};
+      --color-secondary-button-hover-text: {{ scheme.settings.button_secondary_label_hover.red }},{{ scheme.settings.button_secondary_label_hover.green }},{{ scheme.settings.button_secondary_label_hover.blue }};
+      --color-secondary-button-hover-border: {{ scheme.settings.button_secondary_border_hover.red }},{{ scheme.settings.button_secondary_border_hover.green }},{{ scheme.settings.button_secondary_border_hover.blue }};
+
+      --color-border-1: {{ scheme.settings.border.red }},{{ scheme.settings.border.green }},{{ scheme.settings.border.blue }};
+      --color-link: {{ scheme.settings.secondary_button_label.red }},{{ scheme.settings.secondary_button_label.green }},{{ scheme.settings.secondary_button_label.blue }};
+    }
+  {% endfor %}
+
+  {{ scheme_classes | prepend: 'body' }} {
+    color: rgb(var(--color-foreground-secondary));
+    background-color: rgb(var(--color-background));
+  }
+{% endstyle %}

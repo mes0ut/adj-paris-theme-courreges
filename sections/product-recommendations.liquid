@@ -1,0 +1,205 @@
+{% liquid
+  render 'css-delay', css_file: 'component-card-slider.css'
+  render 'section-spacing', id: section.id
+
+  assign title_style = section.settings.title_style
+  if title_style == 'uppercase'
+    assign title_style = 'uppercase'
+  endif
+%}
+
+<product-recommendations
+  class="
+    product-recommendations
+    product-recommendations--large
+    section-{{ section.id }}
+    {% if section.settings.show_border_bottom %}section-border-bottom{% endif %}
+  "
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=10&intent=related"
+>
+  {% if recommendations.performed and recommendations.products_count > 0 %}
+    {% render 'component-section-header',
+      type: 'header',
+      heading: section.settings.heading,
+      subheading: section.settings.subheading,
+      title_style: title_style
+    %}
+
+    <div class="card-slider page-width">
+      <embla-component class="product-recommendations__carousel embla-carousel">
+        <div
+          class="embla"
+          data-align="start"
+          data-slides-to-scroll="1"
+          data-duration="20"
+        >
+          <div class="embla__viewport">
+            <ul class="embla__container">
+              {% for recommendation in recommendations.products %}
+                <li
+                  class="embla__slide"
+                  data-slide-index="{{ forloop.index0 }}"
+                >
+                  {% render 'product-card',
+                    card_product: recommendation,
+                    section_id: section.id
+                  %}
+                </li>
+              {% endfor %}
+            </ul>
+            <button
+              class="embla__button embla__button--prev"
+              disabled=""
+              aria-label="{{ 'general.pagination.previous' | t }}"
+            >
+              {% render 'icon-arrow-left-large' %}
+            </button>
+            <span class="embla__button-gradient"></span>
+            <button
+              class="embla__button embla__button--next"
+              disabled=""
+              aria-label="{{ 'general.pagination.next' | t }}"
+            >
+              {% render 'icon-arrow-right-large' %}
+            </button>
+            <span class="embla__button-gradient"></span>
+          </div>
+        </div>
+      </embla-component>
+
+      {% if section.settings.link != blank %}
+        <div class="card-slider__link-wrapper">
+          <a
+            href="{{ section.settings.link }}"
+            class="link link-with-icon card-slider__link card-slider__link--mobile"
+          >
+            {{- section.settings.link_text }}
+            {% render 'icon-arrow' %}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</product-recommendations>
+
+{% schema %}
+{
+  "name": "t:sections.product-recommendations.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "t:sections.all.border.show_border_bottom.label",
+      "default": false
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.product-recommendations.settings.paragraph__1.content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "You may also like",
+      "label": "t:sections.product-recommendations.settings.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "title_style",
+      "label": "t:sections.all.text.style.label",
+      "options": [
+        {
+          "value": "normal",
+          "label": "t:sections.all.text.style.option_1"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:sections.all.text.style.option_2"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:sections.product-recommendations.settings.subheading.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.desktop_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.mobile_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.desktop_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.margin_bottom",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.mobile_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.mobile_margin_bottom",
+      "default": 60
+    }
+  ]
+}
+{% endschema %}

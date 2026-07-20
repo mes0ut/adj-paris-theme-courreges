@@ -1,0 +1,843 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "image_banner_F44r4X": {
+      "type": "image-banner",
+      "settings": {
+        "height": "custom-desktop",
+        "height_custom": 820,
+        "height_mobile": "custom-mobile",
+        "height_mobile_custom": 700,
+        "color_scheme": "background-5",
+        "full_width": true,
+        "show_border_bottom": false,
+        "border_radius": "image-border-radius--none",
+        "delay_loader": false,
+        "title_style": "normal",
+        "header_size": "d3",
+        "header_size_mobile": "d3-mobile",
+        "subheading_size": "p",
+        "text_alignment": "center",
+        "content_position": "bottom-center",
+        "show_gradient": true,
+        "link": "/",
+        "link_text": "Explore now",
+        "button_color_scheme": "button button--secondary",
+        "side_text": "",
+        "side_text_position": "left",
+        "margin_bottom": 96,
+        "mobile_margin_bottom": 60,
+        "enable_animation": true
+      }
+    },
+    "rich_text_hW3Tcq": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_jRC6GH": {
+          "type": "heading",
+          "settings": {
+            "heading": "Add inspirational content here that encourages your audience to explore new ideas, share experiences, and engage with resources for meaningful growth.",
+            "title_style": "normal",
+            "heading_size": "h3",
+            "heading_alignment": "rich-text--central-alignment",
+            "decorative_icon": false,
+            "icon_position": "rich-text__heading-icon--left"
+          }
+        }
+      },
+      "block_order": [
+        "heading_jRC6GH"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "color_scheme": "background-3",
+        "show_border_bottom": false,
+        "full_width": false,
+        "content_width_range": 70,
+        "content_position": "middle",
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "mobile_padding_top": 72,
+        "mobile_padding_bottom": 72,
+        "margin_bottom": 96,
+        "mobile_margin_bottom": 60,
+        "enable_animation": true
+      }
+    },
+    "image_and_image_TcfUke": {
+      "type": "image-and-image",
+      "blocks": {
+        "image_banner_VWBbAh": {
+          "type": "_image-banner",
+          "settings": {
+            "height": "large",
+            "color_scheme": "",
+            "show_border_bottom": false,
+            "border_radius": "image-border-radius--rounded-xxs",
+            "delay_loader": false,
+            "text_alignment": "left",
+            "content_position": "left",
+            "show_gradient": false,
+            "heading": "",
+            "title_style": "normal",
+            "header_size": "h2",
+            "subheading": "",
+            "subheading_size": "p",
+            "link": "",
+            "link_text": "Explore now",
+            "button_color_scheme": "button"
+          },
+          "blocks": {}
+        },
+        "text_blocks_Gdc7Rp": {
+          "type": "_text-blocks",
+          "settings": {
+            "color_scheme": "background-1",
+            "border_radius": "image-border-radius--none",
+            "desktop_padding": 39,
+            "mobile_padding": 0,
+            "content_position": "center"
+          },
+          "blocks": {
+            "rich_text_Um8rye": {
+              "type": "_rich-text",
+              "settings": {
+                "text_alignment": "left"
+              },
+              "blocks": {
+                "rich_text_badge_YG4iya": {
+                  "type": "_rich-text-badge",
+                  "name": "t:sections.all.badge.label",
+                  "settings": {
+                    "badge": "Badge",
+                    "badge_color_scheme": "background-4"
+                  },
+                  "blocks": {}
+                },
+                "rich_text_heading_PGcctk": {
+                  "type": "_rich-text-heading",
+                  "settings": {
+                    "heading": "Add a heading",
+                    "title_style": "normal",
+                    "heading_size": "h2"
+                  },
+                  "blocks": {}
+                },
+                "rich_text_paragraph_3G3Y7V": {
+                  "type": "_rich-text-paragraph",
+                  "settings": {
+                    "rich_text": "<p>Add your content here or a paragraph of text.</p>"
+                  },
+                  "blocks": {}
+                },
+                "rich_text_link_3D9ciw": {
+                  "type": "_rich-text-link",
+                  "disabled": true,
+                  "settings": {
+                    "link": "/",
+                    "link_text": "Learn more",
+                    "button_color_scheme": "button"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "rich_text_badge_YG4iya",
+                "rich_text_heading_PGcctk",
+                "rich_text_paragraph_3G3Y7V",
+                "rich_text_link_3D9ciw"
+              ]
+            },
+            "spacer_xj6yMt": {
+              "type": "_spacer",
+              "name": "t:sections.all.spacer.name",
+              "settings": {
+                "height": 0
+              },
+              "blocks": {}
+            },
+            "stats_kqrd4Y": {
+              "type": "_stats",
+              "name": "t:blocks.stats.name",
+              "settings": {
+                "text_alignment": "left"
+              },
+              "blocks": {
+                "stat_wPHYX9": {
+                  "type": "_stat",
+                  "settings": {
+                    "stat": "96%",
+                    "stat_font_size": "h2",
+                    "stat_title": "Add a title",
+                    "stat_text": "Add a description"
+                  },
+                  "blocks": {}
+                },
+                "stat_HbG6Tz": {
+                  "type": "_stat",
+                  "settings": {
+                    "stat": "12%",
+                    "stat_font_size": "h2",
+                    "stat_title": "Add a title",
+                    "stat_text": "Add a description"
+                  },
+                  "blocks": {}
+                },
+                "stat_L8Dxc8": {
+                  "type": "_stat",
+                  "name": "t:blocks.stats.blocks.stat.name",
+                  "settings": {
+                    "stat": "82%",
+                    "stat_font_size": "h2",
+                    "stat_title": "Add a title",
+                    "stat_text": "Add a description"
+                  },
+                  "blocks": {}
+                },
+                "stat_nJKUKe": {
+                  "type": "_stat",
+                  "name": "t:blocks.stats.blocks.stat.name",
+                  "settings": {
+                    "stat": "1,200",
+                    "stat_font_size": "h2",
+                    "stat_title": "Add a title",
+                    "stat_text": "Add a description"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "stat_wPHYX9",
+                "stat_HbG6Tz",
+                "stat_L8Dxc8",
+                "stat_nJKUKe"
+              ]
+            },
+            "spacer_WQ4reD": {
+              "type": "_spacer",
+              "name": "t:sections.all.spacer.name",
+              "settings": {
+                "height": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "rich_text_Um8rye",
+            "spacer_xj6yMt",
+            "stats_kqrd4Y",
+            "spacer_WQ4reD"
+          ]
+        }
+      },
+      "block_order": [
+        "image_banner_VWBbAh",
+        "text_blocks_Gdc7Rp"
+      ],
+      "name": "t:sections.image-and-image.name",
+      "settings": {
+        "color_scheme": "",
+        "show_border_bottom": false,
+        "full_width": false,
+        "section_split": 50,
+        "gap": 36,
+        "invert_blocks_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 0,
+        "margin_bottom": 96,
+        "mobile_margin_bottom": 60,
+        "enable_animation": true
+      }
+    },
+    "image_and_image_C9i966": {
+      "type": "image-and-image",
+      "blocks": {
+        "image_banner_YBLwLp": {
+          "type": "_image-banner",
+          "settings": {
+            "height": "large",
+            "color_scheme": "",
+            "show_border_bottom": false,
+            "border_radius": "image-border-radius--rounded-xxs",
+            "delay_loader": false,
+            "text_alignment": "left",
+            "content_position": "left",
+            "show_gradient": false,
+            "heading": "",
+            "title_style": "normal",
+            "header_size": "h2",
+            "subheading": "",
+            "subheading_size": "p",
+            "link": "",
+            "link_text": "Explore now",
+            "button_color_scheme": "button"
+          },
+          "blocks": {}
+        },
+        "text_blocks_DfYRXH": {
+          "type": "_text-blocks",
+          "settings": {
+            "color_scheme": "background-1",
+            "border_radius": "image-border-radius--none",
+            "desktop_padding": 39,
+            "mobile_padding": 0,
+            "content_position": "center"
+          },
+          "blocks": {
+            "rich_text_9BdBNd": {
+              "type": "_rich-text",
+              "settings": {
+                "text_alignment": "left"
+              },
+              "blocks": {
+                "rich_text_badge_JdpnC3": {
+                  "type": "_rich-text-badge",
+                  "name": "t:sections.all.badge.label",
+                  "settings": {
+                    "badge": "Badge",
+                    "badge_color_scheme": "background-4"
+                  },
+                  "blocks": {}
+                },
+                "rich_text_heading_jCbLbg": {
+                  "type": "_rich-text-heading",
+                  "settings": {
+                    "heading": "Add a heading",
+                    "title_style": "normal",
+                    "heading_size": "h2"
+                  },
+                  "blocks": {}
+                },
+                "rich_text_paragraph_frW6tB": {
+                  "type": "_rich-text-paragraph",
+                  "settings": {
+                    "rich_text": "<p>Add your content here or a paragraph of text.</p>"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "rich_text_badge_JdpnC3",
+                "rich_text_heading_jCbLbg",
+                "rich_text_paragraph_frW6tB"
+              ]
+            },
+            "spacer_bUqE79": {
+              "type": "_spacer",
+              "name": "t:sections.all.spacer.name",
+              "settings": {
+                "height": 0
+              },
+              "blocks": {}
+            },
+            "stats_ptcKMB": {
+              "type": "_stats",
+              "name": "t:blocks.stats.name",
+              "settings": {
+                "text_alignment": "left"
+              },
+              "blocks": {
+                "stat_mypg8m": {
+                  "type": "_stat",
+                  "settings": {
+                    "stat": "",
+                    "stat_font_size": "d3",
+                    "stat_title": "Add a title",
+                    "stat_text": "Add a description"
+                  },
+                  "blocks": {}
+                },
+                "stat_U3MMM8": {
+                  "type": "_stat",
+                  "settings": {
+                    "stat": "",
+                    "stat_font_size": "d3",
+                    "stat_title": "Add a title",
+                    "stat_text": "Add a description"
+                  },
+                  "blocks": {}
+                },
+                "stat_HCTthb": {
+                  "type": "_stat",
+                  "name": "t:blocks.stats.blocks.stat.name",
+                  "settings": {
+                    "stat": "",
+                    "stat_font_size": "d3",
+                    "stat_title": "Add a title",
+                    "stat_text": "Add a description"
+                  },
+                  "blocks": {}
+                },
+                "stat_HtCydb": {
+                  "type": "_stat",
+                  "name": "t:blocks.stats.blocks.stat.name",
+                  "settings": {
+                    "stat": "",
+                    "stat_font_size": "d3",
+                    "stat_title": "Add a title",
+                    "stat_text": "Add a description"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "stat_mypg8m",
+                "stat_U3MMM8",
+                "stat_HCTthb",
+                "stat_HtCydb"
+              ]
+            },
+            "spacer_dQGJHd": {
+              "type": "_spacer",
+              "name": "t:sections.all.spacer.name",
+              "settings": {
+                "height": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "rich_text_9BdBNd",
+            "spacer_bUqE79",
+            "stats_ptcKMB",
+            "spacer_dQGJHd"
+          ]
+        }
+      },
+      "block_order": [
+        "image_banner_YBLwLp",
+        "text_blocks_DfYRXH"
+      ],
+      "name": "t:sections.image-and-image.name",
+      "settings": {
+        "color_scheme": "",
+        "show_border_bottom": false,
+        "full_width": false,
+        "section_split": 50,
+        "gap": 36,
+        "invert_blocks_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 0,
+        "margin_bottom": 96,
+        "mobile_margin_bottom": 60,
+        "enable_animation": true
+      }
+    },
+    "image_and_image_cBNgy8": {
+      "type": "image-and-image",
+      "blocks": {
+        "image_banner_znzmNK": {
+          "type": "_image-banner",
+          "settings": {
+            "height": "large",
+            "color_scheme": "",
+            "show_border_bottom": false,
+            "border_radius": "image-border-radius--rounded-xxs",
+            "delay_loader": false,
+            "text_alignment": "left",
+            "content_position": "left",
+            "show_gradient": false,
+            "heading": "",
+            "title_style": "normal",
+            "header_size": "h2",
+            "subheading": "",
+            "subheading_size": "p",
+            "link": "",
+            "link_text": "Explore now",
+            "button_color_scheme": "button"
+          },
+          "blocks": {}
+        },
+        "text_blocks_GkwMaX": {
+          "type": "_text-blocks",
+          "settings": {
+            "color_scheme": "background-1",
+            "border_radius": "image-border-radius--none",
+            "desktop_padding": 39,
+            "mobile_padding": 0,
+            "content_position": "center"
+          },
+          "blocks": {
+            "rich_text_zGxVMm": {
+              "type": "_rich-text",
+              "settings": {
+                "text_alignment": "left"
+              },
+              "blocks": {
+                "rich_text_badge_GrxVYz": {
+                  "type": "_rich-text-badge",
+                  "name": "t:sections.all.badge.label",
+                  "settings": {
+                    "badge": "Badge",
+                    "badge_color_scheme": "background-4"
+                  },
+                  "blocks": {}
+                },
+                "rich_text_heading_KJNmCF": {
+                  "type": "_rich-text-heading",
+                  "settings": {
+                    "heading": "Add a heading",
+                    "title_style": "normal",
+                    "heading_size": "h2"
+                  },
+                  "blocks": {}
+                },
+                "rich_text_paragraph_BjLC3g": {
+                  "type": "_rich-text-paragraph",
+                  "settings": {
+                    "rich_text": "<p>Add your content here or a paragraph of text.</p>"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "rich_text_badge_GrxVYz",
+                "rich_text_heading_KJNmCF",
+                "rich_text_paragraph_BjLC3g"
+              ]
+            },
+            "spacer_BH3Pee": {
+              "type": "_spacer",
+              "name": "t:sections.all.spacer.name",
+              "settings": {
+                "height": 0
+              },
+              "blocks": {}
+            },
+            "stats_bzt4xG": {
+              "type": "_stats",
+              "name": "t:blocks.stats.name",
+              "settings": {
+                "text_alignment": "left"
+              },
+              "blocks": {
+                "stat_QiFP6P": {
+                  "type": "_stat",
+                  "settings": {
+                    "stat": "",
+                    "stat_font_size": "d3",
+                    "stat_title": "Add a title",
+                    "stat_text": "Add a description"
+                  },
+                  "blocks": {}
+                },
+                "stat_MyCT6f": {
+                  "type": "_stat",
+                  "settings": {
+                    "stat": "",
+                    "stat_font_size": "d3",
+                    "stat_title": "Add a title",
+                    "stat_text": "Add a description"
+                  },
+                  "blocks": {}
+                },
+                "stat_ijLjLQ": {
+                  "type": "_stat",
+                  "name": "t:blocks.stats.blocks.stat.name",
+                  "settings": {
+                    "stat": "",
+                    "stat_font_size": "d3",
+                    "stat_title": "Add a title",
+                    "stat_text": "Add a description"
+                  },
+                  "blocks": {}
+                },
+                "stat_Edr8Jb": {
+                  "type": "_stat",
+                  "name": "t:blocks.stats.blocks.stat.name",
+                  "settings": {
+                    "stat": "",
+                    "stat_font_size": "d3",
+                    "stat_title": "Add a title",
+                    "stat_text": "Add a description"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "stat_QiFP6P",
+                "stat_MyCT6f",
+                "stat_ijLjLQ",
+                "stat_Edr8Jb"
+              ]
+            },
+            "spacer_bBCaPQ": {
+              "type": "_spacer",
+              "name": "t:sections.all.spacer.name",
+              "settings": {
+                "height": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "rich_text_zGxVMm",
+            "spacer_BH3Pee",
+            "stats_bzt4xG",
+            "spacer_bBCaPQ"
+          ]
+        }
+      },
+      "block_order": [
+        "image_banner_znzmNK",
+        "text_blocks_GkwMaX"
+      ],
+      "name": "t:sections.image-and-image.name",
+      "settings": {
+        "color_scheme": "",
+        "show_border_bottom": false,
+        "full_width": false,
+        "section_split": 50,
+        "gap": 36,
+        "invert_blocks_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 0,
+        "margin_bottom": 96,
+        "mobile_margin_bottom": 60,
+        "enable_animation": true
+      }
+    },
+    "collapsible_content_UUtC4r": {
+      "type": "collapsible-content",
+      "blocks": {
+        "title_TGYrV3": {
+          "type": "title",
+          "settings": {
+            "title": "Add a title",
+            "title_style": "normal",
+            "content": "<p>Add your content here or a paragraph of text.</p>"
+          }
+        },
+        "question_answer_CrHKG4": {
+          "type": "question_answer",
+          "settings": {
+            "display_type": "accordion",
+            "faq_open": false,
+            "faqs_question": "<p>Add a subtitle</p>",
+            "faqs_answer": "<p>Add your content here</p>"
+          }
+        },
+        "question_answer_Ggb7mR": {
+          "type": "question_answer",
+          "settings": {
+            "display_type": "accordion",
+            "faq_open": false,
+            "faqs_question": "<p>Add a subtitle</p>",
+            "faqs_answer": "<p>Add your content here</p>"
+          }
+        },
+        "question_answer_67XYFG": {
+          "type": "question_answer",
+          "settings": {
+            "display_type": "accordion",
+            "faq_open": false,
+            "faqs_question": "<p>Add a subtitle</p>",
+            "faqs_answer": "<p>Add your content here</p>"
+          }
+        },
+        "title_AX8RrU": {
+          "type": "title",
+          "disabled": true,
+          "settings": {
+            "title": "Add a title",
+            "title_style": "normal",
+            "content": "<p>Add your content here or a paragraph of text.</p>"
+          }
+        },
+        "question_answer_FYFxe4": {
+          "type": "question_answer",
+          "disabled": true,
+          "settings": {
+            "display_type": "accordion",
+            "faq_open": false,
+            "faqs_question": "<p>Add a subtitle</p>",
+            "faqs_answer": "<p>Add your content here</p>"
+          }
+        },
+        "question_answer_Xycnpa": {
+          "type": "question_answer",
+          "settings": {
+            "display_type": "accordion",
+            "faq_open": false,
+            "faqs_question": "<p>Add a subtitle</p>",
+            "faqs_answer": "<p>Add your content here</p>"
+          }
+        },
+        "question_answer_VUixEj": {
+          "type": "question_answer",
+          "settings": {
+            "display_type": "accordion",
+            "faq_open": false,
+            "faqs_question": "<p>Add a subtitle</p>",
+            "faqs_answer": "<p>Add your content here</p>"
+          }
+        },
+        "title_PExEq8": {
+          "type": "title",
+          "settings": {
+            "title": "Add a title",
+            "title_style": "normal",
+            "content": "<p>Add your content here or a paragraph of text.</p>"
+          }
+        },
+        "question_answer_AgCyg3": {
+          "type": "question_answer",
+          "settings": {
+            "display_type": "accordion",
+            "faq_open": false,
+            "faqs_question": "<p>Add a subtitle</p>",
+            "faqs_answer": "<p>Add your content here</p>"
+          }
+        },
+        "question_answer_rYwqb8": {
+          "type": "question_answer",
+          "settings": {
+            "display_type": "accordion",
+            "faq_open": false,
+            "faqs_question": "<p>Add a subtitle</p>",
+            "faqs_answer": "<p>Add your content here</p>"
+          }
+        },
+        "question_answer_Tnjg6h": {
+          "type": "question_answer",
+          "settings": {
+            "display_type": "accordion",
+            "faq_open": false,
+            "faqs_question": "<p>Add a subtitle</p>",
+            "faqs_answer": "<p>Add your content here</p>"
+          }
+        },
+        "question_answer_E9YVtQ": {
+          "type": "question_answer",
+          "settings": {
+            "display_type": "accordion",
+            "faq_open": false,
+            "faqs_question": "<p>Add a subtitle</p>",
+            "faqs_answer": "<p>Add your content here</p>"
+          }
+        }
+      },
+      "block_order": [
+        "title_TGYrV3",
+        "question_answer_CrHKG4",
+        "question_answer_Ggb7mR",
+        "question_answer_67XYFG",
+        "title_AX8RrU",
+        "question_answer_FYFxe4",
+        "question_answer_Xycnpa",
+        "question_answer_VUixEj",
+        "title_PExEq8",
+        "question_answer_AgCyg3",
+        "question_answer_rYwqb8",
+        "question_answer_Tnjg6h",
+        "question_answer_E9YVtQ"
+      ],
+      "name": "t:sections.collapsible-content.name",
+      "settings": {
+        "color_scheme": "",
+        "show_border_bottom": false,
+        "layout": "side-by-side",
+        "row_width": 100,
+        "heading": "Add a heading",
+        "heading_size": "h3",
+        "title_style": "normal",
+        "subheading": "Add your content here or a paragraph of text.",
+        "link": "/",
+        "link_text": "Learn more",
+        "button_color_scheme": "button",
+        "button_layout": "side-by-side",
+        "title_alignment": "left",
+        "row_title_style": "normal",
+        "row_font_size": "h5",
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "mobile_padding_top": 44,
+        "mobile_padding_bottom": 44,
+        "margin_bottom": 0,
+        "mobile_margin_bottom": 0,
+        "enable_animation": true
+      }
+    },
+    "multicolumn_A9nfMA": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_Ft4iVM": {
+          "type": "column",
+          "settings": {
+            "column_heading": "Add a heading",
+            "column_text": "Add your content here or a paragraph of text."
+          }
+        },
+        "column_PjxD4W": {
+          "type": "column",
+          "settings": {
+            "column_heading": "Add a heading",
+            "column_text": "Add your content here or a paragraph of text."
+          }
+        },
+        "column_V3tAMY": {
+          "type": "column",
+          "settings": {
+            "column_heading": "Add a heading",
+            "column_text": "Add your content here or a paragraph of text."
+          }
+        }
+      },
+      "block_order": [
+        "column_Ft4iVM",
+        "column_PjxD4W",
+        "column_V3tAMY"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "show_border_bottom": false,
+        "heading": "",
+        "heading_size": "h2",
+        "title_style": "normal",
+        "decorative-icon": false,
+        "link": "",
+        "link_text": "Learn more",
+        "button_color_scheme": "button",
+        "image_width": 40,
+        "primary_image_style": "image-border-radius--none",
+        "column_title_style": "normal",
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "mobile_padding_top": 48,
+        "mobile_padding_bottom": 24,
+        "margin_bottom": 0,
+        "mobile_margin_bottom": 0,
+        "enable_animation": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_banner_F44r4X",
+    "rich_text_hW3Tcq",
+    "image_and_image_TcfUke",
+    "image_and_image_C9i966",
+    "image_and_image_cBNgy8",
+    "collapsible_content_UUtC4r",
+    "multicolumn_A9nfMA"
+  ]
+}

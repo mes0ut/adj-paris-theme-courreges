@@ -1,0 +1,28 @@
+<div class="marquee__align">
+  {%- for y in (1..3) -%}
+    <div
+      class="
+        marquee__text
+        {% if block_index == 1 or block_index == 3 %}marquee__text--forwards{% endif %}
+      "
+      style="animation-duration: {{ 110 | minus: section.settings.speed }}s;"
+    >
+      {% for i in (1..4) %}
+        <span class="marquee-large__plain-text d1">
+          <span class="marquee-large__image-container">
+            {% if section.settings.link_divider %}
+              {% render 'icon-diamond' %}
+            {% endif %}
+
+            <span class="marquee-large__stroke marquee-large__stroke--thin">
+              {{- 'sections.multi_marquee_title.title' | t -}}
+            </span>
+            <span class="marquee-large__no-stroke">
+              {{- 'sections.multi_marquee_title.title' | t -}}
+            </span>
+          </span>
+        </span>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>

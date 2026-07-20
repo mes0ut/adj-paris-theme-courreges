@@ -1,0 +1,67 @@
+.contact__wrapper {
+  height: 100%;
+  padding: 1rem 0 6.4rem;
+}
+
+@media screen and (min-width: 750px) {
+  .contact__wrapper {
+    margin-bottom: 2.4rem;
+    padding: 1.4rem 0 12.8rem;
+  }
+}
+
+.contact {
+  margin: 0 auto;
+  max-width: 54.4rem;
+}
+
+.contact__header {
+  margin-bottom: 2.4rem;
+}
+
+.contact__title {
+  margin-top: 0;
+}
+
+.contact__wrapper .full-width .contact {
+  max-width: unset;
+  width: 100%;
+}
+
+.contact img {
+  max-width: 100%;
+}
+
+.contact .icon-success {
+  margin-top: 0.2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .contact .field {
+    margin-bottom: 2.4rem;
+  }
+}
+
+.contact__button {
+  margin-top: 2.4rem;
+}
+
+@media screen and (min-width: 750px) {
+  .contact__fields {
+    display: grid;
+    grid-column-gap: 1.6rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact__fields .form__field--half {
+    grid-column: span 1;
+  }
+
+  .contact__fields .form__field--full {
+    grid-column: span 2;
+  }
+}
+
+.grecaptcha-badge {
+  visibility: hidden;
+}

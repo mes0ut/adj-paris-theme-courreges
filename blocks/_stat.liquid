@@ -1,0 +1,77 @@
+<div class="stats-item">
+  {% if block.settings.stat != blank %}
+    <p class="{{ block.settings.stat_font_size }} stats-item__value">
+      {{ block.settings.stat }}
+    </p>
+  {% endif %}
+
+  {% if block.settings.stat_title != blank %}
+    <h3 class="stats-item__title h5">
+      {{ block.settings.stat_title }}
+    </h3>
+  {% endif %}
+  {% if block.settings.stat_text != blank %}
+    <p class="stats-item__text">
+      {{ block.settings.stat_text }}
+    </p>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "t:blocks.stats.blocks.stat.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "stat",
+      "label": "t:blocks.stats.blocks.stat.settings.stat.label",
+      "default": "100"
+    },
+    {
+      "type": "select",
+      "id": "stat_font_size",
+      "options": [
+        {
+          "value": "h3",
+          "label": "t:sections.all.heading_size.options_0.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options_1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options_2.label"
+        },
+        {
+          "value": "d3",
+          "label": "t:sections.all.heading_size.options_3.label"
+        },
+        {
+          "value": "d2",
+          "label": "t:sections.all.heading_size.options_4.label"
+        }
+      ],
+      "default": "d3",
+      "label": "t:blocks.stats.blocks.stat.settings.stat.label"
+    },
+    {
+      "type": "text",
+      "id": "stat_title",
+      "label": "t:blocks.stats.blocks.stat.settings.stat_title.label",
+      "default": "Stat title"
+    },
+    {
+      "type": "text",
+      "id": "stat_text",
+      "label": "t:blocks.stats.blocks.stat.settings.stat_text.label",
+      "default": "Stat text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.stats.blocks.stat.name"
+    }
+  ]
+}
+{% endschema %}

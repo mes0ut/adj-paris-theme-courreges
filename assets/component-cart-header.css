@@ -1,0 +1,24 @@
+:root {
+  --cart-header-margin: calc(var(--cart-header-padding) / 2);
+  --cart-header-padding: 4rem;
+}
+
+.cart-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  margin-bottom: var(--space-m);
+  padding-bottom: calc(var(--space-xs) + var(--space-s));
+  padding-top: calc(var(--space-xs) + var(--space-s));
+  text-align: center;
+}
+
+.cart-header .h3 {
+  line-height: 1;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.cart-header .free-shipping__wrapper{
+  max-width: 60rem;
+}

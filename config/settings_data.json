@@ -1,0 +1,758 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "logo": "shopify://shop_images/adjparis-logo.png",
+    "logo_width": 70,
+    "favicon": "shopify://shop_images/ChatGPT_Image_22_Ara_2025_18_55_35.png",
+    "type_header_font": "archivo_n5",
+    "heading_scale": 70,
+    "type_subheader_font": "archivo_n5",
+    "subheading_scale": 70,
+    "type_body_font": "archivo_n4",
+    "body_scale": 80,
+    "page_width": 1760,
+    "buttons_border_thickness": 0,
+    "buttons_radius": 40,
+    "buttons_style": "uppercase",
+    "buttons_arrow": false,
+    "variant_pills_thickness": 0,
+    "variant_pills_border_color": "#000000",
+    "variant_pills_border_opacity": 0,
+    "variant_pills_radius": 0,
+    "variant_swatch_size": 33,
+    "variant_swatch_border_radius": 40,
+    "inputs_radius": 4,
+    "colors_sale": "#ff0000",
+    "product_gallery_arrows": true,
+    "product_gallery_arrows_color": "#7e7e7e",
+    "product_include_collection_url": true,
+    "product_card_border_radius": "image-border-radius--none",
+    "image_ratio": "adapt",
+    "show_secondary_image": true,
+    "product_card_color_scheme": "background-2",
+    "background_transparent": true,
+    "product_card_text_alignment": "center",
+    "product_card_padding": 20,
+    "product_card_show_vendor": false,
+    "product_card_title_style": "uppercase",
+    "product_card_show_desc": false,
+    "product_card_show_swatches": true,
+    "product_card_swatch_size": 19,
+    "product_card_swatch_border_radius": 40,
+    "enable_quick_view": false,
+    "quick_view_type": "icon",
+    "quick_view_trigger_color_scheme": "background-4",
+    "quick_view_trigger_border_radius": 40,
+    "title_style": "uppercase",
+    "share_pinterest": true,
+    "social_twitter_link": "",
+    "social_facebook_link": "https://www.facebook.com/adjpariscom",
+    "social_pinterest_link": "https://pinterest.com/adjparis",
+    "social_instagram_link": "http://instagram.com/adjparis",
+    "social_tiktok_link": "https://tiktok.com/@adjparis",
+    "social_snapchat_link": "https://www.snapchat.com/add/adjparis.com",
+    "social_youtube_link": "https://www.youtube.com/@adjpariscom",
+    "predictive_search_enabled": true,
+    "rounded_tags": true,
+    "sale_badge_color_scheme": "scheme-39a3c066-1e15-49ac-8184-a8eb5a84d0c4",
+    "sale_badge_clear": true,
+    "sold_out_badge_color_scheme": "scheme-39a3c066-1e15-49ac-8184-a8eb5a84d0c4",
+    "custom_collection_badge_color_scheme": "scheme-39a3c066-1e15-49ac-8184-a8eb5a84d0c4",
+    "cart_type": "drawer",
+    "drawer_footer_color_scheme": "background-1",
+    "colors_cart_accent": "#fbfbfa",
+    "show_decorative_drawer_icon": false,
+    "cart_title_style": "uppercase",
+    "cart_item_title_style": "uppercase",
+    "enable_cart_drawer_collection": true,
+    "free_shipping_bar_threshold": 70,
+    "free_shipping_bar_pre_text": "Plus que  {diff}  pour profiter de la livraison offerte 🚚",
+    "free_shipping_bar_post_text": "Félicitations ! Votre commande bénéficiera de la livraison gratuite.",
+    "enable_loading_delay": true,
+    "enable_global_animations": false,
+    "sections": {
+      "main-product-fixed-cart": {
+        "type": "main-product-fixed-cart",
+        "settings": {
+          "enable_sticky_add_to_cart": true,
+          "sticky_add_to_cart_color_scheme": "",
+          "sticky_add_to_cart_button_color_scheme": "button",
+          "title_style": "uppercase",
+          "sticky_add_to_cart_choose_options_label": ""
+        }
+      },
+      "gift-card": {
+        "type": "gift-card",
+        "settings": {
+          "logo_max_width": 90,
+          "color_scheme": "background-4",
+          "padding_top": 96,
+          "padding_bottom": 96,
+          "mobile_padding_top": 72,
+          "mobile_padding_bottom": 72
+        }
+      },
+      "main-password-header": {
+        "type": "main-password-header",
+        "settings": {
+          "logo_max_width": 90,
+          "color_scheme": "background-4"
+        }
+      },
+      "main-password-footer": {
+        "type": "main-password-footer",
+        "settings": {
+          "color_scheme": "background-4"
+        }
+      },
+      "marquee": {
+        "type": "marquee",
+        "settings": {
+          "color_scheme": "background-5"
+        }
+      },
+      "login": {
+        "type": "login",
+        "settings": {
+          "image_style": "image-border-radius--none",
+          "icon_toggle": false
+        }
+      },
+      "register": {
+        "type": "register",
+        "settings": {}
+      },
+      "sign-up-modal": {
+        "type": "sign-up-modal",
+        "settings": {
+          "enabled": true,
+          "heading": "Bienvenue chez ADJ PARIS",
+          "title_style": "uppercase",
+          "content": "Inscrivez-vous et profitez de -10% sur votre première commande avec le code BIENVENUE10",
+          "no_thanks_text": "Non merci",
+          "image": "shopify://shop_images/adj-paris-logo_1.jpg",
+          "timeout": 0,
+          "color_scheme": "background-2",
+          "button_color_scheme": "button"
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "15683396631634586217": {
+        "type": "shopify://apps/inbox/blocks/chat/841fc607-4181-4ad1-842d-e24d7f8bad6b",
+        "disabled": true,
+        "settings": {
+          "greeting_message": "Bonjour, vous pouvez nous envoyer un message pour toutes vos questions. Nous serons ravis de vous aider !",
+          "button_color": "#000000",
+          "secondary_color": "#ffffff",
+          "ternary_color": "#6a6a6a",
+          "button_icon": "chat_bubble",
+          "button_text": "assistance",
+          "button_horizontal_position": "bottom_right",
+          "button_vertical_position": "lowest"
+        }
+      },
+      "18208458784099693593": {
+        "type": "shopify://apps/curately/blocks/whatsapp-chat/019997e7-bd5e-7820-808e-d042c9f792b2",
+        "disabled": false,
+        "settings": {}
+      }
+    },
+    "color_schemes": {
+      "background-1": {
+        "settings": {
+          "text": "#303030",
+          "text_secondary": "#000000",
+          "background": "#f6f6f6",
+          "background_gradient": "",
+          "button": "#121212",
+          "button_label": "#ffffff",
+          "button_border": "#121212",
+          "button_hover": "#121212",
+          "button_label_hover": "#ffffff",
+          "button_border_hover": "#121212",
+          "button_secondary": "#ffffff",
+          "button_secondary_label": "#121212",
+          "button_secondary_border": "#e6e6e6",
+          "button_secondary_hover": "#ffffff",
+          "button_secondary_label_hover": "#121212",
+          "button_secondary_border_hover": "#121212",
+          "border": "#e6e6e6"
+        }
+      },
+      "background-2": {
+        "settings": {
+          "text": "#000000",
+          "text_secondary": "#0b0b0b",
+          "background": "#f6f6f6",
+          "background_gradient": "",
+          "button": "#121212",
+          "button_label": "#ffffff",
+          "button_border": "#121212",
+          "button_hover": "#121212",
+          "button_label_hover": "#ffffff",
+          "button_border_hover": "#121212",
+          "button_secondary": "#f6f6f6",
+          "button_secondary_label": "#121212",
+          "button_secondary_border": "#e6e6e6",
+          "button_secondary_hover": "#ffffff",
+          "button_secondary_label_hover": "#121212",
+          "button_secondary_border_hover": "#121212",
+          "border": "#e6e6e6"
+        }
+      },
+      "background-3": {
+        "settings": {
+          "text": "#000000",
+          "text_secondary": "#000000",
+          "background": "#f6f6f6",
+          "background_gradient": "",
+          "button": "#121212",
+          "button_label": "#f6f6f6",
+          "button_border": "#121212",
+          "button_hover": "#121212",
+          "button_label_hover": "#f6f6f6",
+          "button_border_hover": "#121212",
+          "button_secondary": "#f6f6f6",
+          "button_secondary_label": "#121212",
+          "button_secondary_border": "#f6f6f6",
+          "button_secondary_hover": "#f6f6f6",
+          "button_secondary_label_hover": "#121212",
+          "button_secondary_border_hover": "#121212",
+          "border": "#e6e6e6"
+        }
+      },
+      "background-4": {
+        "settings": {
+          "text": "#000000",
+          "text_secondary": "#000000",
+          "background": "#f6f6f6",
+          "background_gradient": "",
+          "button": "#121212",
+          "button_label": "#ffffff",
+          "button_border": "#121212",
+          "button_hover": "#121212",
+          "button_label_hover": "#ffffff",
+          "button_border_hover": "#121212",
+          "button_secondary": "#ffffff",
+          "button_secondary_label": "#121212",
+          "button_secondary_border": "#fbfbfa",
+          "button_secondary_hover": "#ffffff",
+          "button_secondary_label_hover": "#121212",
+          "button_secondary_border_hover": "#121212",
+          "border": "#edede8"
+        }
+      },
+      "background-5": {
+        "settings": {
+          "text": "#ffffff",
+          "text_secondary": "#ffffff",
+          "background": "#3a2f28",
+          "background_gradient": "",
+          "button": "#ffffff",
+          "button_label": "#000000",
+          "button_border": "#121212",
+          "button_hover": "#121212",
+          "button_label_hover": "#ffffff",
+          "button_border_hover": "#121212",
+          "button_secondary": "#ffffff",
+          "button_secondary_label": "#121212",
+          "button_secondary_border": "#ffffff",
+          "button_secondary_hover": "#e5e4d9",
+          "button_secondary_label_hover": "#121212",
+          "button_secondary_border_hover": "#e5e4d9",
+          "border": "#e6e6e6"
+        }
+      },
+      "scheme-39a3c066-1e15-49ac-8184-a8eb5a84d0c4": {
+        "settings": {
+          "text": "#000000",
+          "text_secondary": "#000000",
+          "background": "#ffffff",
+          "background_gradient": "",
+          "button": "#121212",
+          "button_label": "#ffffff",
+          "button_border": "#121212",
+          "button_hover": "#121212",
+          "button_label_hover": "#ffffff",
+          "button_border_hover": "#121212",
+          "button_secondary": "#ffffff",
+          "button_secondary_label": "#121212",
+          "button_secondary_border": "#e6e6e6",
+          "button_secondary_hover": "#ffffff",
+          "button_secondary_label_hover": "#121212",
+          "button_secondary_border_hover": "#121212",
+          "border": "#e6e6e6"
+        }
+      },
+      "scheme-88eef430-1d42-4dcd-938e-c176f291557e": {
+        "settings": {
+          "text": "#ffffff",
+          "text_secondary": "#e5e5e5",
+          "background": "#000000",
+          "background_gradient": "",
+          "button": "#000000",
+          "button_label": "#ffffff",
+          "button_border": "rgba(0,0,0,0)",
+          "button_hover": "#121212",
+          "button_label_hover": "#ffffff",
+          "button_border_hover": "#080202",
+          "button_secondary": "#ffffff",
+          "button_secondary_label": "#121212",
+          "button_secondary_border": "rgba(0,0,0,0)",
+          "button_secondary_hover": "#ffffff",
+          "button_secondary_label_hover": "#121212",
+          "button_secondary_border_hover": "#121212",
+          "border": "rgba(0,0,0,0)"
+        }
+      },
+      "scheme-cea2047b-2304-4c3b-82ed-47e457367050": {
+        "settings": {
+          "text": "#000000",
+          "text_secondary": "#000000",
+          "background": "#c13539",
+          "background_gradient": "",
+          "button": "#c13539",
+          "button_label": "#ffffff",
+          "button_border": "#c13539",
+          "button_hover": "#ffffff",
+          "button_label_hover": "#c13539",
+          "button_border_hover": "#ffffff",
+          "button_secondary": "#c13539",
+          "button_secondary_label": "#e1e0e0",
+          "button_secondary_border": "#c13539",
+          "button_secondary_hover": "#ffffff",
+          "button_secondary_label_hover": "#121212",
+          "button_secondary_border_hover": "#121212",
+          "border": "#c13539"
+        }
+      }
+    }
+  },
+  "presets": {
+    "Carbon": {
+      "logo_width": 90,
+      "color_schemes": {
+        "background-1": {
+          "settings": {
+            "text": "#121212",
+            "text_secondary": "#202020",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "button": "#121212",
+            "button_label": "#ffffff",
+            "button_border": "#121212",
+            "button_hover": "#121212",
+            "button_label_hover": "#ffffff",
+            "button_border_hover": "#121212",
+            "button_secondary": "#ffffff",
+            "button_secondary_label": "#121212",
+            "button_secondary_border": "#e6e6e6",
+            "button_secondary_hover": "#ffffff",
+            "button_secondary_label_hover": "#121212",
+            "button_secondary_border_hover": "#121212",
+            "border": "#e6e6e6"
+          }
+        },
+        "background-2": {
+          "settings": {
+            "text": "#000000",
+            "text_secondary": "#0b0b0b",
+            "background": "#e5e4d9",
+            "background_gradient": "",
+            "button": "#121212",
+            "button_label": "#ffffff",
+            "button_border": "#121212",
+            "button_hover": "#121212",
+            "button_label_hover": "#ffffff",
+            "button_border_hover": "#121212",
+            "button_secondary": "#ffffff",
+            "button_secondary_label": "#121212",
+            "button_secondary_border": "#e6e6e6",
+            "button_secondary_hover": "#ffffff",
+            "button_secondary_label_hover": "#121212",
+            "button_secondary_border_hover": "#121212",
+            "border": "#e6e6e6"
+          }
+        },
+        "background-3": {
+          "settings": {
+            "text": "#000000",
+            "text_secondary": "#000000",
+            "background": "#ebeae6",
+            "background_gradient": "",
+            "button": "#121212",
+            "button_label": "#ffffff",
+            "button_border": "#121212",
+            "button_hover": "#121212",
+            "button_label_hover": "#ffffff",
+            "button_border_hover": "#121212",
+            "button_secondary": "#ffffff",
+            "button_secondary_label": "#121212",
+            "button_secondary_border": "#e6e6e6",
+            "button_secondary_hover": "#ffffff",
+            "button_secondary_label_hover": "#121212",
+            "button_secondary_border_hover": "#121212",
+            "border": "#e6e6e6"
+          }
+        },
+        "background-4": {
+          "settings": {
+            "text": "#121212",
+            "text_secondary": "#121212",
+            "background": "#fbfbfa",
+            "background_gradient": "",
+            "button": "#121212",
+            "button_label": "#ffffff",
+            "button_border": "#121212",
+            "button_hover": "#121212",
+            "button_label_hover": "#ffffff",
+            "button_border_hover": "#121212",
+            "button_secondary": "#ffffff",
+            "button_secondary_label": "#121212",
+            "button_secondary_border": "#fbfbfa",
+            "button_secondary_hover": "#ffffff",
+            "button_secondary_label_hover": "#121212",
+            "button_secondary_border_hover": "#121212",
+            "border": "#edede8"
+          }
+        },
+        "background-5": {
+          "settings": {
+            "text": "#ffffff",
+            "text_secondary": "#dcdcdc",
+            "background": "#000000",
+            "background_gradient": "",
+            "button": "#ffffff",
+            "button_label": "#000000",
+            "button_border": "#121212",
+            "button_hover": "#121212",
+            "button_label_hover": "#ffffff",
+            "button_border_hover": "#121212",
+            "button_secondary": "#ffffff",
+            "button_secondary_label": "#121212",
+            "button_secondary_border": "#ffffff",
+            "button_secondary_hover": "#e5e4d9",
+            "button_secondary_label_hover": "#121212",
+            "button_secondary_border_hover": "#e5e4d9",
+            "border": "#e6e6e6"
+          }
+        }
+      },
+      "colors_sale": "#ff6060",
+      "type_header_font": "fjalla_one_n4",
+      "heading_scale": 75,
+      "type_subheader_font": "fjalla_one_n4",
+      "subheading_scale": 75,
+      "type_body_font": "inter_n3",
+      "body_scale": 85,
+      "buttons_border_thickness": 0,
+      "buttons_radius": 4,
+      "buttons_style": "uppercase",
+      "buttons_arrow": false,
+      "variant_pills_radius": 4,
+      "inputs_radius": 4,
+      "product_card_color_scheme": "background-1",
+      "image_ratio": "portrait",
+      "show_secondary_image": true,
+      "product_card_show_vendor": true,
+      "product_card_title_style": "uppercase",
+      "product_card_show_desc": false,
+      "enable_quick_view": true,
+      "title_style": "uppercase",
+      "sale_badge_color_scheme": "background-1",
+      "drawer_footer_color_scheme": "background-1",
+      "colors_cart_accent": "#fbfbfa",
+      "show_decorative_drawer_icon": false,
+      "cart_title_style": "uppercase",
+      "cart_item_title_style": "uppercase",
+      "enable_cart_drawer_collection": true,
+      "enable_global_animations": false,
+      "share_pinterest": true,
+      "social_facebook_link": "https://www.facebook.com/shopify",
+      "social_instagram_link": "https://www.instagram.com/shopify",
+      "social_tiktok_link": "https://www.tiktok.com/@shopify",
+      "sections": {
+        "main-product-fixed-cart": {
+          "type": "main-product-fixed-cart",
+          "settings": {
+            "enable_sticky_add_to_cart": true,
+            "sticky_add_to_cart_color_scheme": "",
+            "sticky_add_to_cart_button_color_scheme": "button",
+            "title_style": "uppercase",
+            "sticky_add_to_cart_choose_options_label": ""
+          }
+        },
+        "gift-card": {
+          "type": "gift-card",
+          "settings": {
+            "logo_max_width": 90,
+            "color_scheme": "background-4",
+            "padding_top": 96,
+            "padding_bottom": 96,
+            "mobile_padding_top": 72,
+            "mobile_padding_bottom": 72
+          }
+        },
+        "main-password-header": {
+          "type": "main-password-header",
+          "settings": {
+            "logo_max_width": 90,
+            "color_scheme": "background-4"
+          }
+        },
+        "main-password-footer": {
+          "type": "main-password-footer",
+          "settings": {
+            "color_scheme": "background-4"
+          }
+        },
+        "marquee": {
+          "type": "marquee",
+          "settings": {
+            "color_scheme": "background-5"
+          }
+        },
+        "login": {
+          "type": "login",
+          "settings": {
+            "image_style": "image-border-radius--none",
+            "icon_toggle": false
+          }
+        },
+        "register": {
+          "type": "register",
+          "settings": {}
+        },
+        "sign-up-modal": {
+          "type": "sign-up-modal",
+          "settings": {
+            "enabled": true,
+            "heading": "Sign up & Save",
+            "title_style": "uppercase",
+            "content": "Sign up today and get special product releases and exclusive sales!",
+            "no_thanks_text": "No Thanks",
+            "timeout": 5000,
+            "color_scheme": "background-1",
+            "button_color_scheme": "button"
+          }
+        }
+      }
+    },
+    "Eternal": {
+      "logo_width": 120,
+      "type_header_font": "poppins_n4",
+      "heading_scale": 85,
+      "type_subheader_font": "inter_n5",
+      "subheading_scale": 75,
+      "type_body_font": "inter_n3",
+      "body_scale": 90,
+      "page_width": 2200,
+      "modal_enable_blur": true,
+      "buttons_border_thickness": 0,
+      "buttons_radius": 0,
+      "buttons_style": "uppercase",
+      "buttons_arrow": false,
+      "variant_pills_radius": 4,
+      "inputs_radius": 0,
+      "colors_sale": "#ff6060",
+      "image_ratio": "square",
+      "show_secondary_image": true,
+      "product_card_color_scheme": "background-1",
+      "background_transparent": true,
+      "product_card_padding": 0,
+      "product_card_show_vendor": true,
+      "product_card_title_style": "uppercase",
+      "product_card_show_desc": false,
+      "enable_quick_view": true,
+      "quick_view_type": "text",
+      "quick_view_trigger_color_scheme": "background-3",
+      "title_style": "uppercase",
+      "share_pinterest": true,
+      "social_twitter_link": "",
+      "social_facebook_link": "https://www.facebook.com/shopify",
+      "social_instagram_link": "https://www.instagram.com/shopify",
+      "social_tiktok_link": "https://www.tiktok.com/@shopify",
+      "rounded_tags": true,
+      "sale_badge_color_scheme": "background-1",
+      "sold_out_badge_color_scheme": "background-1",
+      "sold_out_badge_clear": true,
+      "drawer_footer_color_scheme": "background-1",
+      "colors_cart_accent": "#fbfbfa",
+      "show_decorative_drawer_icon": false,
+      "cart_title_style": "uppercase",
+      "cart_item_title_style": "uppercase",
+      "enable_cart_drawer_collection": true,
+      "enable_global_animations": true,
+      "sticky_add_to_cart_color_scheme": "background-1",
+      "show_sticky_add_to_cart_quantity_selector": false,
+      "sticky_add_to_cart_button_color_scheme": "button button--secondary",
+      "sticky_add_to_cart_layout": "default",
+      "sections": {
+        "main-product-fixed-cart": {
+          "type": "main-product-fixed-cart",
+          "settings": {
+            "enable_sticky_add_to_cart": true,
+            "sticky_add_to_cart_color_scheme": "",
+            "sticky_add_to_cart_button_color_scheme": "button",
+            "title_style": "uppercase",
+            "sticky_add_to_cart_choose_options_label": ""
+          }
+        },
+        "gift-card": {
+          "type": "gift-card",
+          "settings": {
+            "logo_max_width": 90,
+            "color_scheme": "background-1",
+            "padding_top": 96,
+            "padding_bottom": 96,
+            "mobile_padding_top": 72,
+            "mobile_padding_bottom": 72
+          }
+        },
+        "main-password-header": {
+          "type": "main-password-header",
+          "settings": {
+            "logo_max_width": 110,
+            "color_scheme": "background-3"
+          }
+        },
+        "main-password-footer": {
+          "type": "main-password-footer",
+          "settings": {
+            "color_scheme": "background-3"
+          }
+        },
+        "sign-up-modal": {
+          "type": "sign-up-modal",
+          "settings": {
+            "enabled": true,
+            "heading": "Sign up & Save",
+            "title_style": "normal",
+            "content": "Sign up today and get special product releases and exclusive sales!",
+            "no_thanks_text": "No Thanks",
+            "timeout": 5000,
+            "color_scheme": "",
+            "button_color_scheme": "button"
+          }
+        }
+      },
+      "color_schemes": {
+        "background-1": {
+          "settings": {
+            "text": "#404c3c",
+            "text_secondary": "#404c3c",
+            "background": "#ffffff",
+            "background_gradient": "",
+            "button": "#404c3c",
+            "button_label": "#ffffff",
+            "button_border": "#404c3c",
+            "button_hover": "#273024",
+            "button_label_hover": "#ffffff",
+            "button_border_hover": "#273024",
+            "button_secondary": "#ffffff",
+            "button_secondary_label": "#404c3c",
+            "button_secondary_border": "#404c3c",
+            "button_secondary_hover": "#404c3c",
+            "button_secondary_label_hover": "#ffffff",
+            "button_secondary_border_hover": "#404c3c",
+            "border": "#f7f8f7"
+          }
+        },
+        "background-2": {
+          "settings": {
+            "text": "#000000",
+            "text_secondary": "#0b0b0b",
+            "background": "#e5e4d9",
+            "background_gradient": "",
+            "button": "#121212",
+            "button_label": "#ffffff",
+            "button_border": "#121212",
+            "button_hover": "#121212",
+            "button_label_hover": "#ffffff",
+            "button_border_hover": "#121212",
+            "button_secondary": "#ffffff",
+            "button_secondary_label": "#121212",
+            "button_secondary_border": "#e6e6e6",
+            "button_secondary_hover": "#ffffff",
+            "button_secondary_label_hover": "#121212",
+            "button_secondary_border_hover": "#121212",
+            "border": "#e6e6e6"
+          }
+        },
+        "background-3": {
+          "settings": {
+            "text": "#273024",
+            "text_secondary": "#273024",
+            "background": "#f7f8f7",
+            "background_gradient": "",
+            "button": "#404c3c",
+            "button_label": "#ffffff",
+            "button_border": "#404c3c",
+            "button_hover": "#273024",
+            "button_label_hover": "#ffffff",
+            "button_border_hover": "#273024",
+            "button_secondary": "#ffffff",
+            "button_secondary_label": "#273024",
+            "button_secondary_border": "#273024",
+            "button_secondary_hover": "#ffffff",
+            "button_secondary_label_hover": "#273024",
+            "button_secondary_border_hover": "#273024",
+            "border": "#dbe1d6"
+          }
+        },
+        "background-4": {
+          "settings": {
+            "text": "#404c3c",
+            "text_secondary": "#404c3c",
+            "background": "#e9f0ca",
+            "background_gradient": "",
+            "button": "#404c3c",
+            "button_label": "#ffffff",
+            "button_border": "#404c3c",
+            "button_hover": "#273024",
+            "button_label_hover": "#ffffff",
+            "button_border_hover": "#273024",
+            "button_secondary": "#ffffff",
+            "button_secondary_label": "#404c3c",
+            "button_secondary_border": "#f7f8f7",
+            "button_secondary_hover": "#273024",
+            "button_secondary_label_hover": "#ffffff",
+            "button_secondary_border_hover": "#273024",
+            "border": "#f7f8f7"
+          }
+        },
+        "background-5": {
+          "settings": {
+            "text": "#ffffff",
+            "text_secondary": "#ffffff",
+            "background": "#153020",
+            "background_gradient": "",
+            "button": "#ffffff",
+            "button_label": "#404c3c",
+            "button_border": "#404c3c",
+            "button_hover": "#273024",
+            "button_label_hover": "#ffffff",
+            "button_border_hover": "#273024",
+            "button_secondary": "#404c3c",
+            "button_secondary_label": "#ffffff",
+            "button_secondary_border": "#404c3c",
+            "button_secondary_hover": "#273024",
+            "button_secondary_label_hover": "#ffffff",
+            "button_secondary_border_hover": "#273024",
+            "border": "#e6e6e6"
+          }
+        }
+      }
+    }
+  }
+}

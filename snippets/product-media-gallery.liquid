@@ -1,0 +1,330 @@
+{% liquid
+  assign first_media = product.media | first
+  assign first_media_ratio = first_media.aspect_ratio
+
+  if first_media_ratio == blank
+    assign first_media_ratio = '1'
+  endif
+
+  assign thumbnail_classes = 'gallery-thumbs__preview-image'
+  assign thumbnail_parent_class = ''
+  if section.settings.product_thumbnails_corners
+    assign thumbnail_classes = thumbnail_classes | append: ' round-thumbnail'
+    assign thumbnail_parent_class = 'round-thumbnail'
+  endif
+
+  assign image_gallery = 'stacked'
+  if section.settings.image_column_layout == 'carousel'
+    assign image_gallery = 'carousel'
+  endif
+
+  if section.settings.image_column_layout != 'carousel'
+    assign desktop_vertical = 'data-desktop-vertical="true"'
+  endif
+
+  assign image_ratio = 'portrait'
+  if section.settings.image_ratio == 'adapt'
+    assign image_ratio = 'adapt'
+  elsif section.settings.image_ratio == 'square'
+    assign image_ratio = 'square'
+  endif
+
+  assign image_style = section.settings.image_style
+
+  if video_layout == 'cover'
+    assign video_layout = 'cover'
+  endif
+
+  assign video_autoplay = video_autoplay | default: false
+
+  assign enable_media_grouping = false
+  assign media_grouping_name = ''
+
+  if enable_media_group == true or enable_media_group == false
+    assign enable_media_grouping = enable_media_group
+    assign media_grouping_name = media_group_name
+  else
+    assign enable_media_grouping = section.settings.enable_media_group
+    assign media_grouping_name = section.settings.media_group_name
+  endif
+
+  if enable_media_grouping
+    assign selected_variant = product.selected_or_first_available_variant
+    assign product_media_group_include = ''
+    assign media_group_option_names = 'color'
+
+    if media_grouping_name != blank
+      capture clean_media_groups
+        assign raw_list = media_grouping_name | split: ','
+        for item in raw_list
+          echo item | strip
+          unless forloop.last
+            echo ','
+          endunless
+        endfor
+      endcapture
+
+      assign media_group_option_names = clean_media_groups | downcase | split: ','
+    endif
+
+    assign active_filter_value = ''
+
+    for option in product.options_with_values
+      assign downcased_opt = option.name | downcase
+
+      if media_group_option_names contains downcased_opt
+        if forloop.index == 1
+          assign active_filter_value = selected_variant.option1 | downcase
+        elsif forloop.index == 2
+          assign active_filter_value = selected_variant.option2 | downcase
+        elsif forloop.index == 3
+          assign active_filter_value = selected_variant.option3 | downcase
+        endif
+
+        break
+      endif
+    endfor
+
+    assign count = 0
+
+    for media in product.media
+      assign media_alt = media.alt | downcase
+      assign should_include = false
+
+      if media_alt contains 'media-group-all' or media.id == selected_variant.featured_media.id
+        assign should_include = true
+      elsif active_filter_value != blank and media_alt == active_filter_value
+        assign should_include = true
+      endif
+
+      if should_include
+        assign product_media_group_include = product_media_group_include | append: media.id | append: ','
+        assign count = count | plus: 1
+      endif
+    endfor
+
+    assign product_media_count = count
+  else
+    assign product_media_count = product.media | size
+  endif
+
+  if product_media_count == 1
+    assign enable_drag = 'data-enable-drag="false"'
+  endif
+
+  if layout == 'carousel'
+    assign image_gallery = 'carousel'
+    assign desktop_vertical = ''
+    assign enable_drag = ''
+  endif
+%}
+
+<media-gallery
+  id="MediaGallery-{{ section.id }}"
+  class="product-media product-media--{{ section.settings.media_size }}"
+  data-desktop-layout="{{- image_gallery -}}"
+  data-active-media-id="{{ section.id }}-{{ product.selected_or_first_available_variant.featured_media.id }}"
+  data-enable-media-group="{{ enable_media_grouping }}"
+>
+  <embla-component
+    class="
+      product-gallery__carousel
+      {% if product_media_count <= 1 %}product-gallery__carousel--single{% endif %}
+    "
+  >
+    {% if product_media_count > 1 %}
+      <div class="embla-custom-fractions p"></div>
+    {% endif %}
+    <div
+      class="embla embla--layout-{{ section.settings.image_column_layout }}"
+      data-align="start"
+      data-slides-to-scroll="1"
+      data-duration="20"
+      {{ enable_drag }}
+      {{ desktop_vertical }}
+    >
+      <div class="embla__viewport">
+        <ul class="embla__container">
+          {% if product_media_count > 0 %}
+            {% render 'product-media-gallery-template',
+              product: product,
+              video_layout: video_layout,
+              image_ratio: image_ratio,
+              image_style: image_style,
+              video_autoplay: video_autoplay,
+              enable_media_group: enable_media_grouping,
+              product_media_group_include: product_media_group_include,
+              show_overlay_gradient: show_overlay_gradient
+            %}
+          {% else %}
+            <li
+              class="embla__slide"
+              data-slide-index="{{ forloop.index0 }}"
+            >
+              {{ 'image' | placeholder_svg_tag }}
+            </li>
+          {% endif %}
+        </ul>
+        {% if settings.product_gallery_arrows %}
+          {% assign visible_arrows = '--visible' %}
+        {% endif %}
+        <button
+          class="embla__button embla__button{{ visible_arrows }} embla__button--prev"
+          disabled=""
+          aria-label="{{ 'general.pagination.previous' | t }}"
+        >
+          {% render 'icon-arrow-left-large' %}
+        </button>
+        <button
+          class="embla__button embla__button{{ visible_arrows }} embla__button--next"
+          disabled=""
+          aria-label="{{ 'general.pagination.next' | t }}"
+        >
+          {% render 'icon-arrow-right-large' %}
+        </button>
+
+        <div class="embla__progress">
+          <div
+            class="embla__progress__bar"
+            style="transform:translate3d(0%,0px,0px)"
+          ></div>
+        </div>
+      </div>
+
+      <gallery-thumbs
+        class="embla-thumbs {% if product_media_count <= 5 %}embla-thumbs--no-arrows{% endif %}"
+        data-axis="y"
+        {% if section.settings.image_column_layout == 'carousel' %}
+          data-is-disabled="true"
+        {% endif %}
+        {% if section.settings.show_thumbnails == false %}
+          data-is-disabled="true"
+          style="display: none;"
+        {% endif %}
+      >
+        <div class="embla-thumbs__wrapper">
+          <div class="embla-thumbs__viewport">
+            <ul class="embla-thumbs__container">
+              {% if product_media_count > 0 %}
+                {% render 'product-media-gallery-thumb-template',
+                  product_media: product_media,
+                  thumbnail_parent_class: thumbnail_parent_class,
+                  thumbnail_classes: thumbnail_classes,
+                  product_media_group_include: product_media_group_include
+                %}
+              {% endif %}
+            </ul>
+          </div>
+
+          {% if product_media_count >= 6 %}
+            <button
+              class="embla__button-thumb embla__button-thumb--prev"
+              disabled=""
+              aria-label="{{ 'general.pagination.previous' | t }}"
+            >
+              {% render 'icon-caret' %}
+            </button>
+            <button
+              class="embla__button-thumb embla__button-thumb--next"
+              disabled=""
+              aria-label="{{ 'general.pagination.next' | t }}"
+            >
+              {% render 'icon-caret' %}
+            </button>
+          {% endif %}
+        </div>
+      </gallery-thumbs>
+    </div>
+  </embla-component>
+</media-gallery>
+
+{% if section.settings.product_gallery_zoom %}
+  <gallery-viewer
+    id="PopupModal-{{ section.id }}-{{ section.id }}"
+    class="product-popup-modal gallery-viewer"
+  >
+    <div
+      class="gallery-viewer__inner js-gallery-viewer-content"
+      role="dialog"
+      aria-modal="true"
+      tabindex="-1"
+    >
+      <button
+        id="ModalClose-{{ section.id }}-{{ forloop.index0 }}"
+        class="gallery-viewer__close-icon"
+      >
+        {% render 'icon-close' %}
+      </button>
+
+      <embla-component class="gallery-viewer__carousel">
+        <div class="embla">
+          <div class="embla__viewport">
+            <ul class="embla__container">
+              {% if product_media_count > 0 %}
+                {%- for product_media in product.media -%}
+                  {%- liquid
+                    assign preload = false
+                    assign image_lazy = 'lazy'
+                    if forloop.index == 1
+                      assign preload = true
+                      assign image_lazy = 'eager'
+                    endif
+                  -%}
+                  <li
+                    class="embla__slide"
+                    data-slide-index="{{ forloop.index0 }}"
+                  >
+                    {%- if product_media.media_type == 'image' -%}
+                      {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+                      {{
+                        product_media
+                        | image_url: width: 1800
+                        | image_tag:
+                          loading: image_lazy,
+                          preload: preload,
+                          width: product_media.width,
+                          height: 'auto',
+                          widths: '1800',
+                          class: 'motion-reduce',
+                          alt: product_media.alt
+                        | escape
+                      }}
+                      {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
+                    {%- else -%}
+                      {% render 'video-helper',
+                        product_media: product_media,
+                        video_layout: video_layout,
+                        show_overlay_gradient: show_overlay_gradient
+                      %}
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              {% else %}
+                <li
+                  class="embla__slide"
+                  data-slide-index="{{ forloop.index0 }}"
+                >
+                  {{ 'image' | placeholder_svg_tag }}
+                </li>
+              {% endif %}
+            </ul>
+            <button
+              class="embla__button embla__button{{ visible_arrows }}  embla__button--prev"
+              disabled=""
+              aria-label="{{ 'general.pagination.previous' | t }}"
+            >
+              {% render 'icon-arrow-left-large' %}
+            </button>
+            <button
+              class="embla__button embla__button{{ visible_arrows }}  embla__button--next"
+              disabled=""
+              aria-label="{{ 'general.pagination.next' | t }}"
+            >
+              {% render 'icon-arrow-right-large' %}
+            </button>
+          </div>
+        </div>
+      </embla-component>
+    </div>
+  </gallery-viewer>
+{% endif %}

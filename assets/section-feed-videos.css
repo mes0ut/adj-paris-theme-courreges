@@ -1,0 +1,219 @@
+.videos-feed {
+  overflow: hidden;
+}
+
+.videos-feed .marquee__text {
+  align-items: stretch;
+  gap: 0;
+  text-transform: unset;
+}
+
+.videos-feed__posts {
+  display: flex;
+}
+
+.videos-feed__post {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.videos-feed:not(.videos-feed--carousel) .videos-feed__post {
+  width: 30rem;
+  margin-right: 2.2rem;
+}
+
+.videos-feed.videos-feed--carousel .videos-feed__post-wrapper {
+  flex: 0 0 32.2rem;
+  padding-right: 2.2rem;
+}
+
+.videos-feed:not(.videos-feed--carousel) .videos-feed__post--large {
+  width: 38.4rem;
+}
+
+.videos-feed.videos-feed--carousel .videos-feed__post-wrapper--large {
+  flex: 0 0 40.6rem;
+}
+
+@media screen and (min-width: 750px) {
+  .videos-feed:not(.videos-feed--carousel) .videos-feed__post {
+    width: 34rem;
+    margin-right: 3.6rem;
+  }
+
+  .videos-feed.videos-feed--carousel .videos-feed__post-wrapper {
+    flex: 0 0 37.6rem;
+    padding-right: 3.6rem;
+  }
+
+  .videos-feed:not(.videos-feed--carousel) .videos-feed__post--large {
+    width: 42.4rem;
+  }
+
+  .videos-feed.videos-feed--carousel .videos-feed__post-wrapper--large {
+    flex: 0 0 46rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .videos-feed:not(.videos-feed--carousel) .videos-feed__post {
+    width: 42rem;
+    margin-right: 4.2rem;
+  }
+
+  .videos-feed.videos-feed--carousel .videos-feed__post-wrapper {
+    flex: 0 0 46.2rem;
+    padding-right: 4.2rem;
+  }
+
+  .videos-feed:not(.videos-feed--carousel) .videos-feed__post--large {
+    width: 50.4rem;
+  }
+
+  .videos-feed.videos-feed--carousel .videos-feed__post-wrapper--large {
+    flex: 0 0 54.6rem;
+  }
+}
+
+.videos-feed__post-media-wrapper {
+  position: relative;
+}
+
+/* Gradient in after elment */
+.videos-feed__post-media-wrapper::after {
+  background: linear-gradient(0deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,0.1) 70%, rgba(0,0,0,0.0) 100%);
+  bottom: 0;
+  content: '';
+  height: 15%;
+  left: 0;
+  transform: translateZ(1px);
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+}
+
+.videos-feed__post-media-wrapper svg.videos-feed__post-image {
+  background-color: var(--color-image-placeholder);
+}
+
+.videos-feed__post-image,
+.videos-feed__post-video {
+  aspect-ratio: 1 / 1.6;
+  display: block;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.videos-feed__post-video-play {
+  bottom: 2.4rem;
+  left: 2.4rem;
+  position: absolute;
+  transform: translateZ(1px);
+  z-index: 2;
+}
+
+.videos-feed__post-video-play svg {
+  color: rgba(255,255,255,1.0);
+  height: 2.4rem;
+  width: 2.6rem;
+}
+
+.videos-feed__post-avatar-wrapper {
+  bottom: 0;
+  height: 6.4rem;
+  left: 50%;
+  margin: 0 auto;
+  position: absolute;
+  transform: translateX(-50%) translateY(50%);
+  width: 6.4rem;
+}
+
+@media screen and (min-width: 750px) {
+  .videos-feed__post-avatar-wrapper {
+    height: 7.5rem;
+    width: 7.5rem;
+  }
+}
+
+.videos-feed__post-avatar-wrapper svg.icon {
+  background-color: rgb(var(--color-background));
+  border-radius: 50%;
+}
+
+.videos-feed__post-avatar {
+  border: 0.6rem solid rgb(var(--color-background));
+  border-radius: 50%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.videos-feed__post-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 1.8rem 2.2rem;
+  white-space: normal;
+}
+
+@media screen and (min-width: 750px) {
+  .videos-feed__post-content {
+    padding: 0 3.2rem 2.8rem;
+  }
+}
+
+.videos-feed__post-content-username {
+  align-items: center;
+  column-gap: 1rem;
+  display: flex;
+  justify-content: center;
+  margin: 3.8rem 0 0;
+}
+
+@media screen and (min-width: 750px) {
+  .videos-feed__post-content-username {
+    margin: 6rem 0 0;
+  }
+}
+
+.videos-feed__post-content-username svg {
+  height: 2.2rem;
+  width: 2.2rem;
+}
+
+.videos-feed__post-content-caption {
+  margin: 0.8rem 0 1.6rem;
+}
+
+@media screen and (min-width: 750px) {
+  .videos-feed__post-content-caption {
+    margin: 0.8rem 0 3.2rem;
+  }
+}
+
+.videos-feed__post-content-caption p {
+  font-size: inherit;
+}
+
+.videos-feed__post-content-likes {
+  align-items: center;
+  column-gap: 1rem;
+  display: flex;
+  justify-content: center;
+  margin: auto 0 0;
+}
+
+.videos-feed__post-content-likes span {
+  align-items: center;
+  display: flex;
+}
+
+.videos-feed__post-content-likes svg {
+  height: 2rem;
+  width: 2rem;
+}

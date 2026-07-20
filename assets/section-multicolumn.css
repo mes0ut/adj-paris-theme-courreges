@@ -1,0 +1,118 @@
+.multicolumn {
+  position: relative;
+  text-align: center;
+}
+
+.multicolumn__heading {
+  margin: 0 auto 4.8rem;
+  max-width: 82.5rem;
+}
+
+@media screen and (min-width: 990px) {
+  .multicolumn__heading {
+    margin: 0 auto var(--space-m);
+  }
+}
+
+.multicolumn__column-single {
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media screen and (min-width: 990px) {
+  .multicolumn__column-single {
+    max-width: 41rem;
+  }
+}
+
+.multicolumn__column-heading {
+  margin: 0 0 1.2rem;
+}
+
+.multicolumn__column-text {
+  margin: 0;
+}
+
+.multicolumn__main-link {
+  margin-top: 3.2rem;
+}
+
+@media screen and (min-width: 990px) {
+  .multicolumn__main-link {
+    margin-top: 4.8rem;
+  }
+}
+
+.multicolumn__image {
+  max-width: 16rem;
+  margin: auto;
+  margin-bottom: var(--space-xs);
+}
+
+.multicolumn__decorative-icon-wrapper {
+  position: absolute;
+  right: 0;
+  top: -10rem;
+}
+
+@media screen and (min-width: 990px) {
+  .multicolumn__decorative-icon-wrapper {
+    right: 2rem;
+    top: -8rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .multicolumn__decorative-icon-wrapper {
+    right: 8rem;
+  }
+}
+
+.multicolumn__decorative-icon-wrapper svg {
+  transform: scale(-1, 1);
+  width: 8.2rem;
+}
+
+@media screen and (min-width: 990px) {
+  .multicolumn__decorative-icon-wrapper svg {
+    width: 11.8rem;
+  }
+}
+
+/* ============================================================================
+  embla modifiers
+============================================================================== */
+
+@media screen and (min-width: 990px) {
+  embla-component.multicolumn__carousel .embla__container {
+    margin-right: calc(1rem * -1);
+  }
+}
+
+embla-component.multicolumn__carousel .embla__slide {
+  flex: 0 0 100%;
+  align-items: flex-start;
+}
+
+@media screen and (min-width: 990px) {
+  embla-component.multicolumn__carousel .embla__slide {
+    flex: 0 0 33.3%;
+    padding: 0 1.6rem;
+  }
+}
+
+embla-component.multicolumn__carousel .embla__dots {
+  left: unset;
+  margin-top: 4rem;
+  position: relative;
+  right: unset;
+  transform: translateX(0);
+  width: 100%;
+}
+
+@media screen and (min-width: 990px) {
+  embla-component.multicolumn__carousel .embla__dots {
+    display: none;
+  }
+}
+

@@ -1,0 +1,50 @@
+<div class="rich-text-block {{ block.settings.text_alignment }}">
+  {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+{
+  "name": "t:blocks.rich-text.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:settings_schema.global.settings.text_alignment.option_1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:settings_schema.global.settings.text_alignment.option_2.label"
+        },
+        {
+          "value": "right",
+          "label": "t:settings_schema.global.settings.text_alignment.option_3.label"
+        }
+      ],
+      "default": "left",
+      "label": "t:settings_schema.global.settings.text_alignment.label"
+    }
+  ],
+  "blocks": [
+    {"type": "_rich-text-badge"},
+    {"type": "_rich-text-heading"},
+    {"type": "_rich-text-paragraph"},
+    {"type": "_rich-text-link"}
+  ],
+  "presets": [
+    {
+      "name": "t:blocks.rich-text.name",
+      "blocks": [
+        {
+          "type": "_rich-text-heading"
+        },
+        {
+          "type": "_rich-text-paragraph"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

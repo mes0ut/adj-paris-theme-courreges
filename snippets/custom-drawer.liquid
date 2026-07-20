@@ -1,0 +1,35 @@
+{%- if heading != blank and content != blank -%}
+  <custom-drawer
+    class="drawer drawer--custom"
+    id="CustomDrawer-{{ id }}"
+    data-move-to-body
+  >
+    <div class="drawer__overlay"></div>
+
+    <div
+      class="drawer__inner"
+      role="dialog"
+      aria-modal="true"
+      aria-label="{{ heading }}"
+      tabindex="-1"
+    >
+      <div class="drawer__header">
+        <h2 class="drawer__heading h4">
+          {{- heading | replace: '<p>', '' | replace: '</p>', '' -}}
+        </h2>
+
+        <button
+          class="drawer__close"
+          type="button"
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          {% render 'icon-close' %}
+        </button>
+      </div>
+
+      <div class="rte">
+        {{- content -}}
+      </div>
+    </div>
+  </custom-drawer>
+{%- endif -%}

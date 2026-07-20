@@ -1,0 +1,30 @@
+{% liquid
+  if request.design_mode
+    assign loop_count = 3
+  else
+    assign loop_count = 6
+  endif
+%}
+{% for i in (1..loop_count) %}
+  <modal-opener
+    {% if section.settings.layout == 'carousel' %}
+      class="videos-feed__post-wrapper videos-feed__post-wrapper--{{ section.settings.card_size }} embla__slide"
+    {% endif %}
+    data-modal="#PopupModal-{{ section.id }}"
+  >
+    <div
+      class="videos-feed__post videos-feed__post--{{ section.settings.card_size }} {{ section.settings.border_radius }}"
+      id="ModalOpenerBtn-{{ section.id }}"
+      data-post-id="post-placeholder"
+      type="button"
+      aria-haspopup="dialog"
+    >
+      <div class="videos-feed__post-media-wrapper">
+        {{ 'image' | placeholder_svg_tag: 'videos-feed__post-image' }}
+        <div class="videos-feed__post-video-play">
+          {% render 'icon-play' %}
+        </div>
+      </div>
+    </div>
+  </modal-opener>
+{% endfor %}

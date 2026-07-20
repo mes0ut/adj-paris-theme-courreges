@@ -1,0 +1,291 @@
+{{ 'section-faqs-page.css' | asset_url | stylesheet_tag }}
+{{ 'component-sidebar.css' | asset_url | stylesheet_tag }}
+{{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  render 'section-spacing', id: section.id
+
+  if section.settings['side-menu'] != blank
+    assign page_layout = ''
+    assign sidebar_active = true
+  else
+    assign page_layout = 'page-width--narrow'
+  endif
+%}
+
+<div class="section-{{ section.id }} {% if section.settings.show_border_bottom %}section-border-bottom{% endif %}">
+  <div class="page-width {{ page_layout }}">
+    {% if section.settings.show_breadcrumbs %}
+      {% render 'breadcrumbs' %}
+    {% endif %}
+
+  {% if sidebar_active %}
+    <div class="sidebar__layout">
+      {% render 'side-menu',
+        ref: section.settings['side-menu'],
+        background: section.settings.color_scheme
+      %}
+  {% endif %}
+
+  <div class="faqs-page__content-wrapper">
+    <h1 class="faqs-page__title h0">
+      {{ page.title | escape }}
+    </h1>
+    <div class="rte faqs-page__wysiwyg">
+      {{ page.content }}
+    </div>
+    <div class="faqs-page__faqs">
+      {% render 'collapsible-content-accordion' %}
+    </div>
+  </div>
+
+  {% if sidebar_active %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.collapsible-content.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.all.breadcrumbs.name"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "label": "t:sections.all.breadcrumbs.settings.show.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-page.settings.sidebar-menu.name"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-3"
+    },
+    {
+      "type": "link_list",
+      "id": "side-menu",
+      "label": "t:sections.main-page.settings.sidebar-menu.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.collapsible-content.name"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "t:sections.all.border.show_border_bottom.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.collapsible-content.settings.row_font_size.header"
+    },
+    {
+      "type": "select",
+      "id": "row_title_style",
+      "label": "t:sections.all.text.style.label",
+      "options": [
+        {
+          "value": "normal",
+          "label": "t:sections.all.text.style.option_1"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:sections.all.text.style.option_2"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "select",
+      "id": "row_font_size",
+      "label": "t:sections.collapsible-content.settings.row_font_size.label",
+      "options": [
+        {
+          "value": "p",
+          "label": "t:sections.all.heading_size.options_1.label"
+        },
+        {
+          "value": "h6",
+          "label": "t:sections.all.heading_size.options_2.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.all.heading_size.options_3.label"
+        }
+      ],
+      "default": "p"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.desktop_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.mobile_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_bottom",
+      "default": 44
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.desktop_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.margin_bottom",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.mobile_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.mobile_margin_bottom",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.animations.section_animation.header",
+      "visible_if": "{{ settings.enable_global_animations }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "t:sections.all.animations.section_animation.label",
+      "default": true,
+      "visible_if": "{{ settings.enable_global_animations }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question_answer",
+      "name": "t:sections.collapsible-content.blocks.collapsible-row.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "display_type",
+          "label": "t:sections.collapsible-content.blocks.collapsible-row.settings.display_type.label",
+          "options": [
+            {
+              "value": "accordion",
+              "label": "t:sections.collapsible-content.blocks.collapsible-row.settings.display_type.options_1.label"
+            },
+            {
+              "value": "drawer",
+              "label": "t:sections.collapsible-content.blocks.collapsible-row.settings.display_type.options_2.label"
+            }
+          ],
+          "default": "accordion"
+        },
+        {
+          "type": "checkbox",
+          "id": "faq_open",
+          "label": "t:sections.collapsible-content.blocks.collapsible-row.settings.open_row.label",
+          "visible_if": "{{ block.settings.display_type == 'accordion' }}"
+        },
+        {
+          "type": "richtext",
+          "id": "faqs_question",
+          "label": "t:sections.collapsible-content.blocks.collapsible-row.settings.heading.label",
+          "default": "<p>Add your question here</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "faqs_answer",
+          "label": "t:sections.collapsible-content.blocks.collapsible-row.settings.content.label",
+          "default": "<p>Add your content here</p>"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "t:sections.collapsible-content.blocks.title.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.collapsible-content.blocks.title.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "title_style",
+          "label": "t:sections.all.text.style.label",
+          "options": [
+            {
+              "value": "normal",
+              "label": "t:sections.all.text.style.option_1"
+            },
+            {
+              "value": "uppercase",
+              "label": "t:sections.all.text.style.option_2"
+            }
+          ],
+          "default": "normal"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "t:sections.collapsible-content.blocks.title.settings.content.label"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

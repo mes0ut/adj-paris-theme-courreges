@@ -1,0 +1,29 @@
+{% liquid
+  assign css_file_url = css_file
+  assign section_index = section.index
+  assign delay = true
+  if section_index == 1 or section_index == 2
+    assign delay = false
+  endif
+  if settings.enable_loading_delay == false
+    assign delay = false
+  endif
+  if force_delay
+    assign delay = true
+  endif
+%}
+
+{% if delay %}
+  <link
+    rel="stylesheet"
+    href="{{ css_file_url | asset_url }}"
+    media="print"
+    onload="this.media='all'"
+  >
+
+  <noscript>
+    {{- css_file_url | asset_url | stylesheet_tag -}}
+  </noscript>
+{% else %}
+  {{ css_file_url | asset_url | stylesheet_tag }}
+{% endif %}

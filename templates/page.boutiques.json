@@ -1,0 +1,325 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "store_locator_premium_7T6Wp7": {
+      "type": "store-locator-premium",
+      "blocks": {
+        "store_Hz8kQY": {
+          "type": "store",
+          "settings": {
+            "name": "The Village Outlet",
+            "city": "Lyon",
+            "type": "mall",
+            "image": "shopify://shop_images/TVO.jpg",
+            "address": "Parc du, Chem. du Couvent, 38090 Villefontaine, France",
+            "phone": "+33 04 74 94 71 10",
+            "hours": "Lundi–Vendredi : 10:00–19:00  \nSamedi : 10:00–20:00  \nDimanche : Fermé \n*Les horaires peuvent varier selon le centre commercial.",
+            "lat": "45.62637638201218",
+            "lng": "5.160586005532464",
+            "google_maps_url": ""
+          }
+        },
+        "store_U6ipDz": {
+          "type": "store",
+          "settings": {
+            "name": "Westfield La Part-Dieu",
+            "city": "Lyon",
+            "type": "mall",
+            "image": "shopify://shop_images/LYON.jpg",
+            "address": "17 Rue Dr Bouchut, 69003 Lyon, France",
+            "phone": "+33 04 78 68 95 52",
+            "hours": "Lundi–Samedi : 09:30–20:00  \nDimanche : Fermé\n*Les horaires peuvent varier selon le centre commercial.",
+            "lat": "45.7617414271853",
+            "lng": "4.8563960393987795",
+            "google_maps_url": ""
+          }
+        },
+        "store_BeBWf8": {
+          "type": "store",
+          "settings": {
+            "name": "La Toison d'or",
+            "city": "Dijon",
+            "type": "mall",
+            "image": "shopify://shop_images/DIJON.jpg",
+            "address": "Rte de Langres, 21000 Dijon, France",
+            "phone": "+33 3 80 61 66 92‬",
+            "hours": "Lundi–Vendredi : 10:00–20:00  \nSamedi : 09:00–20:00  \nDimanche : Fermé\n*Les horaires peuvent varier selon le centre commercial.",
+            "lat": "47.35741111718183",
+            "lng": "5.051580330092754",
+            "google_maps_url": ""
+          }
+        },
+        "store_d6Cppi": {
+          "type": "store",
+          "settings": {
+            "name": "Neyrpic",
+            "city": "Grenoble",
+            "type": "mall",
+            "image": "shopify://shop_images/GRONOBLE.jpg",
+            "address": "Centre commercial Neyrpic, 38400 Saint-Martin-d'Hères, France",
+            "phone": "+33 04 76 42 68 29",
+            "hours": "Lundi–Samedi : 10:00–20:00  \nDimanche : Fermé\n*Les horaires peuvent varier selon le centre commercial.",
+            "lat": "45.18523651354692",
+            "lng": "5.755182158530319",
+            "google_maps_url": ""
+          }
+        },
+        "store_XAcmTU": {
+          "type": "store",
+          "settings": {
+            "name": "Westfield Rosny 2",
+            "city": "Paris",
+            "type": "mall",
+            "image": "shopify://shop_images/rosny.webp",
+            "address": "Av. du Général de Gaulle, 93117 Rosny-sous-Bois, France",
+            "phone": "+33 1 48 12 43 71‬",
+            "hours": "Lundi–Samedi : 10:00–20:30  \nDimanche : 10:00–19:00\n*Les horaires peuvent varier selon le centre commercial.",
+            "lat": "48.88389248581991",
+            "lng": "2.477819501844155",
+            "google_maps_url": ""
+          }
+        },
+        "store_EciFH6": {
+          "type": "store",
+          "settings": {
+            "name": "Westfield Aéroville",
+            "city": "Paris",
+            "type": "mall",
+            "image": "shopify://shop_images/aeroville.webp",
+            "address": "30 Rue des Buissons, 95700 Roissy-en-France, France",
+            "phone": "‪+33 1 74 29 46 76‬",
+            "hours": "Lundi–Dimanche : 10:00–20:00\n*Les horaires peuvent varier selon le centre commercial.",
+            "lat": "48.991225751966674",
+            "lng": "2.5220149629577406",
+            "google_maps_url": ""
+          }
+        },
+        "store_4Y8xic": {
+          "type": "store",
+          "settings": {
+            "name": "Créteil Soleil",
+            "city": "Paris",
+            "type": "mall",
+            "image": "shopify://shop_images/creteil.jpg",
+            "address": "Centre Commercial Régional Créteil-Soleil, 94012 Créteil, France",
+            "phone": "‪+33 1 42 11 86 41‬",
+            "hours": "Lundi–Samedi : 10:00–20:30  \nDimanche : 11:00–19:00\n*Les horaires peuvent varier selon le centre commercial.",
+            "lat": "48.780307592491674",
+            "lng": "2.4567438398779733",
+            "google_maps_url": ""
+          }
+        },
+        "store_hURBCt": {
+          "type": "store",
+          "settings": {
+            "name": "Westfield Euralille",
+            "city": "Lille",
+            "type": "mall",
+            "image": "shopify://shop_images/1dd74d54-cd7b-4005-806e-a14850bacd7a.jpg",
+            "address": "100 Av. Willy Brandt, 59777 Lille, France",
+            "phone": "",
+            "hours": "Lundi–Samedi : 09:30–20:00  \nDimanche : Fermé\n*Les horaires peuvent varier selon le centre commercial.",
+            "lat": "50.63731653498663",
+            "lng": "3.0743055260439167",
+            "google_maps_url": ""
+          }
+        },
+        "store_gezLix": {
+          "type": "store",
+          "settings": {
+            "name": "Muse Metz",
+            "city": "Metz",
+            "type": "mall",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-05-08_at_17.07.52.jpg",
+            "address": "2 Rue des Messageries, 57000 Metz, France",
+            "phone": "",
+            "hours": "Lundi–Samedi : 10:00–20:00  \nDimanche : Fermé\n*Les horaires peuvent varier selon le centre commercial.",
+            "lat": "49.10613296433423",
+            "lng": "6.182617215138541",
+            "google_maps_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "store_Hz8kQY",
+        "store_U6ipDz",
+        "store_BeBWf8",
+        "store_d6Cppi",
+        "store_XAcmTU",
+        "store_EciFH6",
+        "store_4Y8xic",
+        "store_hURBCt",
+        "store_gezLix"
+      ],
+      "name": "Store Locator Premium",
+      "settings": {
+        "heading": "Nos Boutiques",
+        "subheading": "<p>Explorez nos adresses et vivez l’expérience ADJ Paris.</p>",
+        "search_placeholder": "Rechercher une boutique (ville, adresse...)",
+        "city_all_label": "Toutes les villes",
+        "type_all_label": "Tous les types",
+        "type_flagship_label": "Flagship",
+        "type_outlet_label": "Outlet",
+        "type_mall_label": "Centre commercial",
+        "cta_directions": "Itinéraire",
+        "cta_call": "Appeler",
+        "cta_hours": "Horaires",
+        "hours_title": "Horaires",
+        "detail_kicker": "Boutique sélectionnée",
+        "detail_default_title": "Choisissez une boutique",
+        "detail_default_meta": "Sélectionnez une boutique dans la liste pour voir les détails.",
+        "default_lat": "48.857508226749054",
+        "default_lng": "2.3513254686789558",
+        "default_zoom": 15
+      }
+    },
+    "our_stores_dynamic_KDPTUy": {
+      "type": "our-stores-dynamic",
+      "blocks": {
+        "store_mMGWJH": {
+          "type": "store",
+          "settings": {
+            "name": "The Village Outlet",
+            "city": "Lyon",
+            "address": "Parc du, Chem. du Couvent, 38090 Villefontaine, France",
+            "phone": "+33 04 74 94 71 10",
+            "image": "shopify://shop_images/TVO.jpg",
+            "latitude": "45.62637638201218",
+            "longitude": "5.160586005532464"
+          }
+        },
+        "store_tAAjVT": {
+          "type": "store",
+          "settings": {
+            "name": "Westfield La Part-Dieu",
+            "city": "Lyon",
+            "address": "17 Rue Dr Bouchut, 69003 Lyon, France",
+            "phone": "+33 04 78 68 95 52",
+            "image": "shopify://shop_images/LYON.jpg",
+            "latitude": "45.7617414271853",
+            "longitude": "4.8563960393987795"
+          }
+        },
+        "store_J97bqj": {
+          "type": "store",
+          "settings": {
+            "name": "La Toison d'or",
+            "city": "Dijon",
+            "address": "Rte de Langres, 21000 Dijon, France",
+            "phone": "+33 3 80 61 66 92‬",
+            "image": "shopify://shop_images/DIJON.jpg",
+            "latitude": "47.35726918862463",
+            "longitude": "5.051676230144252"
+          }
+        },
+        "store_YgiWJt": {
+          "type": "store",
+          "settings": {
+            "name": "Neyrpic",
+            "city": "Grenoble",
+            "address": "Centre commercial Neyrpic, 38400 Saint-Martin-d'Hères, France",
+            "phone": "+33 04 76 42 68 29",
+            "image": "shopify://shop_images/GRONOBLE.jpg",
+            "latitude": "45.18523651354692",
+            "longitude": "5.755182158530319"
+          }
+        },
+        "store_rG8wMW": {
+          "type": "store",
+          "settings": {
+            "name": "Westfield Rosny 2",
+            "city": "Paris",
+            "address": "Av. du Général de Gaulle, 93117 Rosny-sous-Bois, France",
+            "phone": "+33 1 48 12 43 71‬",
+            "image": "shopify://shop_images/rosny.webp",
+            "latitude": "48.88378563280849",
+            "longitude": "2.4780426558000355"
+          }
+        },
+        "store_MW7BYg": {
+          "type": "store",
+          "settings": {
+            "name": "Westfield Aéroville",
+            "city": "Paris",
+            "address": "30 Rue des Buissons, 95700 Roissy-en-France, France",
+            "phone": "‪+33 1 74 29 46 76‬",
+            "image": "shopify://shop_images/aeroville.webp",
+            "latitude": "48.991225751966674",
+            "longitude": "2.5220149629577406"
+          }
+        },
+        "store_nhR64h": {
+          "type": "store",
+          "settings": {
+            "name": "Créteil Soleil",
+            "city": "Paris",
+            "address": "Centre Commercial Régional Créteil-Soleil, 94012 Créteil, France",
+            "phone": "‪+33 1 42 11 86 41‬",
+            "image": "shopify://shop_images/creteil.jpg",
+            "latitude": "48.780307592491674",
+            "longitude": "2.4567438398779733"
+          }
+        },
+        "store_XYRNr4": {
+          "type": "store",
+          "settings": {
+            "name": "Westfield Euralille",
+            "city": "Lille",
+            "address": "100 Av. Willy Brandt, 59777 Lille, France",
+            "phone": "",
+            "image": "shopify://shop_images/1dd74d54-cd7b-4005-806e-a14850bacd7a.jpg",
+            "latitude": "50.63725333035338,",
+            "longitude": "3.074428852481277"
+          }
+        },
+        "store_ErVrJT": {
+          "type": "store",
+          "settings": {
+            "name": "",
+            "city": "",
+            "address": "",
+            "phone": "",
+            "latitude": "",
+            "longitude": ""
+          }
+        }
+      },
+      "block_order": [
+        "store_mMGWJH",
+        "store_tAAjVT",
+        "store_J97bqj",
+        "store_YgiWJt",
+        "store_rG8wMW",
+        "store_MW7BYg",
+        "store_nhR64h",
+        "store_XYRNr4",
+        "store_ErVrJT"
+      ],
+      "disabled": true,
+      "name": "Stores Dynamic",
+      "settings": {
+        "title": "Boutiques",
+        "popup_show_image": true,
+        "marker_icon": "shopify://shop_images/adj-paris-logo.jpg"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "store_locator_premium_7T6Wp7",
+    "our_stores_dynamic_KDPTUy"
+  ]
+}

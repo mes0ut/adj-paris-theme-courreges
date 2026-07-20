@@ -1,0 +1,137 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "our_stores_dynamic_feMj9P": {
+      "type": "our-stores-dynamic",
+      "blocks": {
+        "store_V7YgzW": {
+          "type": "store",
+          "settings": {
+            "name": "The Village Outlet",
+            "city": "",
+            "address": "Parc du, Chem. du Couvent, 38090 Villefontaine, Fransa",
+            "phone": "04 74 95 37 01",
+            "image": "shopify://shop_images/TVO.jpg",
+            "latitude": "",
+            "longitude": ""
+          }
+        },
+        "store_UzxE9h": {
+          "type": "store",
+          "settings": {
+            "name": "Westfield La Part-Dieu",
+            "city": "",
+            "address": "17 Rue Dr Bouchut, 69003 Lyon, Fransa",
+            "phone": "",
+            "image": "shopify://shop_images/LYON.jpg",
+            "latitude": "",
+            "longitude": ""
+          }
+        },
+        "store_iGC7Lm": {
+          "type": "store",
+          "settings": {
+            "name": "La Toison d'or",
+            "city": "",
+            "address": "Rte de Langres, 21000 Dijon, Fransa",
+            "phone": "",
+            "image": "shopify://shop_images/DIJON.jpg",
+            "latitude": "",
+            "longitude": ""
+          }
+        },
+        "store_JHGtEd": {
+          "type": "store",
+          "settings": {
+            "name": "Neyrpic",
+            "city": "",
+            "address": "Centre commercial Neyrpic, 38400 Saint-Martin-d'Hères, Fransa",
+            "phone": "",
+            "image": "shopify://shop_images/GRONOBLE.jpg",
+            "latitude": "",
+            "longitude": ""
+          }
+        },
+        "store_hjyCn8": {
+          "type": "store",
+          "settings": {
+            "name": "Westfield Rosny 2",
+            "city": "",
+            "address": "Av. du Général de Gaulle, 93117 Rosny-sous-Bois, Fransa",
+            "phone": "",
+            "image": "shopify://shop_images/rosny.webp",
+            "latitude": "",
+            "longitude": ""
+          }
+        },
+        "store_F6Uhm4": {
+          "type": "store",
+          "settings": {
+            "name": "Westfield Aéroville",
+            "city": "",
+            "address": "30 Rue des Buissons, 95700 Roissy-en-France, Fransa",
+            "phone": "",
+            "image": "shopify://shop_images/aeroville.webp",
+            "latitude": "",
+            "longitude": ""
+          }
+        },
+        "store_iTgtLw": {
+          "type": "store",
+          "settings": {
+            "name": "Créteil Soleil",
+            "city": "",
+            "address": "Centre Commercial Régional Créteil-Soleil, 94012 Créteil, Fransa",
+            "phone": "",
+            "image": "shopify://shop_images/creteil.jpg",
+            "latitude": "",
+            "longitude": ""
+          }
+        },
+        "store_CEJMJQ": {
+          "type": "store",
+          "settings": {
+            "name": "Westfield Euralille",
+            "city": "",
+            "address": "100 Av. Willy Brandt, 59777 Lille, Fransa",
+            "phone": "",
+            "image": "shopify://shop_images/lille.jpg",
+            "latitude": "",
+            "longitude": ""
+          }
+        }
+      },
+      "block_order": [
+        "store_V7YgzW",
+        "store_UzxE9h",
+        "store_iGC7Lm",
+        "store_JHGtEd",
+        "store_hjyCn8",
+        "store_F6Uhm4",
+        "store_iTgtLw",
+        "store_CEJMJQ"
+      ],
+      "name": "Stores Dynamic",
+      "settings": {
+        "title": "Boutiques",
+        "popup_show_image": true
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "our_stores_dynamic_feMj9P",
+    "main"
+  ]
+}

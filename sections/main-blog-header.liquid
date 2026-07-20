@@ -1,0 +1,135 @@
+{{ 'component-hero.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign title_style = section.settings.title_style
+  if title_style == 'uppercase'
+    assign title_style = 'uppercase'
+  endif
+
+  if section.settings.show_breadcrumbs == false
+    assign header_hero_classes = ' header-hero--no-breadcrumbs'
+  endif
+%}
+
+<div class="main-blog">
+  <div
+    class="
+      header-hero
+      {{ header_hero_classes }}
+      gradient
+      color-{{ section.settings.color_scheme }}
+      {% if section.settings.show_border_bottom %}section-border-bottom{% endif %}
+    "
+  >
+    <div class="page-width">
+      <div class="header-hero__container">
+        <div class="header-hero__content">
+          {% if section.settings.show_breadcrumbs %}
+            {% render 'breadcrumbs' %}
+          {% endif %}
+
+          <div class="header-hero__text-content">
+            <h1 class="title--primary h3 {{ title_style }}">
+              {% if current_tags %}
+                {{ current_tags[0] }}
+              {%- elsif section.settings.title != blank -%}
+                {{ section.settings.title | escape }}
+              {%- else -%}
+                {{ blog.title | escape }}
+              {%- endif -%}
+            </h1>
+
+            {%- if section.settings.text -%}
+              <p>
+                {{ section.settings.text | escape }}
+              </p>
+            {%- endif -%}
+          </div>
+        </div>
+
+        {%- if section.settings.image -%}
+          <div class="header-hero__image-wrapper">
+            <div class="header-hero__image media">
+              {{
+                section.settings.image
+                | image_url: width: 720
+                | image_tag:
+                  loading: 'lazy',
+                  width: section.settings.image.width,
+                  height: section.settings.image.height,
+                  sizes: '(min-width: 1100px) 535px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)',
+                  widths: '360, 533, 720, 940, 1066',
+                  class: 'motion-reduce',
+                  alt: section.settings.image.alt
+                | escape
+              }}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {% render 'icon-arrow-down-large' %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-blog.hero.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-4"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "t:sections.all.border.show_border_bottom.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "label": "t:sections.all.breadcrumbs.settings.show.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.main-blog.hero.settings.hero_title.label",
+      "default": "Blog Landing Page"
+    },
+    {
+      "type": "select",
+      "id": "title_style",
+      "options": [
+        {
+          "value": "normal",
+          "label": "t:sections.all.text.style.option_1"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:sections.all.text.style.option_2"
+        }
+      ],
+      "default": "normal",
+      "label": "t:sections.all.text.style.label"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "t:sections.main-blog.hero.settings.hero_text.label",
+      "default": "Blog landing page text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.main-blog.hero.settings.hero_image.label",
+      "info": "t:sections.all.images_tips.landscape_medium.info"
+    }
+  ]
+}
+{% endschema %}

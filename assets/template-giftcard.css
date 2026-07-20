@@ -1,0 +1,159 @@
+.gift-card__header {
+  padding: 3rem 0 2rem;
+  text-align: center;
+}
+
+.gift-card__title {
+  padding: 0 0 2rem;
+  text-align: center;
+  word-break: break-word;
+}
+
+@media only screen and (min-width: 990px) {
+  .gift-card__title {
+    padding: 0 0 2.6rem;
+  }
+}
+
+.gift-card__image-wrapper {
+  align-items: center;
+  background-color: rgb(var(--color-background));
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 0.8rem;
+}
+
+@media only screen and (min-width: 750px) {
+  .gift-card__image-wrapper {
+    margin-bottom: 0;
+    width: 40rem;
+  }
+}
+
+.gift-card__image {
+  height: auto;
+  max-width: 100%;
+  padding: 0 2rem;
+}
+
+@media only screen and (min-width: 750px) {
+  .gift-card__image {
+    padding: 0;
+  }
+}
+
+.gift-card__heading {
+  margin: 0;
+}
+
+.gift-card__price {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  line-height: 1.5;
+}
+
+.gift-card__price p {
+  font-size: inherit;
+}
+
+.gift-card__price > p:first-child {
+  margin-bottom: 1rem;
+}
+
+.gift-card__label:not(.badge) {
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.gift-card__number {
+  background-color: rgb(var(--input-background-color));
+  border: none;
+  border: var(--inputs-border-thickness) solid
+    rgba(var(--color-border-1), var(--inputs-border-opacity));
+  border-radius: var(--inputs-radius);
+  color: rgb(var(--color-foreground));
+  font-family: inherit;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.gift-card__text {
+  margin-bottom: 4rem;
+  opacity: 0.7;
+}
+
+.gift-card__information {
+  margin: 3rem auto 0;
+  max-width: 50rem;
+  padding: 0 var(--space-xs);
+  text-align: center;
+}
+
+.gift-card__label {
+  display: inline;
+  font-weight: 500;
+  margin-left: 1rem;
+}
+
+.gift-card__copy-code {
+  margin-bottom: 2.2rem;
+}
+
+.gift-card__qr-code {
+  margin-top: 3rem;
+}
+
+@media only screen and (min-width: 750px) {
+  .gift-card__qr-code {
+    margin-top: 5rem;
+  }
+}
+
+.gift-card__qr-code img {
+  border: 2rem solid rgba(255, 255, 255, 1);
+  margin: 0 auto;
+}
+
+.gift_card__apple-wallet {
+  display: block;
+  line-height: 0;
+  margin-bottom: 5rem;
+}
+
+.gift-card__buttons {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 50rem;
+}
+
+.gift-card__buttons > .button:first-child {
+  margin-bottom: 2rem;
+}
+
+.gift-card__copy-link {
+  width: 100%;
+}
+
+.gift-card__copy-success--visible {
+  background-color: rgba(var(--input-background-color), 1);
+  color: rgb(var(--input-text-color));
+  display: inline-flex;
+  margin-top: 1rem;
+  padding: 1.2rem 1.4rem;
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+}

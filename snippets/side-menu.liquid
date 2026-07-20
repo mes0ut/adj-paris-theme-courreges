@@ -1,0 +1,107 @@
+{{ 'component-side-menu.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  Accepts menu as an argument
+{%- endcomment -%}
+
+{% assign chosen_menu = ref %}
+{% assign background_class = 'color-' | append: background %}
+
+<side-menu class="side-menu gradient {{ background_class }}">
+  {% if chosen_menu == 'standard_links' %}
+    <div class="side-menu__heading-wrapper js-show-all">
+      <span class="link side-menu__heading p-large">
+        <span class="p-large side-menu__heading-text">
+          {{ settings.account_side_menu_heading }}
+        </span>
+        {% render 'icon-caret' %}
+      </span>
+    </div>
+    <div class="side-menu__links js-side-menu-links">
+      <div class="side-menu__link-wrapper {% if request.path == routes.account_url %} is-active {% endif %}">
+        <div class="side-menu__active-icon ">
+          {% render 'icon-star-single' %}
+        </div>
+        <a class="link side-menu__link" href="{{ routes.account_url }}">
+          <span class="p-large side-menu__link-text">
+            {{ 'customer.account.title' | t }}
+          </span>
+          {% render 'icon-arrow' %}
+        </a>
+      </div>
+      <div class="side-menu__link-wrapper">
+        <a class="link side-menu__link" href="{{ routes.account_url }}#orders">
+          <div class="side-menu__active-icon">
+            {% render 'icon-star-single' %}
+          </div>
+          <span class="p-large side-menu__link-text">
+            {{ 'customer.orders.title' | t }}
+          </span>
+          {% render 'icon-arrow' %}
+        </a>
+      </div>
+      <div class="side-menu__link-wrapper {% if request.path == routes.account_addresses_url %}is-active{% endif %}">
+        <div class="side-menu__active-icon ">
+          {% render 'icon-star-single' %}
+        </div>
+        <a
+          class="link side-menu__link"
+          href="{{ routes.account_addresses_url }}"
+        >
+          <span class="p-large side-menu__link-text">
+            {{ 'customer.account.view_addresses' | t }}
+          </span>
+          {% render 'icon-arrow' %}
+        </a>
+      </div>
+      <div class="side-menu__link-wrapper">
+        <a class="link side-menu__link" href="{{ routes.account_logout_url }}">
+          <span class="p-large side-menu__link-text">
+            {{ 'customer.log_out' | t }}
+          </span>
+          {% render 'icon-arrow' %}
+        </a>
+      </div>
+    </div>
+  {% else %}
+    <div class="side-menu__heading-wrapper js-show-all">
+      <span class="link side-menu__heading p-large">
+        <span class="p-large side-menu__heading-text">
+          {{ chosen_menu.title }}
+        </span>
+        {% render 'icon-caret' %}
+      </span>
+    </div>
+    <div class="side-menu__links js-side-menu-links">
+      {% for link in chosen_menu.links %}
+        <div class="side-menu__link-wrapper">
+          {% if link.url == request.path %}
+            <div class="side-menu__active-icon">
+              {% render 'icon-star-single' %}
+            </div>
+          {% endif %}
+          <a href="{{ link.url }}" class="side-menu__link link p-large">
+            <span class="p-large side-menu__link-text">{{ link.title }}</span>
+            {% render 'icon-arrow' %}
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</side-menu>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sideMenuLink = document.querySelectorAll('.side-menu__link-wrapper');
+
+    sideMenuLink.forEach(function (link) {
+      link.addEventListener('click', function () {
+        sideMenuLink.forEach(function (link) {
+          link.classList.remove('is-active');
+        });
+
+        link.classList.add('is-active');
+      });
+    });
+  });
+</script>

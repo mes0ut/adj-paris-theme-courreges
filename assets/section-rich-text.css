@@ -1,0 +1,121 @@
+.rich-text .rich-text__container > *:first-child {
+  margin-top: 0;
+}
+
+.rich-text .rich-text__container > *:last-child {
+  margin-bottom: 0;
+}
+
+.rich-text--left-alignment {
+  text-align: left;
+}
+
+.rich-text--central-alignment {
+  text-align: center;
+}
+
+.rich-text--right-alignment,
+.rich-text__tags-list {
+  text-align: right;
+}
+
+.rich-text__heading {
+  position: relative;
+  margin: 0 0 2.4rem;
+}
+
+.rich-text__heading-icon {
+  position: absolute;
+  top: 0;
+}
+
+.rich-text__heading-icon--left {
+  left: 0;
+  transform: translateX(-110%) translateY(-50%) rotateZ(-90deg);
+}
+
+.rich-text__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.4rem;
+  margin-bottom: 2.4rem;
+}
+
+.rich-text__tags-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.rich-text__tags-list li {
+  display: inline;
+}
+
+.rich-text__tags-list .tag {
+  margin: 0 0.8rem;
+}
+
+.rich-text__tags--central-alignment .rich-text__tags-list {
+  justify-content: center;
+}
+
+.rich-text__tags--right-alignment .rich-text__tags-list {
+  justify-content: flex-end;
+}
+
+@media screen and (min-width: 1100px) {
+  .rich-text__heading-icon--left {
+    transform: translateX(-120%) translateY(-50%) rotateZ(-90deg);
+  }
+}
+
+.rich-text__heading-icon--right {
+  right: 0;
+  transform: translateX(110%) translateY(-50%);
+}
+
+@media screen and (min-width: 1100px) {
+  .rich-text__heading-icon--right {
+    transform: translateX(120%) translateY(-50%);
+  }
+}
+
+.rich-text__heading-icon svg {
+  display: none;
+}
+
+@media screen and (min-width: 750px) {
+  .rich-text__heading-icon svg {
+    display: block;
+    width: 7rem;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .rich-text__heading-icon svg {
+    width: 10rem;
+  }
+}
+
+.rich-text__paragraph {
+  margin: 0 0 2.4rem;
+}
+
+.rich-text__paragraph--tight {
+  margin-bottom: 1.2rem;
+}
+
+.rich-text__paragraph > *:last-child {
+  margin-bottom: 0;
+}
+
+.rich-text__link-wrapper {
+  margin: 2.8rem 0 2.4rem 0;
+}
+
+.rich-text__badge {
+  margin-bottom: 1.2rem;
+}

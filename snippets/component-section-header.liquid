@@ -1,0 +1,95 @@
+{%- comment -%}
+  Example:
+  render 'component-section-header',
+  type: 'header',
+  animate_class: animate_class,
+  layout: layout,
+  profile_image: section.settings.profile_image,
+  heading: section.settings.heading,
+  title_style: section.settings.title_style,
+  heading_size: section.settings.heading_size,
+  subheading: section.settings.subheading,
+  show_decorative_icon: section.settings.show_decorative_icon,
+  title_alignment: section.settings.title_alignment,
+  link: section.settings.link,
+  link_text: section.settings.link_text
+{%- endcomment -%}
+
+{%- assign title_style = title_style | default: 'normal' -%}
+
+{% if type == 'header' %}
+  <div
+    class="
+      page-width
+      section-title-header
+      {{ animate_class }}
+      section-title-header--{{ title_alignment }}
+      {{ layout }}
+    "
+  >
+    {% if profile_image != blank %}
+      <div class="section-title-header__avatar-wrapper">
+        {{
+          profile_image
+          | image_url: width: 160
+          | image_tag:
+            loading: 'lazy',
+            width: profile_image.width,
+            height: profile_image.height,
+            sizes: '160px',
+            widths: '160',
+            class: 'section-title-header__avatar',
+            alt: profile_image.alt
+          | escape
+        }}
+      </div>
+    {% endif %}
+    <div class="section-title-header__intro">
+      {% if heading != blank %}
+        <h3 class="section-title-header__intro-heading {{ title_style }} {{ heading_size }}">
+          {{ heading }}
+        </h3>
+      {% endif %}
+      {% if subheading != blank %}
+        <p class="p-large section-title-header__intro-subheading">
+          {{ subheading }}
+        </p>
+      {% endif %}
+      {% if show_decorative_icon != blank %}
+        <span class="section-title-header__intro-icon">
+          {% render 'icon-star-cluster-two' %}
+        </span>
+      {% endif %}
+    </div>
+    {% if link != blank and link_text != blank %}
+      <a
+        class="
+          link
+          link-with-icon
+          section-title-header__link
+          {{ button_color_scheme }}
+        "
+        href="{{ link }}"
+      >
+        {{ link_text }}
+        {% render 'icon-arrow' %}
+      </a>
+    {% endif %}
+  </div>
+{% elsif type == 'footer' %}
+  {%- if link != blank and link_text != blank -%}
+    <div class="section-title-footer {{ animate_class }}">
+      <a
+        class="
+          link
+          link-with-icon
+          {{ button_color_scheme }}
+        "
+        href="{{ link }}"
+      >
+        {{ link_text }}
+        {% render 'icon-arrow' %}
+      </a>
+    </div>
+  {%- endif -%}
+{% endif %}

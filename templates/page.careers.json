@@ -1,0 +1,453 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "image_banner": {
+      "type": "image-banner",
+      "settings": {
+        "height": "medium",
+        "color_scheme": "background-5",
+        "show_border_bottom": true,
+        "title_style": "uppercase",
+        "header_size": "h2",
+        "subheading_size": "p",
+        "text_alignment": "left",
+        "content_position": "bottom-left",
+        "link": "",
+        "button_color_scheme": "button",
+        "side_text": "",
+        "side_text_position": "left",
+        "margin_bottom": 0,
+        "mobile_margin_bottom": 0,
+        "enable_animation": true
+      }
+    },
+    "multicolumn_KBTz4x": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_yzh7F6": {
+          "type": "column",
+          "settings": {}
+        },
+        "column_MHFEWc": {
+          "type": "column",
+          "settings": {}
+        },
+        "column_r4KcHb": {
+          "type": "column",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "column_yzh7F6",
+        "column_MHFEWc",
+        "column_r4KcHb"
+      ],
+      "settings": {
+        "color_scheme": "background-4",
+        "show_border_bottom": false,
+        "heading": "",
+        "heading_size": "h3",
+        "title_style": "uppercase",
+        "decorative-icon": false,
+        "link": "",
+        "link_text": "Learn more",
+        "button_color_scheme": "button",
+        "image_width": 40,
+        "primary_image_style": "image-border-radius--none",
+        "column_title_style": "uppercase",
+        "padding_top": 40,
+        "padding_bottom": 60,
+        "mobile_padding_top": 44,
+        "mobile_padding_bottom": 24,
+        "margin_bottom": 0,
+        "mobile_margin_bottom": 0,
+        "enable_animation": true
+      }
+    },
+    "collapsible_content_mtXRdN": {
+      "type": "collapsible-content",
+      "blocks": {
+        "title_RinRnN": {
+          "type": "title",
+          "settings": {
+            "title": "Add a title",
+            "title_style": "uppercase",
+            "content": "<p>Add more details about your store here<\/p>"
+          }
+        },
+        "question_answer_WbPVCT": {
+          "type": "question_answer",
+          "settings": {
+            "faqs_question": "<p>Job Title<\/p>",
+            "faqs_answer": "<p>Add more details about your store here<\/p>",
+            "faq_open": false
+          }
+        },
+        "question_answer_RpQ6Yq": {
+          "type": "question_answer",
+          "settings": {
+            "faqs_question": "<p>Job Title<\/p>",
+            "faqs_answer": "<p>Add more details about your store here<\/p>",
+            "faq_open": false
+          }
+        },
+        "question_answer_yG6UYC": {
+          "type": "question_answer",
+          "settings": {
+            "faqs_question": "<p>Job Title<\/p>",
+            "faqs_answer": "<p>Add more details about your store here<\/p>",
+            "faq_open": false
+          }
+        },
+        "question_answer_ErUFKY": {
+          "type": "question_answer",
+          "settings": {
+            "faqs_question": "<p>Job Title<\/p>",
+            "faqs_answer": "<p>Add more details about your store here<\/p>",
+            "faq_open": false
+          }
+        },
+        "title_tWVrTc": {
+          "type": "title",
+          "settings": {
+            "title": "Add a title",
+            "title_style": "uppercase",
+            "content": "<p>Add more details about your store here<\/p>"
+          }
+        },
+        "question_answer_mbDKCa": {
+          "type": "question_answer",
+          "settings": {
+            "faqs_question": "<p>Job Title<\/p>",
+            "faqs_answer": "<p>Add more details about your store here<\/p>",
+            "faq_open": false
+          }
+        },
+        "question_answer_HmycD4": {
+          "type": "question_answer",
+          "settings": {
+            "faqs_question": "<p>Job Title<\/p>",
+            "faqs_answer": "<p>Add more details about your store here<\/p>",
+            "faq_open": false
+          }
+        }
+      },
+      "block_order": [
+        "title_RinRnN",
+        "question_answer_WbPVCT",
+        "question_answer_RpQ6Yq",
+        "question_answer_yG6UYC",
+        "question_answer_ErUFKY",
+        "title_tWVrTc",
+        "question_answer_mbDKCa",
+        "question_answer_HmycD4"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "show_border_bottom": false,
+        "heading": "Add a title",
+        "title_style": "uppercase",
+        "subheading": "Add more details about your store here",
+        "link": "\/",
+        "link_text": "",
+        "button_color_scheme": "button button--secondary",
+        "title_alignment": "center",
+        "row_font_size": "h6",
+        "row_width": 70,
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "mobile_padding_top": 44,
+        "mobile_padding_bottom": 44,
+        "margin_bottom": 0,
+        "mobile_margin_bottom": 0,
+        "enable_animation": true
+      }
+    },
+    "rich_text": {
+      "type": "rich-text",
+      "blocks": {
+        "tags_7gdHNg": {
+          "type": "tags",
+          "settings": {
+            "tag_alignment": "rich-text__tags--central-alignment",
+            "tag_text_1": "[Company Name]",
+            "tag_link_1": "",
+            "tag_text_2": "",
+            "tag_link_2": "",
+            "tag_text_3": "",
+            "tag_link_3": ""
+          }
+        },
+        "heading_xgnzVz": {
+          "type": "heading",
+          "settings": {
+            "heading": "Meet the Team",
+            "title_style": "uppercase",
+            "heading_size": "h3",
+            "heading_alignment": "rich-text--central-alignment",
+            "decorative_icon": false,
+            "icon_position": "rich-text__heading-icon--right"
+          }
+        }
+      },
+      "block_order": [
+        "tags_7gdHNg",
+        "heading_xgnzVz"
+      ],
+      "settings": {
+        "color_scheme": "background-4",
+        "show_border_bottom": false,
+        "full_width": true,
+        "padding_top": 32,
+        "padding_bottom": 60,
+        "mobile_padding_top": 24,
+        "mobile_padding_bottom": 48,
+        "margin_bottom": 0,
+        "mobile_margin_bottom": 0,
+        "enable_animation": true
+      }
+    },
+    "marquee_1": {
+      "type": "marquee",
+      "blocks": {
+        "tag_cANkGb": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_KzXLA4": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_HQecXz": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_yJjkmR": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_hLCr7e": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_MVweg4": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_f7Ky9M": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_gdCyV7": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_d6axzL": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_fefr3k": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "tag_cANkGb",
+        "tag_KzXLA4",
+        "tag_HQecXz",
+        "tag_yJjkmR",
+        "tag_hLCr7e",
+        "tag_MVweg4",
+        "tag_f7Ky9M",
+        "tag_gdCyV7",
+        "tag_d6axzL",
+        "tag_fefr3k"
+      ],
+      "settings": {
+        "color_scheme": "background-4",
+        "show_border_bottom": false,
+        "font_size": "p",
+        "speed": 50,
+        "direction": "backwards",
+        "image_size": 300,
+        "row_spacing": 40,
+        "padding_top": 0,
+        "padding_bottom": 32,
+        "mobile_padding_top": 20,
+        "mobile_padding_bottom": 20,
+        "margin_bottom": 0,
+        "mobile_margin_bottom": 0,
+        "enable_animation": true
+      }
+    },
+    "marquee_2": {
+      "type": "marquee",
+      "blocks": {
+        "tag_cANkGb": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_KzXLA4": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_HQecXz": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_yJjkmR": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_hLCr7e": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_MVweg4": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_f7Ky9M": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_gdCyV7": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_d6axzL": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        },
+        "tag_fefr3k": {
+          "type": "tag",
+          "settings": {
+            "content": "",
+            "title_style": "normal",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "tag_cANkGb",
+        "tag_KzXLA4",
+        "tag_HQecXz",
+        "tag_yJjkmR",
+        "tag_hLCr7e",
+        "tag_MVweg4",
+        "tag_f7Ky9M",
+        "tag_gdCyV7",
+        "tag_d6axzL",
+        "tag_fefr3k"
+      ],
+      "settings": {
+        "color_scheme": "background-4",
+        "show_border_bottom": true,
+        "font_size": "p",
+        "speed": 50,
+        "direction": "forward",
+        "image_size": 300,
+        "row_spacing": 40,
+        "padding_top": 0,
+        "padding_bottom": 44,
+        "mobile_padding_top": 20,
+        "mobile_padding_bottom": 20,
+        "margin_bottom": 0,
+        "mobile_margin_bottom": 0,
+        "enable_animation": true
+      }
+    }
+  },
+  "order": [
+    "image_banner",
+    "multicolumn_KBTz4x",
+    "collapsible_content_mtXRdN",
+    "rich_text",
+    "marquee_1",
+    "marquee_2"
+  ]
+}

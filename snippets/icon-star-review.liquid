@@ -1,0 +1,15 @@
+{%- liquid
+  unless color
+    assign color = 'currentColor'
+  endunless
+-%}
+<svg
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class="{{ class }}"
+>
+  <path d="M10.248 5.296L16 5.792L11.64 9.576L12.944 15.2L8 12.216L3.056 15.2L4.368 9.576L0 5.792L5.752 5.304L8 0L10.248 5.296Z" fill="{{ color }}"/>
+</svg>

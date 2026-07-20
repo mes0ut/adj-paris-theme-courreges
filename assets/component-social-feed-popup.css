@@ -1,0 +1,382 @@
+.social-feed-popup--contain .sm-feed-popup__post-image,
+.social-feed-popup--contain .sm-feed-popup__post-video {
+  object-fit: contain;
+}
+
+.social-feed-popup--cover .sm-feed-popup__post-image,
+.social-feed-popup--cover .sm-feed-popup__post-video {
+  object-fit: cover;
+}
+
+.sm-feed-popup__card {
+  background-color: rgb(var(--color-background));
+  height: 100%;
+  width: 100%;
+  z-index: 4;
+}
+
+.sm-feed-popup__card::focus-visible {
+  outline: none;
+}
+
+@media only screen and (min-width: 500px) {
+  .sm-feed-popup__card {
+    width: 80%;
+  }
+}
+
+@media only screen and (min-width: 990px) {
+  .sm-feed-popup__card {
+    max-height: 70rem;
+    max-width: 110rem;
+    width: 100%;
+  }
+
+  .sm-feed-popup__card--video {
+    max-width: 96rem;
+  }
+}
+
+.sm-feed-popup__post {
+  background: rgb(var(--color-background));
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content;
+  height: 100%;
+  overflow: auto;
+  width: 100%;
+}
+
+@media only screen and (min-width: 990px) {
+  .sm-feed-popup__post {
+    grid-template-columns: 56rem 1fr;
+    max-height: inherit;
+    overflow: hidden;
+  }
+
+  .sm-feed-popup__post--video {
+    grid-template-columns: 40rem 1fr;
+  }
+}
+
+.sm-feed-popup__post.is-active {
+  border: none;
+  display: grid !important;
+}
+
+.sm-feed-popup__post-media-wrapper {
+  align-items: center;
+  aspect-ratio: 4 / 5;
+  background-color: #000;
+  display: flex;
+  overflow: hidden;
+}
+
+.sm-feed-popup__post-media-wrapper--video {
+  aspect-ratio: 1 / 1.78;
+}
+
+.sm-feed-popup__post-media-wrapper--placeholder-post {
+  background-color: var(--color-image-placeholder);
+}
+
+.social-feed-popup--cover video-delay-loader,
+.social-feed-popup--cover .video-delay-loader__container {
+  height: 100%;
+}
+
+.sm-feed-popup__post-image,
+.sm-feed-popup__post-video {
+  flex-shrink: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.sm-feed-popup__post-svg {
+  background-color: var(--color-image-placeholder);
+  height: 100%;
+}
+
+@media screen and (min-width: 990px) {
+  .sm-feed-popup__post-content-outer {
+    max-height: inherit;
+    overflow: auto;
+    position: relative;
+  }
+}
+
+.sm-feed-popup__post-content-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 3rem 1.2rem 0;
+  position: relative;
+  width: 100%;
+}
+
+@media screen and (min-width: 500px) {
+  .sm-feed-popup__post-content-wrapper {
+    padding: 4rem 2.2rem 0;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .sm-feed-popup__post-content-wrapper {
+    padding: 6.8rem 4rem 0;
+  }
+}
+
+.sm-feed-popup__post-content-wrapper--extra-content {
+  justify-content: flex-start;
+}
+
+.sm-feed-popup__post-content-left-arrow,
+.sm-feed-popup__post-content-right-arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.sm-feed-popup__post-content-left-arrow svg,
+.sm-feed-popup__post-content-right-arrow svg {
+  height: 2.4rem;
+  width: 5.5rem;
+}
+
+@media screen and (min-width: 750px) {
+
+  .sm-feed-popup__post-content-left-arrow svg,
+  .sm-feed-popup__post-content-right-arrow svg {
+    height: 3rem;
+    width: 7rem;
+  }
+}
+
+.sm-feed-popup__post-content-left-arrow {
+  left: 0;
+}
+
+.sm-feed-popup__post-content-right-arrow {
+  right: 0;
+}
+
+.sm-feed-popup__post-content-close {
+  cursor: pointer;
+  position: absolute;
+  right: 1.4rem;
+  top: 1.4rem;
+  z-index: 2;
+}
+
+.sm-feed-popup__post-content-close svg {
+  display: block;
+  height: 4rem;
+  width: 4rem;
+}
+
+.sm-feed-popup-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.sm-feed-popup-header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0 8rem;
+  position: relative;
+  width: 100%;
+}
+
+.sm-feed-popup-header--avatar-empty {
+  margin-top: 4rem;
+}
+
+@media screen and (min-width: 500px) {
+  .sm-feed-popup__post-content-close {
+    right: 2rem;
+    top: 2rem;
+  }
+
+  .sm-feed-popup__post-content-close svg {
+    height: 5rem;
+    width: 5rem;
+  }
+}
+
+.sm-feed-popup__post-avatar-wrapper {
+  border-radius: 50%;
+  flex-shrink: 0;
+  height: 6rem;
+  overflow: hidden;
+  width: 6rem;
+}
+
+.sm-feed-popup__post-avatar-wrapper svg.icon {
+  background-color: var(--color-image-placeholder);
+  border-radius: 50%;
+}
+
+@media only screen and (min-width: 990px) {
+  .sm-feed-popup__post-avatar-wrapper {
+    height: 8.6rem;
+    width: 8.6rem;
+  }
+}
+
+.sm-feed-popup__post-avatar {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.sm-feed-popup__post-content-username {
+  align-items: center;
+  column-gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  text-align: center;
+}
+
+.sm-feed-popup__post-content-username svg {
+  height: 2.2rem;
+  width: 2.2rem;
+}
+
+.sm-feed-popup__post-content-handle {
+  margin: -1.6rem 0 0;
+  text-align: center;
+}
+
+.sm-feed-popup__post-content-caption {
+  margin: 0;
+  text-align: center;
+}
+
+.sm-feed-popup__post-content-caption * {
+  margin: 0;
+}
+
+.sm-feed-popup__post-content-rating {
+  align-items: center;
+  column-gap: 0.4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.sm-feed-popup__post-content-heading-wrapper {
+  border-top: 0.1rem solid rgb(var(--color-border-1));
+  padding: 4.4rem 0 2.2rem;
+  position: relative;
+  width: 100%;
+}
+
+.sm-feed-popup__post-content-heading-wrapper svg {
+  height: 4.7rem;
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%) scale(1, -1);
+  width: 4.3rem;
+}
+
+@media only screen and (min-width: 990px) {
+  .sm-feed-popup__post-content-heading-wrapper {
+    padding: 5rem 0 3.2rem;
+  }
+
+  .sm-feed-popup__post-content-heading-wrapper svg {
+    height: 5.7rem;
+    width: 5.3rem;
+  }
+}
+
+.sm-feed-popup__post-content-heading {
+  margin: 0;
+  text-align: center;
+}
+
+/* ============================================================================
+  Related products
+============================================================================== */
+
+.sm-feed-popup__products {
+  padding-bottom: 3rem;
+  width: 100%;
+}
+
+.sm-feed-popup__product {
+  border: .1rem solid rgb(var(--color-border-1));
+  display: flex;
+  height: 100%;
+  max-height: 12rem;
+  overflow: hidden;
+  width: 100%;
+  text-decoration: none;
+  margin-bottom: 1.2rem;
+}
+
+@media only screen and (min-width: 990px) {
+  .sm-feed-popup__product {
+    grid-template-columns: 12rem 1fr;
+  }
+}
+
+.sm-feed-popup__product-image-wrapper {
+  display: block;
+  height: auto;
+  max-width: 10rem;
+  position: relative;
+  width: 100%;
+}
+
+.sm-feed-popup__product-image {
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+
+.sm-feed-popup__product-info-wrapper {
+  align-items: flex-start;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.2rem;
+  row-gap: .2rem;
+  text-decoration: none;
+}
+
+.sm-feed-popup__product-info-title {
+  margin: 0;
+}
+
+.sm-feed-popup__product-info-price {
+  font-weight: bolder;
+  margin: 0;
+}
+
+.sm-feed-popup__product-info-link {
+  margin: 0;
+}
+
+.sm-feed-popup__product-info-link p {
+  margin: 0;
+}

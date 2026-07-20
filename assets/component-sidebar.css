@@ -1,0 +1,22 @@
+/* ============================================================================
+  Layout with the side menu
+============================================================================== */
+.sidebar__layout {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .sidebar__layout {
+    margin-bottom: 5rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .sidebar__layout {
+    flex-direction: row;
+  }
+}

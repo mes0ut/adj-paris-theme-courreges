@@ -1,0 +1,80 @@
+before-after {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+before-after .before-after-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+before-after .before-after-container .image-banner__inner-background {
+  pointer-events: none;
+}
+
+before-after .image-banner__image-wrapper {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+before-after .image-banner--after {
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  transition: opacity var(--duration-default) var(--transition-ease-in-out);
+}
+
+before-after.is-loaded .image-banner--after {
+  opacity: 1;
+}
+
+before-after .image-banner--after .image-banner__image-wrapper {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+before-after .image-banner--after .image-banner__text-wrapper {
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+before-after .before-after-slider {
+  background-color: #fff;
+  cursor: ew-resize;
+  height: 100%;
+  left: 50%;
+  position: absolute;
+  top: 0;
+  width: 0.2rem;
+  z-index: 2;
+}
+
+before-after .before-after-handle {
+  cursor: ew-resize;
+  height: 4.4rem;
+  width: 4.4rem;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media screen and (min-width: 750px) {
+  before-after .before-after-container .image-banner__inner {
+    max-width: 50%;
+  }
+}

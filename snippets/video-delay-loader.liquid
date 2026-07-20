@@ -1,0 +1,42 @@
+{% liquid
+  assign delay_loader = delay_loader | default: false
+  assign autoplay = autoplay | default: false
+  assign loop = loop | default: true
+  assign controls = controls | default: false
+  assign muted = muted | default: true
+  assign loading = loading | default: 'lazy'
+  assign preload = preload | default: 'none'
+  assign class_name = class_name | default: ''
+
+  assign fetch_priority = 'low'
+  if section_index == 1 or section_index == 2
+    assign fetch_priority = 'high'
+  endif
+%}
+
+{% if delay_loader %}
+  <video-delay-loader>
+    <template>
+      {{
+        video_data
+        | video_tag:
+          image_size: image_size,
+          autoplay: true,
+          loop: true,
+          muted: true,
+          class: class_name
+      }}
+    </template>
+  </video-delay-loader>
+{% else %}
+  {{
+    video_data
+    | video_tag:
+      image_size: image_size,
+      autoplay: true,
+      loop: true,
+      muted: true,
+      class: class_name,
+      fetchpriority: fetch_priority
+  }}
+{% endif %}

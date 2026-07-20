@@ -1,0 +1,522 @@
+{% liquid
+  render 'css-delay', css_file: 'component-newsletter.css'
+  render 'css-delay', css_file: 'newsletter-section.css'
+  render 'section-spacing', id: section.id, type: 'split'
+
+  if section.settings.enable_animation
+    assign animate_class = 'animate'
+  else
+    assign animate_class = ''
+  endif
+%}
+
+<div
+  class="
+    newsletter
+    center
+    {% if section.settings.full_width == false %} newsletter--narrow page-width{% endif %}
+    section-{{ section.id }}-margin
+  "
+>
+  <div
+    class="
+      newsletter__wrapper
+      gradient
+      color-{{ section.settings.color_scheme }}
+      section-{{ section.id }}-padding
+      {% if section.settings.show_border_bottom %}section-border-bottom{% endif %}
+    "
+  >
+    <div class="newsletter__container {{ animate_class }}">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {% render block %}
+          {%- when 'heading' -%}
+            <h2
+              class="
+                newsletter__heading
+                {{ block.settings.title_style }}
+                {{ block.settings.heading_size }}
+                js-sign-up-success
+              "
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.heading | escape }}
+            </h2>
+          {%- when 'paragraph' -%}
+            <div
+              class="h4 newsletter__subheading rte js-sign-up-success"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.paragraph }}
+            </div>
+          {%- when 'email_form' -%}
+            {% assign newsletter_form_id = 'NewsletterForm-' | append: section.id %}
+            <div {{ block.shopify_attributes }}>
+              {% form 'customer', id: newsletter_form_id, class: 'newsletter-form' %}
+                {%- if form.posted_successfully? -%}
+                  <div class="newsletter-form__success" tabindex="-1" autofocus>
+                    <h3>
+                      {{- 'newsletter.success' | t }}
+                    </h3>
+                    <div
+                      class="h4 newsletter__subheading rte"
+                      {{ block.shopify_attributes }}
+                    >
+                      {{- 'newsletter.success_message' | t }}
+                    </div>
+                  </div>
+                {%- else -%}
+                  <div
+                    class="
+                      newsletter-form__container
+                      newsletter-form__container--{{ block.settings.form_style }}
+                    "
+                  >
+                    <input
+                      type="hidden"
+                      name="contact[tags]"
+                      value="newsletter"
+                    >
+                    <div class="newsletter-form__field-wrapper">
+                      <div class="field">
+                        <input
+                          id="NewsletterForm--{{ section.id }}"
+                          type="email"
+                          name="contact[email]"
+                          class="field__input newsletter__input"
+                          value="{{ form.email }}"
+                          aria-required="true"
+                          autocorrect="off"
+                          autocapitalize="off"
+                          autocomplete="email"
+                          {% if form.errors %}
+                            autofocus
+                            aria-invalid="true"
+                            aria-describedby="Newsletter-error--{{ section.id }}"
+                          {% elsif form.posted_successfully? %}
+                            aria-describedby="Newsletter-success--{{ section.id }}"
+                          {% endif %}
+                          placeholder="{{ 'newsletter.label' | t }}"
+                          required
+                        >
+                        <label
+                          class="field__label visually-hidden"
+                          for="NewsletterForm--{{ section.id }}"
+                        >
+                          {{ 'newsletter.label' | t }}
+                        </label>
+                      </div>
+                    </div>
+                    <div class="newsletter-form__field-wrapper">
+                      <div class="field field--phone">
+                        <select
+                          id="NewsletterPhoneCountry--{{ section.id }}"
+                          class="newsletter-form__phone-code"
+                          aria-label="{{ 'newsletter.phone_country' | t }}"
+                        >
+                        <option value="+33" selected>France (+33)</option>
+                        <option value="+27">Afrique du Sud (+27)</option>
+                        <option value="+355">Albanie (+355)</option>
+                        <option value="+213">Algérie (+213)</option>
+                        <option value="+49">Allemagne (+49)</option>
+                        <option value="+376">Andorre (+376)</option>
+                        <option value="+966">Arabie saoudite (+966)</option>
+                        <option value="+54">Argentine (+54)</option>
+                        <option value="+374">Arménie (+374)</option>
+                        <option value="+61">Australie (+61)</option>
+                        <option value="+43">Autriche (+43)</option>
+                        <option value="+994">Azerbaïdjan (+994)</option>
+                        <option value="+973">Bahreïn (+973)</option>
+                        <option value="+880">Bangladesh (+880)</option>
+                        <option value="+32">Belgique (+32)</option>
+                        <option value="+387">Bosnie-Herzégovine (+387)</option>
+                        <option value="+55">Brésil (+55)</option>
+                        <option value="+359">Bulgarie (+359)</option>
+                        <option value="+237">Cameroun (+237)</option>
+                        <option value="+1">Canada (+1)</option>
+                        <option value="+56">Chili (+56)</option>
+                        <option value="+86">Chine (+86)</option>
+                        <option value="+357">Chypre (+357)</option>
+                        <option value="+57">Colombie (+57)</option>
+                        <option value="+82">Corée du Sud (+82)</option>
+                        <option value="+225">Côte d'Ivoire (+225)</option>
+                        <option value="+385">Croatie (+385)</option>
+                        <option value="+45">Danemark (+45)</option>
+                        <option value="+20">Égypte (+20)</option>
+                        <option value="+971">Émirats arabes unis (+971)</option>
+                        <option value="+34">Espagne (+34)</option>
+                        <option value="+372">Estonie (+372)</option>
+                        <option value="+1">États-Unis (+1)</option>
+                        <option value="+358">Finlande (+358)</option>
+                        <option value="+995">Géorgie (+995)</option>
+                        <option value="+30">Grèce (+30)</option>
+                        <option value="+852">Hong Kong (+852)</option>
+                        <option value="+36">Hongrie (+36)</option>
+                        <option value="+91">Inde (+91)</option>
+                        <option value="+62">Indonésie (+62)</option>
+                        <option value="+353">Irlande (+353)</option>
+                        <option value="+354">Islande (+354)</option>
+                        <option value="+972">Israël (+972)</option>
+                        <option value="+39">Italie (+39)</option>
+                        <option value="+81">Japon (+81)</option>
+                        <option value="+962">Jordanie (+962)</option>
+                        <option value="+254">Kenya (+254)</option>
+                        <option value="+965">Koweït (+965)</option>
+                        <option value="+371">Lettonie (+371)</option>
+                        <option value="+961">Liban (+961)</option>
+                        <option value="+370">Lituanie (+370)</option>
+                        <option value="+352">Luxembourg (+352)</option>
+                        <option value="+389">Macédoine du Nord (+389)</option>
+                        <option value="+60">Malaisie (+60)</option>
+                        <option value="+356">Malte (+356)</option>
+                        <option value="+212">Maroc (+212)</option>
+                        <option value="+52">Mexique (+52)</option>
+                        <option value="+377">Monaco (+377)</option>
+                        <option value="+234">Nigeria (+234)</option>
+                        <option value="+47">Norvège (+47)</option>
+                        <option value="+64">Nouvelle-Zélande (+64)</option>
+                        <option value="+968">Oman (+968)</option>
+                        <option value="+92">Pakistan (+92)</option>
+                        <option value="+31">Pays-Bas (+31)</option>
+                        <option value="+51">Pérou (+51)</option>
+                        <option value="+63">Philippines (+63)</option>
+                        <option value="+48">Pologne (+48)</option>
+                        <option value="+351">Portugal (+351)</option>
+                        <option value="+974">Qatar (+974)</option>
+                        <option value="+420">République tchèque (+420)</option>
+                        <option value="+40">Roumanie (+40)</option>
+                        <option value="+44">Royaume-Uni (+44)</option>
+                        <option value="+7">Russie (+7)</option>
+                        <option value="+221">Sénégal (+221)</option>
+                        <option value="+381">Serbie (+381)</option>
+                        <option value="+65">Singapour (+65)</option>
+                        <option value="+421">Slovaquie (+421)</option>
+                        <option value="+386">Slovénie (+386)</option>
+                        <option value="+46">Suède (+46)</option>
+                        <option value="+41">Suisse (+41)</option>
+                        <option value="+66">Thaïlande (+66)</option>
+                        <option value="+216">Tunisie (+216)</option>
+                        <option value="+90">Turquie (+90)</option>
+                        <option value="+380">Ukraine (+380)</option>
+                        <option value="+84">Vietnam (+84)</option>
+                        </select>
+                        <input
+                          id="NewsletterPhoneNumber--{{ section.id }}"
+                          type="tel"
+                          class="field__input newsletter-form__phone-input"
+                          placeholder="{{ 'newsletter.phone_label' | t }}"
+                          autocomplete="tel-national"
+                          inputmode="tel"
+                        >
+                        <input
+                          type="hidden"
+                          name="customer[phone]"
+                          id="NewsletterPhoneHidden--{{ section.id }}"
+                        >
+                        <label
+                          class="field__label visually-hidden"
+                          for="NewsletterPhoneNumber--{{ section.id }}"
+                        >
+                          {{ 'newsletter.phone_label' | t }}
+                        </label>
+                      </div>
+                    </div>
+                    <button
+                      type="submit"
+                      name="commit"
+                      class="
+                        link
+                        link-with-icon
+                        newsletter__button
+                        {{ section.settings.button_color_scheme }}
+                      "
+                    >
+                      {{ 'newsletter.button_label' | t }}
+                    </button>
+                  </div>
+
+                  {%- if form.errors -%}
+                    <small
+                      class="alert"
+                      id="Newsletter-error--{{ section.id }}"
+                    >
+                      {%- render 'icon-error' -%}
+                      <span>
+                        {{- form.errors.translated_fields.email | capitalize }}
+                        {{ form.errors.messages.email -}}
+                      </span>
+                    </small>
+                  {%- endif -%}
+                {%- endif -%}
+              {% endform %}
+              <script>
+                (function () {
+                  var form = document.getElementById('NewsletterForm-{{ section.id }}');
+                  if (!form) return;
+                  form.addEventListener('submit', function () {
+                    var code = document.getElementById('NewsletterPhoneCountry--{{ section.id }}');
+                    var num = document.getElementById('NewsletterPhoneNumber--{{ section.id }}');
+                    var hidden = document.getElementById('NewsletterPhoneHidden--{{ section.id }}');
+                    if (code && num && hidden && num.value.trim() !== '') {
+                      hidden.value = code.value + num.value.trim().replace(/^0+/, '');
+                    }
+                  });
+                })();
+              </script>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.newsletter.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-5"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "t:sections.all.border.show_border_bottom.label",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "button_color_scheme",
+      "options": [
+        {
+          "value": "button",
+          "label": "t:sections.all.buttons.primary.label"
+        },
+        {
+          "value": "button button--secondary",
+          "label": "t:sections.all.buttons.secondary.label"
+        },
+        {
+          "value": "link link-with-icon",
+          "label": "t:sections.all.buttons.text_link.label"
+        }
+      ],
+      "default": "button",
+      "label": "t:sections.all.buttons.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "t:sections.newsletter.settings.full_width.label"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.newsletter.settings.paragraph.content"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.desktop_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.mobile_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_bottom",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.desktop_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.margin_bottom",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.mobile_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.mobile_margin_bottom",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.animations.section_animation.header",
+      "visible_if": "{{ settings.enable_global_animations }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "t:sections.all.animations.section_animation.label",
+      "default": true,
+      "visible_if": "{{ settings.enable_global_animations }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.newsletter.blocks.heading.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Sign up & Save",
+          "label": "t:sections.newsletter.blocks.heading.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "title_style",
+          "label": "t:sections.all.text.style.label",
+          "options": [
+            {
+              "value": "normal",
+              "label": "t:sections.all.text.style.option_1"
+            },
+            {
+              "value": "uppercase",
+              "label": "t:sections.all.text.style.option_2"
+            }
+          ],
+          "default": "normal"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h3",
+              "label": "t:sections.all.heading_size.options_2.label"
+            },
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options_3.label"
+            }
+          ],
+          "default": "h2",
+          "label": "t:sections.all.heading_size.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "name": "t:sections.newsletter.blocks.paragraph.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "paragraph",
+          "default": "<p>Sign up today and get special product releases and exclusive sales!</p>",
+          "label": "t:sections.newsletter.blocks.paragraph.settings.paragraph.label"
+        }
+      ]
+    },
+    {
+      "type": "email_form",
+      "name": "t:sections.newsletter.blocks.email_form.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "form_style",
+          "label": "t:sections.newsletter.blocks.email_form.settings.form_style.label",
+          "options": [
+            {
+              "value": "normal",
+              "label": "t:sections.newsletter.blocks.email_form.settings.form_style.options_1.label"
+            },
+            {
+              "value": "wrapped",
+              "label": "t:sections.newsletter.blocks.email_form.settings.form_style.options_2.label"
+            },
+            {
+              "value": "stacked",
+              "label": "t:sections.newsletter.blocks.email_form.settings.form_style.options_3.label"
+            }
+          ],
+          "default": "normal"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "presets": [
+    {
+      "name": "t:sections.newsletter.name",
+      "category": "t:categories.forms",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "paragraph"
+        },
+        {
+          "type": "email_form"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

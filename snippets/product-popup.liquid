@@ -1,0 +1,26 @@
+{% comment %}
+  Renders a quick view / popup for the product, controlled by js
+
+  Usage:
+  {% render 'product-card' %}
+{% endcomment %}
+{% liquid
+  render 'css-delay', css_file: 'section-main-product.css', force_delay: true
+  render 'css-delay', css_file: 'component-product-popup.css', force_delay: true
+%}
+
+<script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+
+<product-popup
+  class="modal modal--quick-view product-popup-modal product-popup"
+  id="PopupModal-quick-view"
+  {{ block.shopify_attributes }}
+>
+  <div
+    role="dialog"
+    aria-label="{{ block.settings.text }}"
+    aria-modal="true"
+    tabindex="-1"
+    class="modal__content quick-view-card color-{{ settings.quick_view_color_scheme }}"
+  ></div>
+</product-popup>

@@ -1,0 +1,53 @@
+{%- if size_chart_block != null -%}
+  {%- if size_chart_block.settings.content_for_chart != blank
+    or product.metafields.custom.size_chart != blank
+  -%}
+    <modal-opener
+      data-modal="#Product-SizeChart-{{ section.id }}-{{ size_chart_block.id }}"
+    >
+      <div
+        id="ModalOpenerBtn-{{ section.id }}-{{ size_chart_block.id }}"
+        data-index="{{ forloop.index0 }}"
+        aria-haspopup="dialog"
+        type="button"
+        class="product-form__size-chart-opener"
+      >
+        {%- if size_chart_block.settings.icon == 'measure' -%}
+          {% render 'icon-measure' %}
+        {%- endif -%}
+
+        {{- size_chart_block.settings.label -}}
+      </div>
+    </modal-opener>
+
+    <modal-dialog
+      id="Product-SizeChart-{{ section.id }}-{{ size_chart_block.id }}"
+      class="modal modal--size-chart"
+      data-move-to-body
+    >
+      <div
+        class="modal__content color-{{ size_chart_block.settings.color_scheme_modal }}"
+        role="dialog"
+        aria-modal="true"
+        tabindex="-1"
+      >
+        <div
+          id="ModalClose-{{ section.id }}-{{ size_chart_block.id }}"
+          class="modal__close"
+        >
+          {% render 'icon-close' %}
+        </div>
+
+        <div class="modal__content-inner rte">
+          {%- if product.metafields.custom.size_chart != blank -%}
+            {%- assign size_chart_html = product.metafields.custom.size_chart -%}
+
+            {{- pages[size_chart_html].content -}}
+          {%- else -%}
+            {{- pages[size_chart_block.settings.content_for_chart].content -}}
+          {%- endif -%}
+        </div>
+      </div>
+    </modal-dialog>
+  {%- endif -%}
+{%- endif -%}

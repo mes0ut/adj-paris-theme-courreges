@@ -1,0 +1,313 @@
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-search.css' | asset_url | stylesheet_tag }}
+{{ 'template-search.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'search.js' | asset_url }}" defer="defer"></script>
+
+{%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+  {{ 'component-facets.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+<div class="template-search {% unless search.performed and search.results.size > 0 %} template-search--empty{% endunless %}">
+  <div class="template-search__inner gradient color-{{ section.settings.color_scheme }}">
+    <div class="page-width">
+      <div class="template-search__breadcrumbs">
+        {% render 'breadcrumbs' %}
+      </div>
+
+      {%- if search.performed -%}
+        <h1 class="h2">{{ 'templates.search.title' | t }}</h1>
+      {%- else -%}
+        <h1 class="h2">{{ 'general.search.search' | t }}</h1>
+      {%- endif -%}
+      <custom-search>
+        <div class="template-search__search">
+          <form
+            action="{{ routes.search_url }}"
+            method="get"
+            role="search"
+            class="search"
+          >
+            <div class="field">
+              <label
+                class="field__label visually-hidden"
+                for="Search-In-Template"
+              >
+                {{ 'general.search.search' | t }}
+              </label>
+              <input
+                class="search__input field__input p-large search-input-js"
+                id="Search-In-Template"
+                type="search"
+                name="q"
+                value="{{ search.terms | escape }}"
+                {% if search.performed %}
+                  autofocus
+                {% endif %}
+                placeholder="{{ 'general.search.search' | t }}"
+              >
+              <input name="options[prefix]" type="hidden" value="last">
+              <input type="hidden" name="type" value="{{ search.types }}">
+              <button
+                type="submit"
+                class="search__button field__button focus-inset"
+                aria-label="{{ 'general.search.search' | t }}"
+              >
+                {% render 'icon-search' %}
+              </button>
+              <button class="clear__button search-clear-button-js">
+                {% render 'icon-close-small' %}
+              </button>
+            </div>
+          </form>
+        </div>
+      </custom-search>
+    </div>
+    {%- if search.performed -%}
+      <p class="element-margin" role="status" id="ProductCount">
+        {%- if search.results_count == 0 -%}
+          {{ 'templates.search.no_results' | t: terms: search.terms }}
+        {%- else -%}
+          {{
+            'templates.search.results_with_count'
+            | t: terms: search.terms, count: search.results_count
+          }}
+        {%- endif -%}
+      </p>
+    {%- endif -%}
+  </div>
+
+  <div class="page-width">
+    <div class="search__categories">
+      <div class="search__categories-inner">
+        {% assign term = search.types | handleize %}
+        <a
+          href="{{ routes.search_url }}?q={{ search.terms | escape }}"
+          class="link search__categories-link p {% if term == 'article-page-product' %}search__categories-link--active{% endif %}"
+        >
+          {{- 'templates.search.category_all' | t }}
+        </a>
+        <a
+          href="{{ routes.search_url }}?q={{ search.terms | escape }}&type=product"
+          class="link search__categories-link p {% if term == 'product' %}search__categories-link--active{% endif %}"
+        >
+          {{ 'templates.search.category_products' | t }}
+        </a>
+        <a
+          href="{{ routes.search_url }}?q={{ search.terms | escape }}&type=page"
+          class="link search__categories-link p {% if term == 'page' %}search__categories-link--active{% endif %}"
+        >
+          {{ 'templates.search.category_page' | t }}
+        </a>
+        <a
+          href="{{ routes.search_url }}?q={{ search.terms | escape }}&type=article"
+          class="link search__categories-link p {% if term == 'article' %}search__categories-link--active{% endif %}"
+        >
+          {{ 'templates.search.category_blog' | t }}
+        </a>
+      </div>
+
+      {%- if search.filters != empty -%}
+        {%- if section.settings.enable_filtering
+          or section.settings.enable_sorting
+        -%}
+          <aside
+            aria-labelledby="verticalTitle"
+            class="facets-wrapper{% unless section.settings.enable_filtering %} facets-wrapper--no-filters{% endunless %}"
+            id="main-search-filters"
+            data-id="{{ section.id }}"
+          >
+            {% render 'facets',
+              results: search,
+              enable_filtering: section.settings.enable_filtering,
+              enable_sorting: section.settings.enable_sorting,
+              filter_type: section.settings.filtering_type
+            %}
+          </aside>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if search.performed and search.results.size > 0 -%}
+    {% paginate search.results by 16 %}
+      <div
+        class="template-search__results page-width"
+        id="ProductGridContainer"
+      >
+        <ul
+          class="template-search__grid collection"
+          id="product-grid"
+          data-id="{{ section.id }}"
+          role="list"
+        >
+          {%- for item in search.results -%}
+            <li class="template-search__grid-item{% unless item.object_type == 'product' %} template-search__grid-item--large{% endunless %}">
+              {%- case item.object_type -%}
+                {%- when 'product' -%}
+                  {% render 'product-card',
+                    card_product: item,
+                    section_id: section.id,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    media_size: section.settings.image_ratio,
+                    show_vendor: section.settings.show_vendor,
+                    show_desc: section.settings.show_desc
+                  %}
+                {%- when 'article' -%}
+                  <div class="card card--wide card--soft p-tiny">
+                    <div class="card__inner">
+                      {%- if section.settings.enable_featured_images == true
+                        and item.image
+                      -%}
+                        <div class="card__featured-image-wrapper">
+                          {{
+                            item.image
+                            | image_url: width: 1100
+                            | image_tag:
+                              loading: 'lazy',
+                              width: item.image.width,
+                              height: item.image.height,
+                              sizes: '(min-width: 1200px) 268px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)',
+                              widths: '360, 533, 720, 940',
+                              class: 'card__featured-image',
+                              alt: item.image.alt
+                            | escape
+                          }}
+                        </div>
+                      {%- endif -%}
+                      <div class="card__details">
+                        <div class="card__badge p-tiny">
+                          <span>{{ 'templates.search.article' | t }}</span>
+                          {% if section.settings.article_show_date %}
+                            <span class="card__date">
+                              {{- item.created_at | date: '%B %d, %Y' -}}
+                            </span>
+                          {% endif %}
+                          {% if section.settings.article_show_author %}
+                            <span class="card__author">{{ item.author }}</span>
+                          {% endif %}
+                        </div>
+                        <div class="card__content">
+                          <h5 class="card__heading h4">
+                            {{ item.title | truncate: 50 | escape }}
+                          </h5>
+                        </div>
+                        <a href="{{ item.url }}" class="card__link link">
+                          <span class="card__link-text p p-m--small">
+                            {{- 'templates.search.view_article' | t -}}
+                          </span>
+                          {% render 'icon-arrow' %}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                {%- when 'page' -%}
+                  <div class="card card--wide card--soft p-tiny">
+                    <div class="card__inner">
+                      <div class="card__details">
+                        <div class="card__badge p-tiny">
+                          <span>{{ 'templates.search.page' | t }}</span>
+                        </div>
+                        <div class="card__content">
+                          <h5 class="card__heading h4">
+                            {{ item.title | truncate: 50 | escape }}
+                          </h5>
+                          <a href="{{ item.url }}" class="card__link link">
+                            <span class="card__link-text p p-m--small">
+                              {{- 'templates.search.view_page' | t -}}
+                            </span>
+                            {% render 'icon-arrow' %}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              {%- endcase -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+        {%- if paginate.pages > 1 -%}
+          {% render 'pagination',
+            paginate: paginate,
+            class: 'pagination-wrapper-small'
+          %}
+        {%- endif -%}
+      </div>
+    {% endpaginate %}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-search.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.main-search.settings.header__1.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-5"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-search.settings.header__2.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "article_show_date",
+      "default": true,
+      "label": "t:sections.main-search.settings.article_show_date.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "article_show_author",
+      "default": false,
+      "label": "t:sections.main-search.settings.article_show_author.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_featured_images",
+      "default": false,
+      "label": "t:sections.main-search.settings.article_show_featured_image.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-collection-product-grid.settings.header__1.content"
+    },
+    {
+      "type": "select",
+      "id": "filtering_type",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "t:sections.main-collection-product-grid.settings.collection_navigation_type.option_1.label"
+        },
+        {
+          "value": "drawer",
+          "label": "t:sections.main-collection-product-grid.settings.collection_navigation_type.option_2.label"
+        }
+      ],
+      "default": "drawer",
+      "label": "t:sections.main-search.settings.filter_type.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "default": true,
+      "label": "t:sections.main-collection-product-grid.settings.enable_filtering.label",
+      "info": "t:sections.main-collection-product-grid.settings.enable_filtering.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "t:sections.main-collection-product-grid.settings.enable_sorting.label"
+    }
+  ]
+}
+{% endschema %}

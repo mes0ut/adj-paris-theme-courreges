@@ -1,0 +1,101 @@
+.newsletter-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+@media screen and (min-width: 750px) {
+  .newsletter-form {
+    margin: 0 auto;
+    max-width: 50rem;
+  }
+}
+
+.newsletter-form__container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+@media screen and (min-width: 750px) {
+  .newsletter-form__container--wrapped {
+    padding: 0.6rem;
+    background: rgb(var(--input-background-color));
+    border: var(--inputs-border-thickness) solid rgba(var(--color-border-1), var(--inputs-border-opacity));
+    border-radius: var(--button-border-radius);
+    color: rgb(var(--input-text-color));
+    overflow: hidden;
+  }
+
+  .newsletter-form__container--wrapped .field,
+  .newsletter-form__container--wrapped .field__input {
+    border: none !important;
+    border-radius: var(--button-border-radius) !important;
+  }
+
+  .newsletter-form__container.newsletter-form__container--stacked {
+    flex-direction: column;
+  }
+
+  .newsletter-form__container--stacked .field,
+  .newsletter-form__container--stacked .field__input,
+  .newsletter-form__container--stacked .button {
+    width: 100%;
+  }
+
+  .newsletter-form__container {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 1rem;
+  }
+}
+
+.newsletter-form__field-wrapper {
+  width: 100%;
+}
+
+.newsletter-form__message {
+  font-family: inherit;
+  justify-content: center;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.newsletter-form__message svg {
+  width: 2rem;
+}
+
+.newsletter-form__message--success {
+  margin-top: 2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .newsletter-form__message {
+    justify-content: flex-start;
+  }
+
+  .newsletter-form__message--success {
+    bottom: -65%;
+    left: 0;
+    position: absolute;
+  }
+}
+
+/* ============================================================================
+  Success Message
+============================================================================== */
+.js-sign-up-success.is-hidden {
+  display: none;
+}
+
+.newsletter-form__success:focus-visible {
+  padding: 1rem;
+}

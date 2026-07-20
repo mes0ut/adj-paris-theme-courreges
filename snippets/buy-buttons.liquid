@@ -1,0 +1,145 @@
+<div
+  class="product-form__buttons-quantity-wrapper"
+  {{ block.shopify_attributes }}
+>
+  {%- if product != blank -%}
+    {%- liquid
+      assign gift_card_recipient_feature_active = false
+      if block.settings.show_gift_card_recipient and product.gift_card?
+        assign gift_card_recipient_feature_active = true
+      endif
+
+      assign show_dynamic_checkout = false
+      if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false
+        assign show_dynamic_checkout = true
+      endif
+    -%}
+
+    <product-form
+      class="product-form"
+      data-hide-errors="{{ gift_card_recipient_feature_active }}"
+      data-section-id="{{ section.id }}"
+    >
+      {%- form 'product',
+        product,
+        id: product_form_id,
+        class: 'form',
+        novalidate: 'novalidate',
+        data-type: 'add-to-cart-form'
+      -%}
+        {%- if gift_card_recipient_feature_active -%}
+          {%- render 'gift-card-recipient-form',
+            product: product,
+            form: form,
+            section: section
+          -%}
+        {%- endif -%}
+
+        <div
+          class="alert p product-form__error-message-wrapper"
+          role="alert"
+          hidden
+        >
+          {% render 'icon-error' %}
+          <span
+            class="product-form__error-message caption"
+          ></span>
+        </div>
+
+        {{ form | payment_terms }}
+
+        {% if block.settings.show_quantity_selector %}
+          <div class="product-form__input product-form__quantity">
+            <quantity-input class="quantity">
+              <button
+                class="quantity__button no-js-hidden"
+                name="minus"
+                type="button"
+              >
+                <span class="visually-hidden">
+                  {{-
+                    'products.product.quantity.decrease'
+                    | t: product: product.title
+                    | escape
+                  -}}
+                </span>
+                {% render 'icon-minus' %}
+              </button>
+              <label
+                class="visually-hidden"
+                for="Quantity-{{ section.id }}"
+              >
+                {{- 'products.product.quantity.label' | t -}}
+              </label>
+              <input
+                class="quantity__input"
+                type="number"
+                name="quantity"
+                id="Quantity-{{ section.id }}"
+                min="1"
+                value="1"
+                form="{{ product_form_id }}"
+              >
+              <button
+                class="quantity__button no-js-hidden"
+                name="plus"
+                type="button"
+              >
+                <span class="visually-hidden">
+                  {{-
+                    'products.product.quantity.increase'
+                    | t: product: product.title
+                    | escape
+                  -}}
+                </span>
+                {% render 'icon-plus' %}
+              </button>
+            </quantity-input>
+          </div>
+        {% endif %}
+
+        <input
+          type="hidden"
+          name="id"
+          value="{{ product.selected_or_first_available_variant.id }}"
+          disabled
+          data-hidden-variant-input
+        >
+
+        <button
+          id="ProductSubmitButton-{{ section.id }}"
+          type="submit"
+          name="add"
+          class="
+            product-form__submit button--full-width
+            {{ block.settings.button_color_scheme }}
+            {% if block.settings.show_quantity_selector == false %}
+              product-form__submit--full-grid-width
+            {% endif %}
+          "
+          {% if product.selected_or_first_available_variant.available == false
+          %}
+            disabled
+          {% endif %}
+        >
+          {%- if product.selected_or_first_available_variant.available -%}
+            <span>{{ 'products.product.add_to_cart' | t }}</span>
+            {% render 'icon-arrow' %}
+          {%- else -%}
+            <span>{{ 'products.product.sold_out' | t }} </span>
+            {% render 'icon-arrow' %}
+          {%- endif -%}
+        </button>
+
+        {%- if show_dynamic_checkout -%}
+          <div
+            class="product-form__buy-wrapper"
+            data-button-type="{{ block.settings.buy_button_color_scheme }}"
+          >
+            {{ form | payment_button }}
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </product-form>
+  {%- endif -%}
+</div>

@@ -1,0 +1,244 @@
+{% liquid
+  assign enable = section.settings.enable_sticky_add_to_cart
+  assign color_scheme = section.settings.sticky_add_to_cart_color_scheme
+  assign color_scheme_button = section.settings.sticky_add_to_cart_button_color_scheme
+  assign choose_options_label = section.settings.sticky_add_to_cart_choose_options_label
+  if choose_options_label == blank
+    assign choose_options_label = product.title
+  endif
+  assign product_form_id = 'product-form-' | append: section.id
+  assign product_image = product.featured_image
+  if product.selected_or_first_available_variant.featured_image
+    assign product_image = product.selected_or_first_available_variant.featured_image
+  endif
+  assign title_style = section.settings.title_style
+  if title_style == 'uppercase'
+    assign title_style = 'uppercase'
+  endif
+%}
+
+{% if enable %}
+  {% render 'css-delay',
+    css_file: 'section-product-sticky-cart.css',
+    force_delay: true
+  %}
+
+  <sticky-cart class="color-{{ color_scheme }}">
+    <product-info
+      data-section="{{ section.id }}"
+      data-section-id="{{ section.id }}"
+      data-product-id="{{ product.id }}"
+      data-update-url="false"
+      data-url="{{ product.url }}"
+      data-type="fixed-cart"
+      class="page-width sticky-cart__inner"
+    >
+      <div
+        id="ProductInfo-{{ section.id }}"
+        data-section="{{ section.id }}"
+        data-url="{{ product.url }}"
+        class="sticky-cart__product-wrapper"
+      >
+        <div
+          class="sticky-cart__product-image"
+          id="image-{{ product.selected_or_first_available_variant.id }}"
+        >
+          {% if product_image != blank %}
+            {% assign image_width = 60 %}
+            {% assign image_height = image_width
+              | divided_by: product_image.aspect_ratio
+            %}
+            {{
+              product_image
+              | image_url: width: 300
+              | image_tag:
+                loading: 'lazy',
+                width: image_width,
+                height: image_height,
+                sizes: '300px',
+                widths: '300',
+                class: 'sticky-cart__thumbnail',
+                alt: product_image.alt
+            }}
+          {% endif %}
+        </div>
+
+        <div
+          class="
+            sticky-cart__product-info
+            {% if product.has_only_default_variant %}sticky-cart__product-info--default{% endif %}
+          "
+        >
+          <h4 class="sticky-cart__product-title h6 {{ title_style }}">
+            {{ product.title }}
+          </h4>
+
+          {% unless product.has_only_default_variant %}
+            <div class="accordion sticky-cart__accordion">
+              <details id="Details-sticky-cart-pdp">
+                <summary js-sticky-cart="list-ref">
+                  <div class="summary__title">
+                    <span class="accordion__title p">
+                      <div class="accordion__choose-options">
+                        {{ choose_options_label }}
+                      </div>
+                      <span class="accordion__title-variant">
+                        {{-
+                          product.selected_or_first_available_variant.title
+                          | replace: ' /', ','
+                          | replace: '/', ','
+                        -}}
+                      </span>
+                    </span>
+                  </div>
+                  <div class="sticky-cart__close">
+                    {% render 'icon-close' %}
+                  </div>
+                  <div class="sticky-cart__select-icon">
+                    {% render 'icon-caret' %}
+                  </div>
+                </summary>
+                <div
+                  class="accordion__content"
+                  id="ProductAccordion-sticky-cart-pdp"
+                >
+                  {% render 'product-variant-picker',
+                    product: product,
+                    product_form_id: product_form_id,
+                    block: 'dropdown',
+                    form_type: 'fixed-cart'
+                  %}
+                </div>
+              </details>
+            </div>
+          {% endunless %}
+        </div>
+      </div>
+
+      <div class="product-form__buttons-quantity-wrapper">
+        <product-form class="product-form no-quantity">
+          {%- form 'product',
+            product,
+            id: product_form_id,
+            class: 'form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <div class="pdp-stick-cart__action-wrapper">
+              <div
+                class="no-js-hidden"
+                id="price-{{ section.id }}"
+                role="status"
+              >
+                {%- render 'price',
+                  product: product,
+                  use_variant: true,
+                  show_badges: false,
+                  price_class: 'p price-listing'
+                -%}
+              </div>
+
+              <input
+                type="hidden"
+                name="id"
+                value="{{ product.selected_or_first_available_variant.id }}"
+                data-hidden-variant-input
+              >
+              <button
+                id="ProductSubmitButton-{{ section.id }}"
+                type="submit"
+                name="add"
+                class="
+                  {{ color_scheme_button }}
+                  product-form__submit button--full-width
+                  product-form__submit--full-grid-width
+                "
+                {% if product.selected_or_first_available_variant.available
+                    == false
+                %}
+                  disabled
+                {% endif %}
+                tabindex="0"
+              >
+                {%- if product.selected_or_first_available_variant.available -%}
+                  <span>{{ 'products.product.add_to_cart' | t }}</span>
+                {%- else -%}
+                  <span>{{ 'products.product.sold_out' | t }} </span>
+                {%- endif -%}
+              </button>
+            </div>
+            <div
+              class="alert p product-form__error-message-wrapper"
+              role="alert"
+              hidden
+            >
+              {% render 'icon-error' %}
+              <span class="product-form__error-message caption"></span>
+            </div>
+          {%- endform -%}
+        </product-form>
+      </div>
+    </product-info>
+  </sticky-cart>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:sections.main-product-fixed-cart.name",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-product-fixed-cart.settings.header.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_add_to_cart",
+      "label": "t:sections.main-product-fixed-cart.settings.enable_sticky_add_to_cart.label",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "sticky_add_to_cart_color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-1"
+    },
+    {
+      "type": "select",
+      "id": "sticky_add_to_cart_button_color_scheme",
+      "options": [
+        {
+          "value": "button",
+          "label": "t:sections.all.buttons.primary.label"
+        },
+        {
+          "value": "button button--secondary",
+          "label": "t:sections.all.buttons.secondary.label"
+        }
+      ],
+      "default": "button",
+      "label": "t:sections.all.buttons.label"
+    },
+    {
+      "type": "select",
+      "id": "title_style",
+      "label": "t:sections.all.text.style.label",
+      "options": [
+        {
+          "value": "normal",
+          "label": "t:sections.all.text.style.option_1"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:sections.all.text.style.option_2"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "sticky_add_to_cart_choose_options_label",
+      "label": "t:sections.main-product-fixed-cart.settings.sticky_add_to_cart_choose_options_label.label"
+    }
+  ]
+}
+{% endschema %}

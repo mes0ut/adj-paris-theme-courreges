@@ -1,0 +1,58 @@
+{{ 'component-cart-header.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign title_style = section.settings.title_style
+%}
+
+<div class="gradient color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <cart-header id="cart-header--main">
+      {% if cart != empty %}
+        <div class="cart-header">
+          <h1 class="h3 {{ title_style }}">{{ 'sections.cart.title' | t }}</h1>
+
+          <div class="cart__warnings">
+            <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
+            <a href="{{ routes.all_products_collection_url }}" class="link">
+              {{ 'general.continue_shopping' | t }}
+            </a>
+          </div>
+
+          {% if settings.free_shipping_bar_cart %}
+            {% render 'cart-free-shipping-bar', section: 'main' %}
+          {% endif %}
+        </div>
+      {% endif %}
+    </cart-header>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-cart-header.name",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-3"
+    },
+    {
+      "type": "select",
+      "id": "title_style",
+      "label": "t:sections.all.text.style.label",
+      "options": [
+        {
+          "value": "normal",
+          "label": "t:sections.all.text.style.option_1"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:sections.all.text.style.option_2"
+        }
+      ],
+      "default": "normal"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,449 @@
+{% liquid
+  render 'css-delay', css_file: 'section-images-and-title.css'
+  render 'section-spacing', id: section.id
+
+  if section.settings.enable_animation
+    assign animate_class = 'animate'
+  else
+    assign animate_class = ''
+  endif
+%}
+
+<div
+  class="
+    images-title
+    {{ animate_class }}
+    section-{{ section.id }}
+    gradient
+    color-{{ section.settings.color_scheme }}
+    {% if section.settings.show_border_bottom %}section-border-bottom{% endif %}
+  "
+>
+  <div class="page-width">
+    {% if section.settings.side_text != blank %}
+      <div class="images-title__small-title">
+        <div class="vertical-title">
+          <span
+            class="vertical-title__dash"
+          ></span>
+          {{ section.settings.side_text }}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.settings.image_icon == true %}
+      <div class="images-title__diamond">
+        {% render 'icon-diamond-dots' %}
+      </div>
+    {% endif %}
+
+    <div class="images-title__grid">
+      <div
+        class="
+          image-aspect-ratio
+          image-aspect-ratio--6-9
+          images-title__image
+          {{ section.settings.primary_image_style }}
+          {{ animate_class }}
+        "
+      >
+        {% if section.settings.primary_video != blank %}
+          <div class="images-title__video">
+            {{
+              section.settings.primary_video
+              | video_tag:
+                image_size: '600x',
+                autoplay: true,
+                loop: true,
+                muted: true,
+                class: 'js-autoplay'
+            }}
+          </div>
+        {%- elsif section.settings.primary_image != blank -%}
+          {% liquid
+            assign image_src = section.settings.primary_image
+            assign image_height = image_src.width | divided_by: image_src.aspect_ratio
+            assign sizes = '(min-width: 1100px) 530px, (min-width: 750px) 40vw, 60vw'
+            assign widths = '375, 550, 600, 1100, 1200'
+            if image_src.aspect_ratio > 1.2
+              assign sizes = '(min-width: 1100px) 1000px, (min-width: 750px) 40vw, 100vw'
+              assign widths = '375, 550, 720, 880, 1100, 1200'
+            endif
+            assign fetch_priority = 'auto'
+            if section.index == 1
+              assign fetch_priority = 'high'
+            endif
+          %}
+
+          {{
+            image_src
+            | image_url: width: 1900
+            | image_tag:
+              width: image_src.width,
+              height: image_height,
+              fetch_priority: fetch_priority,
+              sizes: sizes,
+              widths: widths,
+              alt: image_src.alt
+            | escape
+          }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="images-title__col-two">
+        {% if section.settings.heading != blank %}
+          <h1
+            class="images-title__title {{ animate_class }}"
+            data-animate-delay="400"
+          >
+            {{ section.settings.heading }}
+          </h1>
+        {% endif %}
+
+        <div class="images-title__info">
+          <div class="images-title__image-two">
+            <div
+              class="image-aspect-ratio image-aspect-ratio--3-4 {{ section.settings.secondary_image_style }} {{ animate_class }}"
+              data-animate-delay="800"
+            >
+              {% if section.settings.secondary_video != blank %}
+                <div class="images-title__video">
+                  {{
+                    section.settings.secondary_video
+                    | video_tag:
+                      image_size: '600x',
+                      autoplay: true,
+                      loop: true,
+                      muted: true,
+                      class: 'js-autoplay'
+                  }}
+                </div>
+              {%- elsif section.settings.secondary_image != blank -%}
+                {% liquid
+                  assign image_src = section.settings.secondary_image
+                  assign image_height = image_src.width | divided_by: image_src.aspect_ratio
+                  assign sizes = '(min-width: 880px) 300px, 50vw'
+                  assign widths = '165, 360, 440, 880'
+                  if image_src.aspect_ratio > 1.2
+                    assign sizes = '(min-width: 880px) 500px, 100vw'
+                    assign widths = '165, 360, 440, 880, 1100'
+                  endif
+                  assign fetch_priority = 'auto'
+                  if section.index == 1
+                    assign fetch_priority = 'high'
+                  endif
+                %}
+
+                {{
+                  image_src
+                  | image_url: width: 1900
+                  | image_tag:
+                    width: image_src.width,
+                    height: image_height,
+                    fetch_priority: fetch_priority,
+                    sizes: sizes,
+                    widths: widths,
+                    alt: image_src.alt
+                  | escape
+                }}
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+          </div>
+
+          <div
+            class="images-title__content {{ animate_class }}"
+            data-animate-delay="1200"
+          >
+            {% if section.settings.content != blank %}
+              <div class="images-title__info-text">
+                {{ section.settings.content }}
+              </div>
+            {% endif %}
+
+            {% if section.settings.link != blank
+              and section.settings.link_text
+            %}
+              <a
+                href="{{ section.settings.link }}"
+                class="link link-with-icon {{ section.settings.button_color_scheme }}"
+              >
+                {{ section.settings.link_text }}
+                {% render 'icon-arrow' %}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.image-title.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "primary_image",
+      "label": "t:sections.image-title.settings.first-image.label",
+      "info": "t:sections.all.images_tips.portrait_big.info"
+    },
+    {
+      "type": "video",
+      "id": "primary_video",
+      "label": "t:sections.all.videos_tips.general.label",
+      "info": "t:sections.all.videos_tips.portrait.info"
+    },
+    {
+      "type": "select",
+      "id": "primary_image_style",
+      "options": [
+        {
+          "value": "image-border-radius--none",
+          "label": "t:sections.all.radius.none.label"
+        },
+        {
+          "value": "image-border-radius--rounded-xxs",
+          "label": "t:sections.all.radius.xxs.label"
+        },
+        {
+          "value": "image-border-radius--rounded-xs",
+          "label": "t:sections.all.radius.xs.label"
+        },
+        {
+          "value": "image-border-radius--rounded-small",
+          "label": "t:sections.all.radius.small.label"
+        },
+        {
+          "value": "image-border-radius--rounded",
+          "label": "t:sections.all.radius.standard.label"
+        },
+        {
+          "value": "image-border-radius--rounded-extra",
+          "label": "t:sections.all.radius.extra.label"
+        },
+        {
+          "value": "image-border-radius--curved-top",
+          "label": "t:sections.all.radius.curved.label"
+        }
+      ],
+      "default": "image-border-radius--curved-top",
+      "label": "t:sections.all.radius.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "image_icon",
+      "default": true,
+      "label": "t:sections.image-title.settings.first-image-icon.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "secondary_image",
+      "label": "t:sections.image-title.settings.secondary-image.label",
+      "info": "t:sections.all.images_tips.portrait_medium.info"
+    },
+    {
+      "type": "video",
+      "id": "secondary_video",
+      "label": "t:sections.all.videos_tips.general.label",
+      "info": "t:sections.all.videos_tips.portrait.info"
+    },
+    {
+      "type": "select",
+      "id": "secondary_image_style",
+      "options": [
+        {
+          "value": "image-border-radius--none",
+          "label": "t:sections.all.radius.none.label"
+        },
+        {
+          "value": "image-border-radius--rounded-small",
+          "label": "t:sections.all.radius.small.label"
+        },
+        {
+          "value": "image-border-radius--rounded",
+          "label": "t:sections.all.radius.standard.label"
+        },
+        {
+          "value": "image-border-radius--rounded-extra",
+          "label": "t:sections.all.radius.extra.label"
+        },
+        {
+          "value": "image-border-radius--curved-top",
+          "label": "t:sections.all.radius.curved.label"
+        }
+      ],
+      "default": "image-border-radius--none",
+      "label": "t:sections.all.radius.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.image-title.settings.content_header.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "t:sections.all.border.show_border_bottom.label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.image-title.settings.heading.label",
+      "default": "Two Images with title"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "t:sections.image-title.settings.content.label",
+      "default": "<p>Add a quick introduction describing your store or a collection that you want to link to. </p>"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:sections.image-title.settings.link.label",
+      "default": "/"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "t:sections.image-title.settings.link-text.label",
+      "default": "Explore now"
+    },
+    {
+      "type": "select",
+      "id": "button_color_scheme",
+      "options": [
+        {
+          "value": "button",
+          "label": "t:sections.all.buttons.primary.label"
+        },
+        {
+          "value": "button button--secondary",
+          "label": "t:sections.all.buttons.secondary.label"
+        },
+        {
+          "value": "link link-with-icon",
+          "label": "t:sections.all.buttons.text_link.label"
+        }
+      ],
+      "default": "link link-with-icon",
+      "label": "t:sections.all.buttons.label"
+    },
+    {
+      "type": "text",
+      "id": "side_text",
+      "label": "t:sections.image-title.settings.side-text.label",
+      "default": "Optional side text"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.desktop_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.mobile_padding_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_top",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.mobile_padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.desktop_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.margin_bottom",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.margin.mobile_margin_header"
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.margin.mobile_margin_bottom",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.animations.section_animation.header",
+      "visible_if": "{{ settings.enable_global_animations }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "t:sections.all.animations.section_animation.label",
+      "default": true,
+      "visible_if": "{{ settings.enable_global_animations }}"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "t:sections.image-title.name",
+      "category": "t:categories.media"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,214 @@
+.marquee-container {
+  overflow: hidden;
+}
+
+.marquee__align {
+  display: inline-flex;
+  transform: translateX(-33.333%);
+  white-space: nowrap;
+}
+
+.marquee__link {
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.marquee__text {
+  align-items: center;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-name: marqueeLoop;
+  animation-timing-function: linear;
+  display: flex;
+  gap: var(--row-spacing);
+  padding-right: var(--row-spacing);
+  justify-content: center;
+  min-width: 100vw;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.marquee__align.hover-pause:hover .marquee__text {
+  animation-duration: 100s !important;
+  animation-play-state: paused;
+}
+
+.marquee__align.hover-pause-current:hover .marquee__text {
+  animation-play-state: paused;
+}
+
+@media screen and (min-width: 750px) {
+  .marquee-container .marquee__text {
+    font-size: 3rem;
+  }
+}
+
+.marquee-container .marquee__text--forwards,
+.marquee__text.marquee__text--forwards {
+  animation-direction: reverse;
+}
+
+.marquee__link,
+.marquee__plain-text * {
+  color: inherit;
+  font-size: inherit;
+  text-decoration: none;
+}
+
+.marquee__plain-text {
+  margin: 0;
+  /* Prevent browser text scaling on mobile */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Ensure consistent text rendering */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes marqueeLoop {
+  from {
+    transform: translateX(0%) translateZ(1px);
+  }
+  to {
+    transform: translateX(-100%) translateZ(1px);
+  }
+}
+
+.marquee-container--large .marquee__align {
+  position: relative;
+  transition: 0.2s;
+  z-index: 0;
+}
+
+.marquee-container--large .marquee__align:hover {
+  position: relative;
+  transition-delay: 0.6s;
+  z-index: 1;
+}
+
+.marquee-container--large .marquee__text {
+  animation-duration: 30s;
+  gap: var(--space-m);
+  line-height: 1.3;
+  padding-right: var(--space-m);
+  text-transform: none;
+}
+
+@media only screen and (min-width: 750px) {
+  .marquee-container--large .marquee__text {
+    gap: var(--space-l);
+    padding-right: var(--space-l);
+  }
+}
+
+@media only screen and (min-width: 990px) {
+  .marquee-container--large .marquee__text {
+    gap: var(--space-xl);
+    padding-right: var(--space-xl);
+  }
+}
+
+.marquee-container--large .marquee-large__plain-text,
+.marquee-container--large .marquee-large__link {
+  position: relative;
+  text-decoration: none;
+  transition: 0.3s;
+  transition-delay: 0.3s;
+}
+
+.marquee-container--large .marquee-large__plain-text svg,
+.marquee-container--large .marquee-large__link svg {
+  left: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateX(calc(var(--space-xl) / -2 - 50%)) translateY(-50%);
+}
+
+.marquee-large__stroke {
+  -webkit-text-stroke: 0.2rem rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+  position: relative;
+}
+
+.marquee-large__stroke.marquee-large__stroke--thin {
+  -webkit-text-stroke: 0.1rem rgb(var(--color-foreground));
+}
+
+.marquee-large__stroke.marquee-large__stroke--medium {
+  -webkit-text-stroke: 0.2rem rgb(var(--color-foreground));
+}
+
+.marquee-large__stroke.marquee-large__stroke--thick {
+  -webkit-text-stroke: 0.3rem rgb(var(--color-foreground));
+}
+
+@media only screen and (min-width: 770px) {
+  .marquee-large__stroke {
+    -webkit-text-stroke: 0.3rem rgb(var(--color-foreground));
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .marquee-large__stroke {
+    -webkit-text-stroke: 0.4rem rgb(var(--color-foreground));
+  }
+}
+
+.marquee-large__no-stroke {
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  transition: 0.3s ease-in;
+  transition-delay: 0.3s;
+}
+
+.marquee-large__no-stroke:hover {
+  color: rgb(var(--color-foreground));
+  left: 0;
+  opacity: 1;
+  position: absolute;
+  transition-delay: 0s;
+}
+
+.marquee-container--large .marquee-large__link:hover .marquee-large__image,
+.marquee-container--large
+  .marquee-large__plain-text:hover
+  .marquee-large__image {
+  opacity: 1;
+  transition-delay: 0.6s;
+}
+
+.marquee-large__image-container {
+  position: relative;
+  z-index: 1;
+}
+
+.marquee-large__image {
+  display: none;
+}
+
+@media (hover: hover) {
+  .marquee-large__image {
+    display: block;
+    height: auto;
+    left: 0;
+    left: 50%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(13deg);
+    transition: 0.6s ease-in;
+    width: 20rem;
+    z-index: -1;
+  }
+}

@@ -1,0 +1,34 @@
+{% comment %}
+  Renders a swatch component.
+  Accepts:
+  - swatch: {Object} a swatch object
+  - sold_out: {Boolean} whether the swatch is sold out
+
+  Usage:
+  {% render 'swatch',
+    swatch: value.swatch
+    sold_out: true
+  %}
+{% endcomment %}
+
+{%- liquid
+  assign swatch_value = null
+  if swatch.image
+    assign image_url = swatch.image | image_url: width: 50
+    assign swatch_value = 'url(' | append: image_url | append: ')'
+    assign swatch_focal_point = swatch.image.presentation.focal_point
+    assign special_class = 'swatch--image'
+  elsif swatch.color
+    assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
+    assign special_class = 'swatch--color'
+  endif
+-%}
+
+<span
+  {% if swatch_value %}
+    class="swatch{% if sold_out %} swatch--sold-out{% endif %} {{ special_class }}"
+    style="--swatch--background: {{ swatch_value }};{% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}"
+  {% else %}
+    class="swatch swatch--unavailable{% if sold_out %} swatch--sold-out{% endif %} {{ special_class }}"
+  {% endif %}
+></span>

@@ -1,0 +1,320 @@
+{% comment %}
+  Renders a product card
+
+  Accepts:
+  - card_product: {Object} Product Liquid object (optional)
+
+  Usage:
+  {%
+    render 'product-card',
+    card_product: product,
+    section_id: section.id,
+  %}
+{% endcomment %}
+
+{% liquid
+  assign media_size = settings.image_ratio
+  assign border_radius = settings.product_card_border_radius
+  assign show_secondary_image = settings.show_secondary_image
+  assign show_vendor = settings.product_card_show_vendor
+  assign show_price = settings.product_card_show_price
+  assign show_desc = settings.product_card_show_desc
+  assign quick_view = settings.enable_quick_view
+  assign color_scheme = settings.product_card_color_scheme
+  assign background_transparent = settings.background_transparent
+  assign title_style = settings.product_card_title_style
+  if title_style == 'uppercase'
+    assign title_style = 'uppercase'
+  endif
+
+  if background_transparent == true
+    assign background = 'background: transparent'
+  endif
+
+  if type == 'search-popup'
+    assign media_size = settings.predictive_search_image_ratio
+    assign show_vendor = settings.predictive_search_show_vendor
+    assign show_price = settings.predictive_search_show_price
+    assign show_desc = false
+    assign quick_view = false
+  endif
+
+  assign loading_type = 'lazy'
+
+  if request.page_type == 'collection' and index <= 2
+    assign loading_type = 'eager'
+  else
+    assign loading_type = 'lazy'
+  endif
+
+  # Smart responsive product card sizing with optimized defaults
+  assign mobile_widths = '200, 400, 600'
+  assign desktop_widths = '200, 300, 400, 600'
+  assign all_widths = mobile_widths | append: ', ' | append: desktop_widths
+  assign sizes_attr = '(max-width: 749px) 50vw, (max-width: 989px) 40vw, (max-width: 1099px) 30vw, 30vw'
+%}
+
+{% if card_product and card_product.title != blank %}
+  {%- liquid
+    assign product_url = card_product.url
+
+    if settings.product_include_collection_url
+      assign product_url = product_url | within: collection
+    endif
+  -%}
+
+  <product-card>
+    <div class="card-wrapper color-{{ color_scheme }}" style="{{ background }}">
+      <a
+        href="{{ product_url }}"
+        class="full-unstyled-link"
+      >
+        <div
+          class="
+            card
+            card--product
+            {{ border_radius }}
+            {% if card_product.featured_media == nil %}card--text-only card--soft{% endif %}
+          "
+          tabindex="-1"
+          id="{{ card_product.id }}{{ section_id }}"
+        >
+          <div class="card__inner">
+            {%- if card_product.featured_media -%}
+              {%- liquid
+                assign ratio = card_product.featured_media.aspect_ratio
+                if ratio == 0 or ratio == null
+                  assign ratio = 1
+                endif
+
+                # the below fixes 3d model preview images not having any physical attributes
+
+                assign card_image = ''
+                if card_product.featured_media.media_type == 'image'
+                  assign card_image = card_product.featured_media
+                else
+                  assign card_image = card_product.featured_media.preview_image
+                endif
+              -%}
+
+              <div>
+                <div
+                  class="
+                    media
+                    media--transparent
+                    media--{{ media_size }}
+                    media--hover-effect
+                    media--overflow-visible
+                  "
+                  {% if media_size == 'adapt' and card_product.featured_media %}
+                    style="padding-bottom: {{ 1 | divided_by: ratio | times: 100 }}%;"
+                  {% endif %}
+                >
+                  {{
+                    card_image
+                    | image_url: width: 600
+                    | image_tag:
+                      loading: loading_type,
+                      width: card_image.width,
+                      height: card_image.height,
+                      sizes: sizes_attr,
+                      widths: all_widths,
+                      class: 'motion-reduce',
+                      alt: card_image.alt
+                    | escape
+                  }}
+
+                  {%- if card_product.media[1] != blank
+                    and show_secondary_image
+                  -%}
+                    {{
+                      card_product.media[1]
+                      | image_url: width: 600
+                      | image_tag:
+                        loading: 'lazy',
+                        width: card_product.media[1].width,
+                        height: card_product.media[1].height,
+                        sizes: sizes_attr,
+                        widths: all_widths,
+                        class: 'motion-reduce',
+                        alt: card_product.media[1].alt
+                      | escape
+                    }}
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- else -%}
+              <div class="card__content">
+                <h3 class="card__text h6 {{ title_style }}">
+                  {{ card_product.title }}
+                </h3>
+              </div>
+            {%- endif -%}
+
+            {% render 'product-card-badge', card_product: card_product %}
+
+            {% if quick_view == true %}
+              <modal-opener
+                data-modal="#PopupModal-quick-view"
+                data-id="{{ card_product.id }}{{ section_id }}"
+                data-handle="{{ card_product.handle }}"
+                data-quick-view-url="{{ card_product.url | split: '?' | first }}?section_id=quick-view"
+                {{ block.shopify_attributes }}
+              >
+                {% if settings.quick_view_type == 'icon' %}
+                  <div
+                    id="ModalOpenerBtn-{{ section.id }}-{{ product_card.id }}"
+                    aria-haspopup="dialog"
+                    class="card__quick-view gradient color-{{ settings.quick_view_trigger_color_scheme }}"
+                    style="border-radius: {{ settings.quick_view_trigger_border_radius }}px;"
+                    id="popup-launch-{{ card_product.id }}{{ section_id }}"
+                  >
+                    {% render 'icon-eye' %}
+                  </div>
+                {% else %}
+                  <div
+                    id="ModalOpenerBtn-{{ section.id }}-{{ product_card.id }}"
+                    aria-haspopup="dialog"
+                    class="card__quick-view button gradient color-{{ settings.quick_view_trigger_color_scheme }}"
+                    style="border-radius: {{ settings.quick_view_trigger_border_radius }}px;"
+                    id="popup-launch-{{ card_product.id }}{{ section_id }}"
+                  >
+                    {{ settings.quick_view_text }}
+                  </div>
+                {% endif %}
+              </modal-opener>
+            {% endif %}
+          </div>
+        </div>
+
+        <div
+          {% if settings.product_card_padding != 0 %}
+            class="
+              card-information
+              card-information--no-margin-top
+            "
+            style="padding: {{ settings.product_card_padding }}px;"
+          {% else %}
+            class="card-information"
+          {% endif %}
+        >
+          <div
+            class="
+              card-information__wrapper
+              card-information__wrapper--align-{{ settings.product_card_text_alignment }}
+            "
+          >
+            {%- if show_vendor -%}
+              <span class="visually-hidden">
+                {{- 'accessibility.vendor' | t -}}
+              </span>
+              <div class="card-information__vendor caption-with-letter-spacing light">
+                {{ card_product.vendor }}
+              </div>
+            {%- endif -%}
+
+            <h2 class="card-information__text h6 {{ title_style }}">
+              {{ card_product.title | escape }}
+            </h2>
+
+            {% if type != 'search-popup' %}
+              {% if show_desc %}
+                <p class="card-information__description light">
+                  {{
+                    card_product.description
+                    | strip_html
+                    | truncatewords: 12
+                  }}
+                </p>
+              {% endif %}
+            {% endif %}
+
+            {%- if show_price -%}
+              {% render 'price',
+                product: card_product,
+                price_class: 'p p-m--small'
+              %}
+            {%- endif -%}
+          </div>
+        </div>
+      </a>
+    </div>
+    {% if settings.product_card_show_swatches %}
+      {% render 'product-card-swatches',
+        card_product: card_product,
+        image_size: sizes_attr,
+        image_width: all_widths,
+        color_scheme: color_scheme,
+        background_transparent: background
+      %}
+    {% endif %}
+  </product-card>
+{% else %}
+  <div
+    class="card-wrapper color-{{ color_scheme }}"
+    style="{{ background }}"
+  >
+    <div class="full-unstyled-link">
+      <div
+        class="card card--product {{ border_radius }} {{ image_style }}"
+        tabindex="-1"
+        id="{{ card_product.id }}{{ section_id }}"
+      >
+        <div class="card__inner">
+          <div>
+            <div
+              class="media media--transparent media--{{ media_size }} media--hover-effect media--overflow-visible"
+              {% if media_size == 'adapt' %}
+                style="padding-bottom: 110%;"
+              {% endif %}
+            >
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        {% if settings.product_card_padding != 0 %}
+          class="card-information card-information--no-margin-top"
+          style="padding: {{ settings.product_card_padding }}px;"
+        {% else %}
+          class="card-information"
+        {% endif %}
+      >
+        <div
+          class="
+            card-information__wrapper
+            card-information__wrapper--align-{{ settings.product_card_text_alignment }}
+          "
+        >
+          {%- if show_vendor -%}
+            <span class="visually-hidden">
+              {{- 'accessibility.vendor' | t -}}
+            </span>
+            <div class="card-information__vendor caption-with-letter-spacing light">
+              {{ 'products.product.vendor' | t }}
+            </div>
+          {%- endif -%}
+
+          <p class="card-information__text h6 {{ title_style }}">
+            {{ 'onboarding.product_title' | t }}
+          </p>
+
+          {% if show_desc %}
+            <p class="caption-large light">
+              {{ 'onboarding.product_description' | t }}
+            </p>
+          {% endif %}
+
+          {%- if show_price -%}
+            {% render 'price',
+              product: card_product,
+              price_class: 'p p-m--small'
+            %}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
