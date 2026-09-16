@@ -18,7 +18,7 @@
     background_transparent: background_transparent,
   %}
 {% endcomment %}
-{% capture 'product_card_swatches' %}
+{% capture product_card_swatches %}
   {% assign swatch_count = 0 %}
   {%- for option in card_product.options_with_values -%}
     {% liquid
@@ -110,3 +110,13 @@
     </div>
   </div>
 {% endif %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% capture 'product_card_swatches' %}"
+  to: "{% capture product_card_swatches %}"
+  position: 488..523
+{% endcomment %}
